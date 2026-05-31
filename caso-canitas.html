@@ -111,10 +111,54 @@
 .synthesis-text { font-family:var(--font-body); font-size:13.5px; color:var(--text-mid); line-height:1.68; }
 .synthesis-text strong { color:var(--text-dark); }
 
+/* Clave blocks */
+.clave-block {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:16px;
+}
+.clave-header {
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:18px 24px;
+  background:rgba(26,39,68,.03);
+  border-bottom:1px solid var(--border);
+}
+.clave-num {
+  font-family:var(--font-display);
+  font-size:22px;
+  font-weight:700;
+  color:var(--gold);
+  line-height:1;
+  min-width:36px;
+  flex-shrink:0;
+}
+.clave-titulo {
+  font-family:var(--font-display);
+  font-size:17px;
+  font-weight:600;
+  color:var(--navy);
+  line-height:1.3;
+}
+.clave-body {
+  padding:20px 24px;
+  font-family:var(--font-body);
+  font-size:14px;
+  color:var(--text-mid);
+  line-height:1.78;
+}
+.clave-body p + p { margin-top:12px; }
+.clave-body strong { color:var(--text-dark); font-weight:700; }
+
 @media(max-width:900px){
   .content { padding:28px 22px; }
   .options-grid { grid-template-columns:1fr; }
   .fw-tracker { gap:5px; }
+  .clave-header { padding:14px 18px; gap:12px; }
+  .clave-body   { padding:16px 18px; }
 }
 </style>
 </head>
@@ -944,119 +988,117 @@
         <span class="fw-t-block gold">Sintesis</span>
       </div>
 
-      <p class="lead-text">La sintesis directiva integra todo el analisis del framework para dar respuesta a la pregunta real que tiene Eladio sobre la mesa: ¿como aprovechamos las oportunidades del entorno sin destruir lo que hemos construido? No hay una respuesta unica — hay un conjunto de decisiones interdependientes que deben tomarse con coherencia.</p>
+      <p class="lead-text">La sintesis directiva integra todo el analisis del framework para dar respuesta a la pregunta real que tiene Eladio sobre la mesa: ¿como aprovechamos las oportunidades del entorno sin destruir lo que hemos construido? El analisis conduce a una posicion clara y a un conjunto de claves que deben guiar la decision.</p>
 
-      <!-- LO QUE EL FRAMEWORK NOS DICE -->
+      <!-- BLOQUE 1: LECTURA INTEGRADA -->
       <div class="block-header">
         <div class="block-number">1</div>
         <div>
-          <span class="block-label">Lectura integrada</span>
-          <div class="block-title">Lo que el framework completo revela sobre Canitas</div>
+          <span class="block-label">Lectura integrada del framework</span>
+          <div class="block-title">Lo que el analisis completo revela sobre Canitas</div>
         </div>
       </div>
       <div class="divider-gold"></div>
 
-      <div style="margin-bottom:24px;">
+      <div style="margin-bottom:32px;">
         <div class="synthesis-row">
           <div class="synthesis-fw-tag">5C</div>
-          <div class="synthesis-text">El contexto es excepcionalmente favorable y tiene fecha de caducidad. La ventana de oportunidad existe porque el sector aun esta atomizado, pero los fondos de inversion europeos ya estan entrando. <strong>Quien no escale en los proximos dos-tres anos estara compitiendo contra actores con capital y estructura muy superiores.</strong></div>
+          <div class="synthesis-text">El contexto es excepcionalmente favorable y tiene fecha de caducidad. El sector veterinario espanol crece al 14% anual, esta aun muy atomizado y los fondos de inversion europeos estan entrando activamente. <strong>Quien no escale en los proximos dos-tres anos estara compitiendo contra actores con capital y estructura muy superiores.</strong> La ventana existe, pero se esta cerrando.</div>
         </div>
         <div class="synthesis-row">
           <div class="synthesis-fw-tag">STP</div>
-          <div class="synthesis-text">El posicionamiento de Canitas es solido y diferencial, pero tiene un problema de comunicacion critico: alta notoriedad, baja comprension. <strong>Antes de invertir en expansion geografica, hay que resolver la brecha entre "conocer Canitas" y "entender lo que ofrece Canitas"</strong>. Si no, la inversion en publicidad de nuevas ciudades tendra un retorno mucho menor del posible.</div>
+          <div class="synthesis-text">El posicionamiento de Canitas es solido y genuinamente diferencial: nadie ofrece "todo incluido" real en el mercado espanol. Sin embargo, existe una brecha critica entre notoriedad (alta: 73-83%) y comprension de la propuesta (baja: muchos clientes la confunden con las igualas tradicionales o no se creen el modelo). <strong>Esta brecha es el freno mas importante al crecimiento y debe resolverse antes que cualquier expansion geografica.</strong></div>
         </div>
         <div class="synthesis-row">
           <div class="synthesis-fw-tag">Mix 4P</div>
-          <div class="synthesis-text">Las cuatro variables del Marketing Mix son coherentes entre si y con el posicionamiento. La subida de precio es razonable pero hay que monitorizar su impacto en captacion. <strong>El elemento mas fragil en la expansion es la P5 — las personas.</strong> La calidad del equipo es el corazon del modelo y la variable mas dificil de escalar sin degradar.</div>
+          <div class="synthesis-text">Las cuatro variables del Marketing Mix son coherentes entre si y con el posicionamiento: un servicio integral (producto), una cuota accesible (precio), clinicas de gran formato en ubicaciones premium (distribucion) y comunicacion local de alta notoriedad (comunicacion). La coherencia es una fortaleza — pero tambien una restriccion: cualquier decision que rompa esa coherencia (por ejemplo, una franquicia que no preserve los estandares de instalacion o de equipo) destruye el posicionamiento. <strong>El elemento mas fragil en la expansion es la P5 — las personas.</strong></div>
         </div>
         <div class="synthesis-row">
           <div class="synthesis-fw-tag">Resultados</div>
-          <div class="synthesis-text">El ciclo de vida del cliente (captacion, vinculacion, retencion) funciona muy bien en los mercados donde Canitas lleva mas anos. <strong>La vida media superior a cuatro anos y el crecimiento del ticket por socio son los indicadores de salud mas importantes del modelo.</strong> Cualquier decision de expansion debe preservar estos indicadores.</div>
+          <div class="synthesis-text">El ciclo de vida del cliente funciona excepcionalmente bien: vida media del socio superior a cuatro anos, crecimiento del ticket por socio del +8% anual, y resiliencia durante el Covid. Estos indicadores no son estadisticas — son la prueba de que el modelo genera valor real y que los clientes lo perciben. <strong>Cualquier decision de expansion debe tener como condicion irrenunciable la preservacion de estos indicadores en los centros actuales y en los nuevos.</strong></div>
         </div>
       </div>
 
-      <!-- OPCIONES DE DECISION -->
+      <!-- BLOQUE 2: CLAVES PARA LA TOMA DE DECISION -->
       <div class="block-header">
         <div class="block-number">2</div>
         <div>
-          <span class="block-label">Opciones estrategicas</span>
-          <div class="block-title">Las cuatro alternativas de Eladio y sus implicaciones</div>
+          <span class="block-label">Conclusion directiva</span>
+          <div class="block-title">Claves para la toma de decision</div>
         </div>
       </div>
       <div class="divider-gold"></div>
 
-      <div class="options-grid">
-        <div class="option-card blue">
-          <div class="option-card-title">A. Expansion con clinicas propias</div>
-          <div class="option-pros-cons">
-            Utilizar la financiacion bancaria para abrir nuevas clinicas propias en las principales ciudades espanolas, priorizando mercados sin presencia de cadenas con plan de salud.<br><br>
-            <strong>A favor:</strong> control total de la experiencia y la cultura. Coherencia perfecta con el posicionamiento. Modelo ya probado con EBITDA del 24%.<br><br>
-            <strong>En contra:</strong> velocidad limitada — 300.000 euros por clinica y dos-tres anos para alcanzar el potencial de socios. Riesgo de que competidores ocupen los mejores mercados antes.
-          </div>
+      <!-- CLAVE 1 -->
+      <div class="clave-block">
+        <div class="clave-header">
+          <div class="clave-num">01</div>
+          <div class="clave-titulo">Crecer es necesario, pero no a cualquier precio</div>
         </div>
-        <div class="option-card orange">
-          <div class="option-card-title">B. Expansion via franquicia</div>
-          <div class="option-pros-cons">
-            Ceder el modelo a franquiciados que inviertan su propio capital a cambio de acceso a la marca y al sistema Canitas.<br><br>
-            <strong>A favor:</strong> velocidad de expansion muy superior. Menor necesidad de capital propio. Presencia rapida en multiples mercados simultaneamente.<br><br>
-            <strong>En contra:</strong> riesgo real de perder la cultura y los estandares de calidad — el activo mas valioso del modelo. La franquicia en el sector veterinario espanol es en muchos casos una central de compras, no un sistema de gestion de calidad.
-          </div>
-        </div>
-        <div class="option-card green">
-          <div class="option-card-title">C. Consolidar los mercados actuales</div>
-          <div class="option-pros-cons">
-            Enfocarse en aumentar el numero de socios y la rentabilidad de las seis clinicas actuales antes de abrir nuevas, mejorando la comunicacion y el modelo de captacion.<br><br>
-            <strong>A favor:</strong> cero riesgo de expansion. Mejora de los indicadores en mercados conocidos. Potencial de subida de precio gradual.<br><br>
-            <strong>En contra:</strong> deja la ventana abierta para que cadenas con recursos superiores ocupen los mejores mercados. Perdida de la ventaja del pionero a medida que el modelo se replica.
-          </div>
-        </div>
-        <div class="option-card purple">
-          <div class="option-card-title">D. Modelo hibrido: propias en grandes ciudades + franquicia controlada</div>
-          <div class="option-pros-cons">
-            Clinicas propias en los mercados estrategicos (Madrid, Barcelona, Valencia) + franquicia muy controlada con protocolo estricto en mercados secundarios.<br><br>
-            <strong>A favor:</strong> equilibra velocidad y control. Reserva el capital para los mercados de mayor potencial. Permite ganar escala nacional antes de que lleguen los fondos.<br><br>
-            <strong>En contra:</strong> mayor complejidad de gestion. Requiere un sistema de franquicia solido que Canitas todavia no ha desarrollado. Riesgo de incoherencia de marca si el control de la franquicia no es efectivo.
-          </div>
+        <div class="clave-body">
+          <p>El mayor error que podria cometer Eladio no es crecer demasiado despacio — es crecer de una forma que erosione la calidad que constituye el corazon del modelo. Canitas no es una cadena de clinicas veterinarias: es un sistema de atencion sanitaria integral basado en la confianza del socio en el veterinario y en la certeza de que siempre recibira lo mejor para su mascota sin sorpresas economicas. Ese sistema descansa sobre personas con un perfil muy concreto — clinicos con vocacion comercial — y sobre unas instalaciones que comunican "gran clinica" desde el momento en que el cliente entra.</p>
+          <p style="margin-top:12px;">Si la expansion diluye cualquiera de esos dos elementos, Canitas dejara de ser Canitas. Sera una marca con logo de pata de perro sobre un servicio que no cumple la promesa. Y en un modelo de suscripcion, cuando el servicio no cumple la promesa, los socios no renuevan. La vida media del socio caera, el LTV se reducira y el modelo dejara de ser rentable. <strong>La velocidad de expansion debe estar subordinada a la capacidad de replicar la calidad — no al contrario.</strong></p>
         </div>
       </div>
 
-      <!-- CONCLUSION -->
-      <div class="block-header">
-        <div class="block-number">3</div>
-        <div>
-          <span class="block-label">La perspectiva del framework</span>
-          <div class="block-title">Que nos dice el modelo integrado sobre la mejor decision</div>
+      <!-- CLAVE 2 -->
+      <div class="clave-block">
+        <div class="clave-header">
+          <div class="clave-num">02</div>
+          <div class="clave-titulo">El primer paso no es abrir clinicas: es resolver la comunicacion</div>
+        </div>
+        <div class="clave-body">
+          <p>Antes de invertir 300.000 euros en una nueva clinica en una ciudad donde nadie conoce Canitas, hay que resolver un problema que existe incluso en las ciudades donde el 83% ya conoce la marca: muchos clientes potenciales no entienden lo que ofrece Canitas o no se lo creen. La investigacion de mercado lo confirma: el 31% de los no-socios dice que Canitas "es cara". Esto es una paradoja objetiva — Canitas es mas barata que pagar por acto para cualquier propietario que use el veterinario con normalidad — pero es una realidad subjetiva que el cliente no ha superado porque nadie le ha ayudado a hacer el calculo.</p>
+          <p style="margin-top:12px;">El mensaje actual "TODO GRATIS por tan solo 15,61 euros al mes" es poderoso en notoriedad pero contraproducente en credibilidad: activa el mecanismo de defensa del consumidor ante lo que parece demasiado bueno para ser verdad. El mensaje que Canitas necesita no es "todo gratis" — es "lo que ya gastas, gastalo mejor, con mas tranquilidad y con mejores resultados para tu mascota". <strong>Este cambio de enfoque comunicativo no cuesta 300.000 euros. Cuesta trabajo estrategico y creatividad. Y su impacto sobre la tasa de conversion puede ser mayor que el de abrir una clinica nueva.</strong></p>
         </div>
       </div>
-      <div class="divider-gold"></div>
 
-      <div class="highlight-navy">
-        <div class="highlight-navy-title">El dilema central de Canitas, visto desde el framework</div>
+      <!-- CLAVE 3 -->
+      <div class="clave-block">
+        <div class="clave-header">
+          <div class="clave-num">03</div>
+          <div class="clave-titulo">La expansion mas segura y eficiente es la de clinicas propias en mercados seleccionados</div>
+        </div>
+        <div class="clave-body">
+          <p>La franquicia puede parecer atractiva por su velocidad, pero en el contexto de Canitas es una apuesta de alto riesgo. El modelo Canitas no es replicable con un manual de operaciones y una marca compartida: requiere una cultura organizativa que tarda anos en construirse y que no se puede transmitir por contrato. Las "franquicias" del sector veterinario espanol son en su mayoria centrales de compras con una marca paraguas, sin control real sobre la experiencia del cliente. Si Canitas sigue ese camino, en tres anos tendra muchos centros con el logo de la pata de perro pero sin el servicio que hace que los socios renueven cuatro anos seguidos.</p>
+          <p style="margin-top:12px;">La expansion con clinicas propias es mas lenta pero mas solida. La financiacion bancaria disponible permite abrir dos o tres clinicas de forma simultanea en los mercados mas atractivos — grandes ciudades con alta densidad de mascotas y escasa presencia de competidores con plan de salud, especialmente Madrid y Valencia, donde las cadenas dominantes tienen cuotas mas altas y coberturas menores. <strong>Dos o tres aperturas bien ejecutadas en dos anos vale mas estrategicamente que diez aperturas de franquicia que diluyan la marca.</strong></p>
+        </div>
+      </div>
+
+      <!-- CLAVE 4 -->
+      <div class="clave-block">
+        <div class="clave-header">
+          <div class="clave-num">04</div>
+          <div class="clave-titulo">El digital es una asignatura pendiente con retorno inmediato</div>
+        </div>
+        <div class="clave-body">
+          <p>Solo el 17% de los socios de Canitas llegan a traves de busqueda en Google. En un negocio donde el cliente busca activamente ("clinica veterinaria cerca de mi") y donde la intenci&oacute;n de compra ya existe, no aparecer bien posicionado en buscadores es dejar dinero sobre la mesa. El perfil del cliente de Canitas — mujer de 30-45 anos con hijos — es exactamente el perfil de mayor uso de Internet y redes sociales para buscar servicios relacionados con el cuidado familiar, incluidas las mascotas.</p>
+          <p style="margin-top:12px;">Invertir en SEO local, en publicidad en Google para terminos de alta intencion ("veterinario todo incluido", "veterinaria cuota mensual", "seguridad social mascota") y en contenido de redes sociales que explique de forma visual y pedagogica cuanto ahorra un socio frente a pagar por acto es una inversion con retorno rapido y medible. <strong>El digital no sustituye a la cercania geografica y al boca-oreja como canales principales — los complementa de forma eficiente y escalable a nuevos mercados antes de que exista una clinica fisica.</strong></p>
+        </div>
+      </div>
+
+      <!-- CLAVE 5 -->
+      <div class="clave-block">
+        <div class="clave-header">
+          <div class="clave-num">05</div>
+          <div class="clave-titulo">La dependencia del fundador es el riesgo organizativo mas urgente</div>
+        </div>
+        <div class="clave-body">
+          <p>Eladio es el alma de Canitas: ha disenado el modelo, ha construido la cultura, conoce a cada veterinario y supervisa personalmente la calidad de cada clinica. Eso es una fortaleza extraordinaria en una empresa de seis centros. En una empresa de veinte centros repartidos por Espana, esa misma concentracion de conocimiento y autoridad en una sola persona se convierte en el mayor cuello de botella del sistema.</p>
+          <p style="margin-top:12px;"><strong>Antes de escalar la red de clinicas, Eladio debe construir un equipo directivo que pueda gestionar la operacion, la expansion y la cultura sin que todo tenga que pasar por el.</strong> Esto implica identificar y desarrollar responsables de zona o region con capacidad para tomar decisiones de calidad autonomamente, establecer sistemas de supervision y control que garanticen la coherencia del modelo sin presencia fisica del fundador, y documentar de forma explicita los estandares que hacen a Canitas diferente — para poder exigirlos y evaluarlos de forma sistematica. Sin este trabajo organizativo previo, cada nueva clinica sera un riesgo de desviacion del modelo en lugar de una extension del mismo.</p>
+        </div>
+      </div>
+
+      <!-- BLOQUE 3: POSICION FINAL -->
+      <div class="highlight-navy" style="margin-top:36px;">
+        <div class="highlight-navy-title">La posicion directiva: que debe hacer Eladio y en que orden</div>
         <div class="highlight-navy-body">
-          El framework revela que Canitas tiene un problema que ningun analisis financiero aislado puede resolver: <strong>la tension entre la velocidad que exige el contexto competitivo y la preservacion de la calidad que exige el modelo de negocio</strong>.<br><br>
-          Crecer rapido es necesario porque la ventana de oportunidad se esta cerrando. Pero crecer mal — comprometiendo la calidad de la experiencia del socio — destruiria el activo mas valioso de Canitas: la confianza de sus clientes y la cultura de su equipo. Y esos activos, una vez erosionados, no se recuperan rapidamente.<br><br>
-          <strong>La recomendacion que emerge del analisis completo del framework es la opcion D</strong>, con una condicion previa: antes de cualquier expansion geografica significativa, Canitas debe resolver el problema de comunicacion que impide que la notoriedad alta se convierta en captacion eficiente. Un mensaje mas claro y pedagogico — que ayude al cliente potencial a hacer el calculo comparativo entre lo que gasta ahora y lo que pagaria con Canitas — no cuesta 300.000 euros por clinica: cuesta un buen trabajo de comunicacion. Y ese es el primer paso, no el ultimo.
-        </div>
-      </div>
-
-      <div class="cards-2">
-        <div class="info-card" style="border-top:3px solid var(--gold);">
-          <div class="info-card-title">Las decisiones prioritarias, en orden</div>
-          <div class="info-card-body">
-            <strong>1. Comunicacion:</strong> redisenar el mensaje para que el cliente potencial entienda y calcule el valor de la propuesta. El objetivo no es mas notoriedad; es mas conversion.<br><br>
-            <strong>2. Digital:</strong> desarrollar la presencia en Google y redes sociales. Solo el 17% llega por busqueda — hay un potencial enorme sin explotar.<br><br>
-            <strong>3. Expansion selectiva propia:</strong> abrir en los 2-3 mercados mas estrategicos con clinicas propias, aprovechando la financiacion disponible.<br><br>
-            <strong>4. Sistema de franquicia:</strong> desarrollar el protocolo de control de calidad necesario para una franquicia que preserve la cultura Canitas antes de activarla.
-          </div>
-        </div>
-        <div class="info-card" style="border-top:3px solid var(--orange-accent);">
-          <div class="info-card-title">Los riesgos que hay que gestionar activamente</div>
-          <div class="info-card-body">
-            <strong>Copia del modelo:</strong> es inevitable. La respuesta no es frenar la copia (imposible) sino ganar escala y marca mas rapido que los imitadores.<br><br>
-            <strong>Perdida de calidad en la expansion:</strong> el mayor riesgo interno. Requiere un sistema de seleccion, formacion y cultura muy solido antes de escalar el equipo.<br><br>
-            <strong>Impacto de la subida de cuota:</strong> monitorizar la tasa de captacion de nuevos socios en los proximos trimestres. Si cae significativamente, revisar el mensaje de comunicacion del precio.<br><br>
-            <strong>Dependencia del fundador:</strong> construir un equipo directivo que pueda gestionar el crecimiento sin que todo pase por Eladio.
-          </div>
+          El analisis del framework conduce a una posicion clara. Eladio debe crecer — no hacerlo seria un error estrategico de primera magnitud dado el contexto. Pero el orden importa tanto como la direccion.<br><br>
+          <strong>Primero:</strong> redisenar la comunicacion para cerrar la brecha entre notoriedad y comprension, e invertir en presencia digital local antes de entrar en nuevos mercados. Este paso no requiere capital: requiere claridad estrategica y ejecucion.<br><br>
+          <strong>Segundo:</strong> construir el equipo directivo intermedio que pueda gestionar la expansion sin depender de la presencia de Eladio en cada decision.<br><br>
+          <strong>Tercero:</strong> utilizar la financiacion bancaria disponible para abrir dos o tres clinicas propias en mercados estrategicos — grandes ciudades con alta densidad de mascotas y escasa presencia de competidores con modelo equivalente — priorizando calidad de ejecucion sobre velocidad.<br><br>
+          <strong>Cuarto:</strong> solo cuando el modelo de expansion propia este consolidado y los estandares de calidad esten documentados y sean auditables, evaluar la franquicia como instrumento de escala para mercados secundarios — con un protocolo de control muy exigente que no tiene nada que ver con las franquicias actuales del sector.<br><br>
+          La clave de todo es esta: <strong>los beneficios sostenibles de Canitas dependen de que cada nuevo socio en cada nueva ciudad viva exactamente la misma experiencia que lleva renovando a los socios de Luis Montoto durante diez anos.</strong> Esa experiencia es el producto. Protegerla es la estrategia.
         </div>
       </div>
 
