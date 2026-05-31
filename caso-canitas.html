@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canitas: La seguridad social de tu mascota | MI-234</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&family=Source+Serif+4:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744;
+    --navy-light: #243260;
+    --navy-dark: #111b33;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --gold-pale: #f5e9c8;
+    --white: #ffffff;
+    --off-white: #f8f6f0;
+    --text-dark: #1a1a2e;
+    --text-mid: #4a4a6a;
+    --text-light: #8888a8;
+    --border: #ddd8cc;
+    --green-dot: #2e7d5e;
+    --orange-accent: #d4722a;
+    --blue-accent: #2c5f8a;
+    --sidebar-width: 270px;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Source Sans 3', 'Helvetica Neue', sans-serif;
+    --font-serif: 'Source Serif 4', Georgia, serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--off-white);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+  }
+
+  /* ===== SIDEBAR (identico al index) ===== */
+  .sidebar {
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    max-width: var(--sidebar-width);
+    background: var(--navy-dark);
+    min-height: 100vh;
+    position: fixed;
+    top: 0; left: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    overflow-y: auto;
+  }
+
+  .sidebar-header {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid rgba(201,168,76,0.25);
+  }
+
+  .sidebar-logo {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+
+  .sidebar-subtitle {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    padding: 20px 0;
+  }
+
+  .nav-section-label {
+    font-family: var(--font-body);
+    font-size: 9.5px;
+    font-weight: 700;
+    color: rgba(201,168,76,0.6);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 16px 24px 8px;
+  }
+
+  .nav-item {
+    display: block;
+    text-decoration: none;
+    padding: 10px 24px 10px 20px;
+    border-left: 3px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .nav-item:hover {
+    background: rgba(201,168,76,0.08);
+    border-left-color: rgba(201,168,76,0.4);
+  }
+
+  .nav-item.active {
+    background: rgba(201,168,76,0.12);
+    border-left-color: var(--gold);
+  }
+
+  .nav-item-title {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.88);
+    line-height: 1.3;
+    display: block;
+  }
+
+  .nav-item.active .nav-item-title {
+    color: var(--gold-light);
+  }
+
+  .nav-item-sub {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    display: block;
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+
+  .nav-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy-dark);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+    letter-spacing: 0.04em;
+  }
+
+  .nav-badge.coming {
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.4);
+  }
+
+  .sidebar-footer {
+    padding: 20px 24px;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .sidebar-footer-text {
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ===== MAIN ===== */
+  .main {
+    margin-left: var(--sidebar-width);
+    flex: 1;
+    min-height: 100vh;
+  }
+
+  /* ===== PAGE HEADER ===== */
+  .page-header {
+    background: var(--navy);
+    padding: 40px 56px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 380px; height: 100%;
+    background: linear-gradient(135deg, transparent 40%, rgba(201,168,76,0.06) 100%);
+    pointer-events: none;
+  }
+
+  .page-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold) 0%, rgba(201,168,76,0.3) 60%, transparent 100%);
+  }
+
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .header-code {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: rgba(201,168,76,0.12);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(201,168,76,0.3);
+  }
+
+  .header-tag {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .page-title {
+    font-family: var(--font-display);
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.18;
+    margin-bottom: 10px;
+  }
+
+  .page-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .page-desc {
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  /* Focus badges */
+  .focus-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .focus-badge {
+    font-family: var(--font-body);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1.5px solid;
+  }
+
+  .focus-badge.gold {
+    color: var(--gold-light);
+    border-color: rgba(201,168,76,0.4);
+    background: rgba(201,168,76,0.08);
+  }
+
+  .focus-badge.blue {
+    color: #7bb8e0;
+    border-color: rgba(123,184,224,0.4);
+    background: rgba(123,184,224,0.08);
+  }
+
+  .focus-badge.orange {
+    color: #e8a06a;
+    border-color: rgba(232,160,106,0.4);
+    background: rgba(232,160,106,0.08);
+  }
+
+  /* ===== TABS ===== */
+  .tabs-bar {
+    background: white;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    padding: 0 56px;
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 2px 8px rgba(26,39,68,0.06);
+  }
+
+  .tab-btn {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-light);
+    padding: 16px 20px 14px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    white-space: nowrap;
+    transition: all 0.18s;
+    letter-spacing: 0.02em;
+  }
+
+  .tab-btn:hover {
+    color: var(--navy);
+  }
+
+  .tab-btn.active {
+    color: var(--navy);
+    border-bottom-color: var(--gold);
+  }
+
+  /* ===== CONTENT ===== */
+  .content {
+    padding: 44px 56px 64px;
+    max-width: 960px;
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ===== TYPOGRAPHY ===== */
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .section-divider {
+    width: 40px;
+    height: 3px;
+    background: var(--gold);
+    margin-bottom: 18px;
+    border-radius: 2px;
+  }
+
+  .lead-text {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    color: var(--text-dark);
+    line-height: 1.75;
+    margin-bottom: 28px;
+    max-width: 760px;
+  }
+
+  .body-text {
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    color: var(--text-mid);
+    line-height: 1.75;
+    margin-bottom: 20px;
+    max-width: 760px;
+  }
+
+  .body-text strong {
+    color: var(--text-dark);
+    font-weight: 700;
+  }
+
+  /* ===== QUOTE ===== */
+  .quote-block {
+    border-left: 4px solid var(--gold);
+    padding: 16px 24px;
+    margin: 24px 0;
+    background: rgba(201,168,76,0.05);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .quote-text {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    font-style: italic;
+    color: var(--navy);
+    line-height: 1.7;
+  }
+
+  .quote-source {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 8px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ===== DATA CARDS ===== */
+  .data-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .data-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px 18px;
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .data-value {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .data-unit {
+    font-size: 14px;
+    color: var(--gold);
+  }
+
+  .data-label {
+    font-family: var(--font-body);
+    font-size: 11.5px;
+    color: var(--text-light);
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+
+  /* ===== INFO CARDS 2-col ===== */
+  .cards-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+
+  .info-card {
+    background: white;
+    border-radius: 10px;
+    padding: 24px;
+    border: 1px solid var(--border);
+  }
+
+  .info-card-title {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .info-card-body {
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  .info-card-body strong { color: var(--text-dark); }
+
+  /* ===== HIGHLIGHT BOX ===== */
+  .highlight-navy {
+    background: var(--navy);
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .highlight-navy::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  }
+
+  .highlight-navy-title {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 12px;
+  }
+
+  .highlight-navy-body {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: rgba(255,255,255,0.72);
+    line-height: 1.75;
+  }
+
+  .highlight-navy-body strong { color: var(--gold-light); font-weight: 600; }
+
+  /* ===== ALERT / WARNING ===== */
+  .alert-box {
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .alert-box.orange {
+    background: rgba(212,114,42,0.08);
+    border: 1px solid rgba(212,114,42,0.25);
+  }
+
+  .alert-box.blue {
+    background: rgba(44,95,138,0.07);
+    border: 1px solid rgba(44,95,138,0.2);
+  }
+
+  .alert-box.green {
+    background: rgba(46,125,94,0.07);
+    border: 1px solid rgba(46,125,94,0.2);
+  }
+
+  .alert-icon {
+    font-size: 18px;
+    margin-top: 1px;
+  }
+
+  .alert-body {
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    line-height: 1.65;
+  }
+
+  .alert-box.orange .alert-body { color: #7a3a10; }
+  .alert-box.blue .alert-body { color: #1a3d5c; }
+  .alert-box.green .alert-body { color: #1a4a34; }
+
+  .alert-body strong { font-weight: 700; }
+
+  /* ===== FRAMEWORK MAP (mini) ===== */
+  .fw-map {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 28px;
+  }
+
+  .fw-map-title {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-light);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .fw-map-row {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+    margin-bottom: 8px;
+  }
+
+  .fw-map-block {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .fw-map-block.dim { background: #eaeaea; color: #999; }
+  .fw-map-block.active-block { background: var(--navy); color: white; }
+  .fw-map-block.highlight-block { background: var(--gold); color: var(--navy-dark); }
+  .fw-map-block.accent-block { background: rgba(212,114,42,0.15); color: var(--orange-accent); border: 1.5px solid rgba(212,114,42,0.3); }
+
+  /* ===== TABLE ===== */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .data-table th {
+    background: var(--navy);
+    color: var(--gold-light);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+  }
+
+  .data-table td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-mid);
+    vertical-align: top;
+  }
+
+  .data-table tr:last-child td { border-bottom: none; }
+
+  .data-table td strong { color: var(--text-dark); }
+
+  .data-table td.highlight {
+    background: rgba(201,168,76,0.07);
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  /* ===== PREGUNTAS DEBATE ===== */
+  .debate-list {
+    list-style: none;
+    margin-bottom: 28px;
+  }
+
+  .debate-list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .debate-list li:last-child { border-bottom: none; }
+
+  .debate-num {
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--gold);
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .debate-text {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+
+  .debate-sub {
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    color: var(--text-light);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  /* ===== FOOTER ===== */
+  .page-footer {
+    padding: 28px 56px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-text {
+    font-size: 12px;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  /* ===== RESP ===== */
+  @media (max-width: 900px) {
+    .data-row { grid-template-columns: 1fr 1fr; }
+    .cards-2 { grid-template-columns: 1fr; }
+    .content { padding: 28px 24px; }
+    .page-header { padding: 32px 24px; }
+    .tabs-bar { padding: 0 24px; }
+    .page-title { font-size: 26px; }
+    .page-footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR (identico) -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">Marketing para<br>la Direccion</div>
+    <div class="sidebar-subtitle">PYMEX Sevilla 2026</div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Inicio</div>
+    <a href="index.html" class="nav-item">
+      <span class="nav-item-title">Marco General</span>
+      <span class="nav-item-sub">Framework de Direccion Comercial</span>
+    </a>
+
+    <div class="nav-section-label">Casos</div>
+
+    <a href="caso-canitas.html" class="nav-item active">
+      <span class="nav-item-title">Canitas <span class="nav-badge">MI-234</span></span>
+      <span class="nav-item-sub">Segmentacion &amp; Modelo de Negocio</span>
+    </a>
+
+    <a href="#" class="nav-item" style="cursor:default; opacity:0.45;">
+      <span class="nav-item-title">Caso 2 <span class="nav-badge coming">Proximo</span></span>
+      <span class="nav-item-sub">Por determinar</span>
+    </a>
+
+    <a href="#" class="nav-item" style="cursor:default; opacity:0.45;">
+      <span class="nav-item-title">Caso 3 <span class="nav-badge coming">Proximo</span></span>
+      <span class="nav-item-sub">Por determinar</span>
+    </a>
+
+    <a href="#" class="nav-item" style="cursor:default; opacity:0.45;">
+      <span class="nav-item-title">Caso 4 <span class="nav-badge coming">Proximo</span></span>
+      <span class="nav-item-sub">Por determinar</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-footer-text">
+      Principios de Marketing<br>
+      para la Direccion<br>
+      MIN-24 / MIN-25
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="page-header">
+    <div class="header-meta">
+      <span class="header-code">MI-234</span>
+      <span class="header-tag">Caso practico</span>
+      <span class="header-tag">&bull;</span>
+      <span class="header-tag">Servicios veterinarios &bull; Andalucia</span>
+    </div>
+    <h1 class="page-title">Canitas: <em>La seguridad social<br>de tu mascota</em></h1>
+    <p class="page-desc">Eladio Alvarez ha construido un modelo de cuota mensual que rompe con el sector veterinario tradicional. En enero de 2022 debe decidir como y cuando crecer sin comprometer lo que ha creado.</p>
+    <div class="focus-badges">
+      <span class="focus-badge gold">Segmentacion &amp; Targeting</span>
+      <span class="focus-badge blue">Modelo de Precio (Cuota)</span>
+      <span class="focus-badge orange">Crecimiento &amp; Distribucion</span>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-bar">
+    <button class="tab-btn active" onclick="showTab('situacion',this)">Situacion</button>
+    <button class="tab-btn" onclick="showTab('analisis',this)">Analisis 5C</button>
+    <button class="tab-btn" onclick="showTab('stp',this)">STP &amp; Posicionamiento</button>
+    <button class="tab-btn" onclick="showTab('mix',this)">Marketing Mix</button>
+    <button class="tab-btn" onclick="showTab('decision',this)">Decision Directiva</button>
+  </div>
+
+  <div class="content">
+
+    <!-- ============ TAB: SITUACION ============ -->
+    <div class="tab-panel active" id="tab-situacion">
+
+      <h2 class="section-title">El problema directivo</h2>
+      <div class="section-divider"></div>
+
+      <p class="lead-text">En enero de 2022, Eladio Alvarez dirige una empresa con seis clinicas veterinarias, mas de 20.000 socios y mas de 1,5 millones de euros de beneficio. Los resultados son buenos, pero siente que no esta extrayendo todo el potencial del negocio. La pregunta central: <strong>crecer o consolidar, y como hacerlo sin destruir lo construido.</strong></p>
+
+      <!-- KPIs -->
+      <div class="data-row">
+        <div class="data-card">
+          <div class="data-value">6<span class="data-unit" style="font-size:16px;">M€</span></div>
+          <div style="height:2px;background:var(--gold);width:32px;margin:6px auto 8px;border-radius:1px;"></div>
+          <div class="data-label">Facturacion 2021</div>
+        </div>
+        <div class="data-card">
+          <div class="data-value">+20<span class="data-unit">.000</span></div>
+          <div style="height:2px;background:var(--gold);width:32px;margin:6px auto 8px;border-radius:1px;"></div>
+          <div class="data-label">Socios activos</div>
+        </div>
+        <div class="data-card">
+          <div class="data-value">6</div>
+          <div style="height:2px;background:var(--gold);width:32px;margin:6px auto 8px;border-radius:1px;"></div>
+          <div class="data-label">Clinicas en 3 prov.</div>
+        </div>
+        <div class="data-card">
+          <div class="data-value">18<span class="data-unit">€</span></div>
+          <div style="height:2px;background:var(--gold);width:32px;margin:6px auto 8px;border-radius:1px;"></div>
+          <div class="data-label">Cuota mensual socio</div>
+        </div>
+      </div>
+
+      <div class="quote-block">
+        <div class="quote-text">"Estoy convencido de que podriamos llegar a estar entre los grandes grupos veterinarios espanoles y, por que no, tambien europeos. Es el momento de dar ese nuevo impulso que requiere el negocio?"</div>
+        <div class="quote-source">Eladio Alvarez, fundador de Canitas &mdash; enero 2022</div>
+      </div>
+
+      <h2 class="section-title" style="margin-top:36px;">El modelo de negocio Canitas</h2>
+      <div class="section-divider"></div>
+
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">La propuesta de valor</div>
+          <div class="info-card-body">Asistencia veterinaria <strong>completa e ilimitada</strong> mediante una cuota mensual asequible. Sin copagos, sin limites de consultas, sin letra pequena. El lema lo resume: <strong>"La seguridad social de tu mascota"</strong>. La cobertura incluye vacunas, cirugia menor, analiticas, ecografias, urgencias y descuentos del 50% en cirugia mayor.</div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-title">La diferencia con el sector</div>
+          <div class="info-card-body">Las clinicas tradicionales cobran <strong>por acto</strong> (31 euros/consulta media). Algunas cadenas tienen planes parciales de entre 20 y 40 euros/mes, pero con coberturas limitadas. Canitas es la unica con un modelo <strong>"todo incluido"</strong> real. Ademas: clinicas de mas de 500 m2, horario de martes a sabado, atencion urgencias fuera de horario.</div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-title">Los tres flujos de ingresos</div>
+          <div class="info-card-body">
+            1. <strong>Cuotas de socios</strong> &mdash; base estable y recurrente.<br>
+            2. <strong>Servicios veterinarios adicionales</strong> (fuera del contrato).<br>
+            3. <strong>Venta de alimentos y accesorios</strong> con descuento para socios.<br><br>
+            El ticket promedio de productos creció un 8% anual entre 2018 y 2021. El incremento de socios arrastra directamente las ventas de tienda.
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-title">La palanca: el veterinario</div>
+          <div class="info-card-body">La facturacion media por veterinario crecio un <strong>+14% anual</strong> (2018-2021). Durante el confinamiento Covid-19, en lugar de caer, aumento gracias a la labor de prescripcion del equipo. Los veterinarios no solo atienden: <strong>captan socios, generan confianza y realizan ventas cruzadas</strong>. Son la 5P del servicio.</div>
+        </div>
+      </div>
+
+      <!-- Tabla comparativa sector -->
+      <h2 class="section-title" style="margin-top:8px;">Comparativa de modelos en el sector</h2>
+      <div class="section-divider"></div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Servicio</th>
+            <th>Clinica tradicional</th>
+            <th>Cadena con plan salud</th>
+            <th>Canitas (socio)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Consulta estandar</td>
+            <td>31 euros</td>
+            <td>Incluidas desde 4/ano</td>
+            <td class="highlight">0 euros</td>
+          </tr>
+          <tr>
+            <td>Consulta + vacunacion</td>
+            <td>50-80 euros</td>
+            <td>Entre 0 y 50 euros</td>
+            <td class="highlight">0 euros</td>
+          </tr>
+          <tr>
+            <td>Limpieza bucal</td>
+            <td>150 euros</td>
+            <td>Hasta 20% descuento</td>
+            <td class="highlight">0 euros</td>
+          </tr>
+          <tr>
+            <td>Cirugia convencional</td>
+            <td>300 euros</td>
+            <td>150 euros</td>
+            <td class="highlight">0 euros</td>
+          </tr>
+          <tr>
+            <td>Urgencia fuera horario</td>
+            <td>350-700 euros</td>
+            <td>n/d</td>
+            <td class="highlight">40 euros</td>
+          </tr>
+          <tr>
+            <td><strong>Cuota mensual</strong></td>
+            <td><strong>0</strong> (pago por acto)</td>
+            <td><strong>20-40 euros/mes</strong></td>
+            <td class="highlight"><strong>18,15 euros/mes</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div><!-- /tab-situacion -->
+
+
+    <!-- ============ TAB: ANÁLISIS 5C ============ -->
+    <div class="tab-panel" id="tab-analisis">
+
+      <!-- Mini framework map -->
+      <div class="fw-map">
+        <div class="fw-map-title">Donde estamos en el framework</div>
+        <div class="fw-map-row">
+          <div class="fw-map-block active-block">Compania</div>
+          <div class="fw-map-block active-block">Clientes</div>
+          <div class="fw-map-block active-block">Competidores</div>
+          <div class="fw-map-block active-block">Colaboradores</div>
+          <div class="fw-map-block active-block">Contexto</div>
+        </div>
+        <div class="fw-map-row">
+          <div class="fw-map-block dim" style="flex:3;">STP &amp; Marketing Mix</div>
+          <div class="fw-map-block dim" style="flex:2;">Clientes: Adq. &bull; Vinc. &bull; Ret.</div>
+        </div>
+        <div class="fw-map-row">
+          <div class="fw-map-block dim">Beneficios sostenibles</div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Las 5C de Canitas</h2>
+      <div class="section-divider"></div>
+
+      <!-- COMPANIA -->
+      <div class="info-card" style="margin-bottom:16px;">
+        <div class="info-card-title">1. Compania</div>
+        <div class="info-card-body">
+          <strong>Fortalezas:</strong> modelo de negocio diferencial y probado, crecimiento sostenido en socios (+16% anual), alta rentabilidad (beneficio/ventas superior al 20%), equipo veterinario cualificado como ventaja competitiva, marca reconocida en Sevilla y Huelva (83% conocimiento en Sevilla).<br><br>
+          <strong>Debilidades:</strong> escasa presencia geografica (solo Andalucia), dificultad para comunicar la propuesta de valor (muchos clientes confunden el modelo con las "igualas"), modelo intensivo en capital (300.000 euros por clinica), dependencia de la gestion directa del fundador.
+        </div>
+      </div>
+
+      <!-- CLIENTES -->
+      <div class="info-card" style="margin-bottom:16px;">
+        <div class="info-card-title">2. Clientes</div>
+        <div class="info-card-body">
+          <strong>Perfil mayoritario:</strong> mujeres (64% de visitas), 30-45 anos, con hijos. Los hombres tienen edad media mas alta. Eladio considera que Canitas atrae a todas las clases sociales gracias al precio accesible.<br><br>
+          <strong>Comportamiento:</strong> el canal de captacion principal es la cercania geografica (30%) y la recomendacion de conocidos (27%). La publicidad en calle representa el 20%. Las redes sociales y Google tienen peso menor (16-17%). El veterinario es la principal fuente de informacion para el 60% de los propietarios de mascotas.<br><br>
+          <strong>Criterios de eleccion:</strong> amabilidad del personal (8,86/10), limpieza y orden (8,76), disponibilidad de medios tecnicos (8,21), proximidad (7,78). El precio ocupa el 6.o lugar (6,28/10). Las resenas en Internet, el ultimo (3,14).
+        </div>
+      </div>
+
+      <!-- COMPETIDORES -->
+      <div class="info-card" style="margin-bottom:16px;">
+        <div class="info-card-title">3. Competidores</div>
+        <div class="info-card-body">
+          <strong>Mercado muy atomizado:</strong> 6.550 centros en Espana, facturacion media de 330.000 euros, 46% son clinicas pequenas (menos de 225.000 euros). En Sevilla hay 278 centros, en Malaga 286, en Huelva 71.<br><br>
+          <strong>Competidores directos locales:</strong> clinicas tradicionales de 100-150 m2 con pago por acto. Algunas con "igualas" parciales (50 euros/ano, descuentos del 10-15%). Sin modelo todo incluido real.<br><br>
+          <strong>Cadenas con planes de salud:</strong> Kivet (+50 centros), Mivet (35), AniCura (42), UNAVETS (26). Cuotas entre 19-25 euros/mes pero coberturas parciales. Implantacion principalmente en Cataluna y Madrid, casi ausentes en Andalucia. El reconocimiento de Canitas (78%) multiplica por 3 al de cualquier competidor en sus mercados.
+        </div>
+      </div>
+
+      <!-- COLABORADORES -->
+      <div class="info-card" style="margin-bottom:16px;">
+        <div class="info-card-title">4. Colaboradores</div>
+        <div class="info-card-body">
+          <strong>Equipo interno:</strong> 89 personas (veterinarios, auxiliares, peluqueros, tienda, administracion, mantenimiento). Elemento clave del modelo: los veterinarios tienen perfil hibrido sanitario-comercial. Su capacidad de generar confianza y prescribir servicios es la 5P del modelo.<br><br>
+          <strong>Proveedores financieros:</strong> entidades bancarias con oferta activa de prestamos en condiciones ventajosas. Recurso disponible para la expansion.<br><br>
+          <strong>Oportunidades de colaboracion:</strong> protectoras de animales (9% de los clientes de Canitas vienen por esta via), fabricantes de piensos reconocidos (avalados por veterinarios y vendidos con descuento para socios).
+        </div>
+      </div>
+
+      <!-- CONTEXTO -->
+      <div class="info-card" style="margin-bottom:28px;">
+        <div class="info-card-title">5. Contexto</div>
+        <div class="info-card-body">
+          <strong>Tendencia estructural positiva:</strong> 29 millones de mascotas en Espana en 2021 (+39,7% vs 2019). El 50,2% de las familias tiene mascota. Los espanoles puntuan a las mascotas como miembros de la familia con un 9,83/10. Gasto medio anual por mascota: 1.282 euros.<br><br>
+          <strong>Sector en crecimiento acelerado:</strong> 7 anos consecutivos de expansion, dos digitos desde 2019 (14% en 2021). Se espera mayor crecimiento por debajo de la penetracion de mercados maduros como EE.UU. o Australia.<br><br>
+          <strong>Concentracion sectorial en curso:</strong> fondos de inversion y corporaciones europeas estan adquiriendo centros en Espana. Solo el 5% del mercado pertenece a alguna cadena (vs 50% en Reino Unido). Ventana de oportunidad antes de que el sector se consolide como en otros paises.<br><br>
+          <strong>Tendencias sociales:</strong> humanizacion de mascotas, mayor sensibilidad hacia la salud y sostenibilidad post-Covid, hogares unipersonales en aumento. El Smart Shopper busca calidad y precio combinados.
+        </div>
+      </div>
+
+      <!-- DAFO sintetico -->
+      <h2 class="section-title">Sintesis DAFO</h2>
+      <div class="section-divider"></div>
+
+      <div class="cards-2">
+        <div class="info-card" style="border-top:3px solid var(--blue-accent);">
+          <div class="info-card-title" style="color:var(--blue-accent);">Fortalezas</div>
+          <div class="info-card-body">
+            Modelo diferencial sin competidor real en el segmento "todo incluido"<br>
+            &bull; Alta fidelizacion (vida media del socio > 4 anos)<br>
+            &bull; Rentabilidad muy superior a la media del sector (EBITDA ~24% vs 10% sector)<br>
+            &bull; Marca reconocida y valorada en sus mercados<br>
+            &bull; Equipo con perfil comercial-sanitario unico
+          </div>
+        </div>
+        <div class="info-card" style="border-top:3px solid var(--orange-accent);">
+          <div class="info-card-title" style="color:var(--orange-accent);">Debilidades</div>
+          <div class="info-card-body">
+            Dificultad para comunicar la propuesta (confusion con igualas)<br>
+            &bull; Presencia geografica muy limitada<br>
+            &bull; Alta inversion por apertura (300.000+ euros)<br>
+            &bull; Dependencia de la gestion directa<br>
+            &bull; Notoriedad baja en mercados nuevos
+          </div>
+        </div>
+        <div class="info-card" style="border-top:3px solid var(--green-dot);">
+          <div class="info-card-title" style="color:var(--green-dot);">Oportunidades</div>
+          <div class="info-card-body">
+            Mercado en crecimiento sostenido de doble digito<br>
+            &bull; Baja concentracion sectorial (ventana antes de la llegada de fondos)<br>
+            &bull; Modelo replicable en otras provincias espanolas<br>
+            &bull; Financiacion bancaria disponible<br>
+            &bull; Potencial de escala (franquicia)
+          </div>
+        </div>
+        <div class="info-card" style="border-top:3px solid #cc4444;">
+          <div class="info-card-title" style="color:#cc4444;">Amenazas</div>
+          <div class="info-card-body">
+            Modelo facil de copiar si no se gana escala rapidamente<br>
+            &bull; Cadenas con plan de salud mejorando cobertura y bajando precio<br>
+            &bull; Entrada de fondos de inversion con capacidad de invertir masivamente<br>
+            &bull; Riesgo de perdida de calidad y cultura en la expansion<br>
+            &bull; Elasticidad al precio tras la subida de cuota
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tab-analisis -->
+
+
+    <!-- ============ TAB: STP ============ -->
+    <div class="tab-panel" id="tab-stp">
+
+      <div class="fw-map">
+        <div class="fw-map-title">Donde estamos en el framework</div>
+        <div class="fw-map-row">
+          <div class="fw-map-block dim" style="flex:5;">Analisis 5C</div>
+        </div>
+        <div class="fw-map-row">
+          <div class="fw-map-block highlight-block" style="flex:3;">Segmentacion &rarr; Targeting &rarr; Posicionamiento</div>
+          <div class="fw-map-block dim" style="flex:2;">Marketing Mix</div>
+        </div>
+        <div class="fw-map-row">
+          <div class="fw-map-block dim" style="flex:3;">Adq. &bull; Vinc. &bull; Ret.</div>
+          <div class="fw-map-block dim">Beneficios</div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Segmentacion del mercado</h2>
+      <div class="section-divider"></div>
+
+      <p class="body-text">El mercado de propietarios de mascotas en Espana no es homogeneo. Canitas ha operado hasta ahora con una segmentacion <strong>amplia e inclusiva</strong> por diseno: el precio accesible de la cuota busca que cualquier propietario, independientemente de su capacidad economica, pueda acceder a atencion veterinaria de calidad. Pero esta amplitud tiene implicaciones para el targeting y la comunicacion.</p>
+
+      <table class="data-table" style="margin-bottom:24px;">
+        <thead>
+          <tr>
+            <th>Variable</th>
+            <th>Segmentacion actual de Canitas</th>
+            <th>Implicacion estrategica</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Geografica</strong></td>
+            <td>Areas urbanas con alta densidad de mascotas y poblacion con poder adquisitivo medio-alto</td>
+            <td>La ubicacion en calles principales y centros comerciales bien comunicados filtra el perfil del cliente</td>
+          </tr>
+          <tr>
+            <td><strong>Sociodemografica</strong></td>
+            <td>Mujeres (64%), 30-45 anos, con hijos. Hombres con edad media mayor. Todas las clases sociales (por diseno del modelo de precio)</td>
+            <td>La comunicacion deberia hablar en femenino y apelar a la dimension familiar/emocional con la mascota</td>
+          </tr>
+          <tr>
+            <td><strong>Psicografica</strong></td>
+            <td>Propietarios que consideran a su mascota "miembro de la familia" (9,83/10 en Espana). Alta sensibilidad hacia la salud y el bienestar animal</td>
+            <td>El concepto "seguridad social" conecta con esta actitud: la mascota merece la misma proteccion que un familiar</td>
+          </tr>
+          <tr>
+            <td><strong>Por comportamiento</strong></td>
+            <td>Propietarios con mascota activa que usa servicios veterinarios de forma regular (no solo urgencias)</td>
+            <td>La cuota solo es percibida como valor si el propietario usa los servicios; hay que activar la frecuencia de visita</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="section-title">Targeting: a quien se dirige Canitas</h2>
+      <div class="section-divider"></div>
+
+      <p class="body-text">La estrategia de targeting de Canitas es de <strong>marketing indiferenciado amplio</strong> en terminos de clase social, pero muy <strong>selectiva en terminos de actitud hacia la mascota</strong>. No se dirige al propietario que ve al animal como una responsabilidad minima, sino al que lo trata como un miembro de la familia y quiere lo mejor para el <em>a un precio justo</em>.</p>
+
+      <div class="alert-box blue">
+        <div class="alert-icon">&#9432;</div>
+        <div class="alert-body"><strong>El cliente objetivo de Canitas</strong> es el propietario que en una clinica tradicional gasta mas de 187 euros anuales en su mascota (precio de la cuota Canitas). La investigacion de mercado muestra que el gasto medio en servicios veterinarios en Espana es de <strong>352 euros anuales por mascota</strong>: casi el doble que la cuota anual de Canitas.</div>
+      </div>
+
+      <h2 class="section-title" style="margin-top:32px;">Posicionamiento</h2>
+      <div class="section-divider"></div>
+
+      <p class="body-text">El posicionamiento es el elemento mas solido y diferencial de Canitas. En el mapa mental del propietario de mascotas, Canitas ocupa un espacio unico que ningun competidor ha colonizado todavia:</p>
+
+      <div class="highlight-navy" style="margin-bottom:24px;">
+        <div class="highlight-navy-title">La ecuacion de posicionamiento de Canitas</div>
+        <div class="highlight-navy-body">
+          <strong>Para</strong> el propietario de mascotas que quiere lo mejor para su animal sin barreras economicas,<br>
+          <strong>Canitas es</strong> la unica clinica veterinaria que ofrece asistencia integral ilimitada por una cuota mensual asequible,<br>
+          <strong>porque</strong> concibe la salud animal como un derecho, no como un lujo.<br><br>
+          <strong>"La seguridad social de tu mascota"</strong> &mdash; un posicionamiento que auna calidad maxima con accesibilidad maxima: la doble diferenciacion frente a competidores que solo tienen una de las dos.
+        </div>
+      </div>
+
+      <div class="alert-box orange">
+        <div class="alert-icon">&#9888;</div>
+        <div class="alert-body"><strong>El principal riesgo del posicionamiento actual:</strong> la propuesta es tan innovadora que muchos clientes no se la creen o la confunden con las igualas tradicionales (cobertura parcial, ~50 euros/ano). La brecha entre notoriedad alta (78-83%) y comprension real de la propuesta es el mayor problema de comunicacion de Canitas.</div>
+      </div>
+
+      <div class="cards-2" style="margin-top:20px;">
+        <div class="info-card">
+          <div class="info-card-title">Notoriedad vs. Comprension</div>
+          <div class="info-card-body">En Sevilla, el <strong>83%</strong> conoce Canitas pero solo el <strong>54%</strong> ha visitado alguna vez una clinica. En Malaga, el <strong>73%</strong> la conoce pero solo el <strong>42%</strong> la ha visitado. La barrera no es el precio ni la calidad: es el <strong>escepticismo ante una propuesta que parece demasiado buena para ser verdad</strong>.</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">Por que no contratan (13%)</div>
+          <div class="info-card-body">El 31% que no contrata dice que "es caro o mas caro que lo que tengo". El 13% prefiere pagar por uso. El 11% esta satisfecho con su veterinario actual. <strong>Solo el 7% dice que la clinica "no me da confianza".</strong> El problema es de comunicacion y percepcion, no de producto.</div>
+        </div>
+      </div>
+
+    </div><!-- /tab-stp -->
+
+
+    <!-- ============ TAB: MARKETING MIX ============ -->
+    <div class="tab-panel" id="tab-mix">
+
+      <div class="fw-map">
+        <div class="fw-map-title">Donde estamos en el framework</div>
+        <div class="fw-map-row">
+          <div class="fw-map-block dim" style="flex:5;">Analisis 5C</div>
+        </div>
+        <div class="fw-map-row">
+          <div class="fw-map-block dim" style="flex:3;">STP</div>
+          <div class="fw-map-block highlight-block" style="flex:2;">Producto &bull; Precio &bull; Distribucion &bull; Comunicacion</div>
+        </div>
+        <div class="fw-map-row">
+          <div class="fw-map-block dim" style="flex:3;">Adq. &bull; Vinc. &bull; Ret.</div>
+          <div class="fw-map-block dim">Beneficios</div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Las 4P (+ la 5P) en Canitas</h2>
+      <div class="section-divider"></div>
+
+      <!-- PRODUCTO -->
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px;">
+        <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--gold-pale);">P1</div>
+        <h3 style="font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--navy);">Producto</h3>
+      </div>
+      <div class="body-text">El "producto" de Canitas es en realidad un <strong>servicio integral de salud animal</strong> con tres capas: el contrato de asistencia universal (cuota), los servicios adicionales especializados (cirugia mayor, hospitalizacion), y los productos fisicos de la tienda (piensos, accesorios). La gama esta bien diseñada con un producto nucleo (la cuota) que genera la relacion y arrastra el resto.</div>
+
+      <div class="alert-box green">
+        <div class="alert-icon">&#10003;</div>
+        <div class="alert-body"><strong>Ciclo de vida del producto:</strong> el modelo de cuota mensual en veterinaria esta en fase de <strong>introduccion-crecimiento</strong>. Canitas es el pionero en Espana. Los competidores con planes de salud (cuotas parciales) son los "primeros adoptantes" del modelo. La mayoria del sector sigue en el modelo de pago por acto. El mercado potencial es enorme.</div>
+      </div>
+
+      <!-- PRECIO -->
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px;margin-top:32px;">
+        <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--gold-pale);">P2</div>
+        <h3 style="font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--navy);">Precio</h3>
+      </div>
+      <div class="body-text">La decision de precio de Canitas es la mas critica y la que define todo el modelo. La cuota de <strong>18,15 euros/mes</strong> (218 euros/ano incluyendo inscripcion) frente a un gasto medio en clinicas tradicionales de 352 euros/ano en servicios veterinarios supone un <strong>ahorro percibido del 38%</strong> &mdash; y esto sin contar la cobertura de urgencias y cirugia mayor.</div>
+
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">Estrategia de precio</div>
+          <div class="info-card-body">Canitas combina las dos grandes estrategias genericas de Porter: <strong>diferenciacion</strong> (calidad superior, cobertura total, instalaciones) con <strong>precio accesible</strong>. No es low cost ni premium en el sentido clasico: es <strong>accesibilidad democratizadora de calidad</strong>. La comparacion correcta no es con otras clinicas sino con lo que el propietario gastaría de forma desordenada.</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">La elasticidad al precio</div>
+          <div class="info-card-body">Canitas acaba de subir la cuota de 15,61 a 18,15 euros en enero de 2022 (+16%). El 31% de los que no contratan alegan que "es caro". La pregunta es si este aumento generara abandon de socios actuales o reduccion de captacion. El modelo subscription tiene <strong>alta inercia</strong>: los socios ya captados raramente se van (vida media > 4 anos).</div>
+        </div>
+      </div>
+
+      <!-- DISTRIBUCION -->
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px;margin-top:32px;">
+        <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--gold-pale);">P3</div>
+        <h3 style="font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--navy);">Distribucion</h3>
+      </div>
+      <div class="body-text">La distribucion de Canitas es <strong>selectiva</strong>: clinicas propias de mas de 500 m2 en ubicaciones premium (calles principales y centros comerciales con aparcamiento). Esta decision de ubicacion es coherente con el posicionamiento de gran cadena y facilita la captacion por cercania (30% de los clientes). El coste: 300.000 euros por apertura.</div>
+
+      <div class="alert-box orange">
+        <div class="alert-icon">&#9888;</div>
+        <div class="alert-body"><strong>La gran disyuntiva de crecimiento</strong> es si mantener la distribucion con <strong>clinicas propias</strong> (control de calidad, coherencia de marca, mayor inversion) o explorar la <strong>franquicia</strong> (mayor velocidad de expansion, menor capital propio, riesgo de perder la cultura Canitas). La ubicacion y el tamano de la clinica son variables inseparables del modelo de servicio.</div>
+      </div>
+
+      <!-- COMUNICACION -->
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px;margin-top:32px;">
+        <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--gold-pale);">P4</div>
+        <h3 style="font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--navy);">Comunicacion</h3>
+      </div>
+      <div class="body-text">La estrategia de comunicacion actual es <strong>push y local</strong>: flyers (10.000 unidades), publicidad exterior en autobuses, television y radio locales en prime time. Inversion por apertura: 25.000 euros. Presupuesto anual recurrente: 15.000 euros. Canitas fue la primera veterinaria en anunciarse en una cadena regional. El modelo de comunicacion esta orientado a <strong>generar notoriedad</strong>, pero le falta comunicar la especificidad de la propuesta de valor.</div>
+
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">Lo que funciona</div>
+          <div class="info-card-body">
+            La comunicacion ha generado una <strong>notoriedad muy alta</strong> en los mercados donde opera. El mensaje "TODO GRATIS por tan solo 15,61 euros al mes" es impactante y memorable. El lema "la seguridad social de tu mascota" es intuitivo y diferencial.<br><br>
+            El <strong>boca-oreja</strong> es el canal mas eficiente: 27% de los clientes de Canitas vienen por recomendacion, el programa de incentivos (un mes gratis por cada socio referido) es clave.
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">Lo que hay que mejorar</div>
+          <div class="info-card-body">
+            El mensaje "todo gratis" crea <strong>escepticismo</strong>: parece demasiado bueno para ser verdad. El cliente no entiende bien que incluye y que no. La investigacion de mercado confirma que la percepcion de precio no esta acompanada de comprension de la cobertura.<br><br>
+            <strong>El digital es una asignatura pendiente</strong>: solo el 17% descubrio Canitas por busqueda en Google. La presencia en redes sociales es testimonial frente al potencial del perfil de cliente.
+          </div>
+        </div>
+      </div>
+
+      <!-- P5 -->
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px;margin-top:32px;">
+        <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--gold-pale);">P5</div>
+        <h3 style="font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--navy);">Personas &mdash; La 5P del servicio</h3>
+      </div>
+      <div class="body-text">En un negocio de servicios como Canitas, el equipo <strong>es</strong> el producto. Los veterinarios son el elemento mas dificil de replicar por la competencia: generan confianza, retienen socios, prescriben servicios adicionales y captan nuevos socios. La facturacion por veterinario crece al +14% anual. <strong>Mantener la cultura y el perfil del equipo en la expansion es el mayor reto de las personas.</strong></div>
+
+    </div><!-- /tab-mix -->
+
+
+    <!-- ============ TAB: DECISIÓN ============ -->
+    <div class="tab-panel" id="tab-decision">
+
+      <div class="fw-map">
+        <div class="fw-map-title">Donde estamos en el framework</div>
+        <div class="fw-map-row">
+          <div class="fw-map-block dim" style="flex:5;">Analisis 5C</div>
+        </div>
+        <div class="fw-map-row">
+          <div class="fw-map-block dim" style="flex:5;">STP &bull; Marketing Mix (4P + Personas)</div>
+        </div>
+        <div class="fw-map-row">
+          <div class="fw-map-block accent-block" style="flex:3;">Adquisicion &bull; Vinculacion &bull; Retencion</div>
+          <div class="fw-map-block highlight-block">Beneficios Sostenibles</div>
+        </div>
+      </div>
+
+      <h2 class="section-title">La decision directiva de Eladio</h2>
+      <div class="section-divider"></div>
+
+      <p class="lead-text">Eladio tiene que responder a una pregunta que combina tres dimensiones: <strong>como crecer</strong> (franquicia vs. clinicas propias), <strong>cuanto crecer</strong> (ritmo de expansion), y <strong>donde crecer</strong> (mercados prioritarios). Detras de cada opcion hay un trade-off entre velocidad, control de calidad y riesgo financiero.</p>
+
+      <div class="cards-2">
+        <div class="info-card" style="border-top:3px solid var(--blue-accent);">
+          <div class="info-card-title" style="color:var(--blue-accent);">Opcion A: Expansion con clinicas propias</div>
+          <div class="info-card-body">
+            Utilizar financiacion bancaria y cash flow propio para abrir nuevas clinicas bajo control directo.<br><br>
+            <strong>A favor:</strong> control de calidad total, coherencia de marca, modelo probado, rentabilidad alta (~24% EBITDA).<br><br>
+            <strong>En contra:</strong> velocidad limitada (300.000 euros/apertura + tiempo de madurez de socios), riesgo de que competidores copien el modelo antes de alcanzar escala suficiente.
+          </div>
+        </div>
+        <div class="info-card" style="border-top:3px solid var(--orange-accent);">
+          <div class="info-card-title" style="color:var(--orange-accent);">Opcion B: Expansion via franquicia</div>
+          <div class="info-card-body">
+            Ceder el modelo a franquiciados que inviertan su propio capital a cambio de una cuota y acceso a la marca.<br><br>
+            <strong>A favor:</strong> velocidad de expansion muy superior, menor capital propio necesario, presencia rapida en nuevos mercados.<br><br>
+            <strong>En contra:</strong> riesgo de perder la cultura y calidad (la 5P es el corazon del modelo), la mayoria de "franquicias" en el sector son centrales de compra sin control real.
+          </div>
+        </div>
+        <div class="info-card" style="border-top:3px solid var(--green-dot);">
+          <div class="info-card-title" style="color:var(--green-dot);">Opcion C: Consolidar y optimizar</div>
+          <div class="info-card-body">
+            Enfocarse en aumentar socios y rentabilidad en las seis clinicas actuales antes de expandir.<br><br>
+            <strong>A favor:</strong> cero riesgo de expansion, mejora del modelo en mercados conocidos, potencial de subida de precio (cuota recien subida a 18,15 euros).<br><br>
+            <strong>En contra:</strong> deja la ventana de oportunidad abierta para que cadenas con plan de salud ocupen el espacio en las grandes ciudades.
+          </div>
+        </div>
+        <div class="info-card" style="border-top:3px solid #7b5ea7;">
+          <div class="info-card-title" style="color:#7b5ea7;">Opcion D: Modelo hibrido</div>
+          <div class="info-card-body">
+            Combinacion de clinicas propias en mercados prioritarios (grandes ciudades) con franquicia muy controlada en mercados secundarios.<br><br>
+            <strong>A favor:</strong> equilibra velocidad y control, reserva el capital para los mercados de mayor potencial.<br><br>
+            <strong>En contra:</strong> mayor complejidad de gestion, riesgo de incoherencia de marca entre centros propios y franquiciados.
+          </div>
+        </div>
+      </div>
+
+      <!-- Preguntas de debate -->
+      <h2 class="section-title" style="margin-top:36px;">Preguntas para el debate en clase</h2>
+      <div class="section-divider"></div>
+
+      <ul class="debate-list">
+        <li>
+          <div class="debate-num">1</div>
+          <div>
+            <div class="debate-text">¿Es la propuesta de valor de Canitas realmente sostenible a escala? ¿El modelo de cuota soporta el crecimiento del numero de socios sin deteriorar la calidad del servicio?</div>
+            <div class="debate-sub">Conecta con: Producto, Precio, Personas (5P). Analisis de elasticidad del modelo de subscription.</div>
+          </div>
+        </li>
+        <li>
+          <div class="debate-num">2</div>
+          <div>
+            <div class="debate-text">¿Que mercados deberia priorizar Canitas para su expansion? ¿Que criterios deberia usar para seleccionarlos?</div>
+            <div class="debate-sub">Conecta con: Segmentacion geografica, Variables exogenas del entorno, Competidores por ciudad.</div>
+          </div>
+        </li>
+        <li>
+          <div class="debate-num">3</div>
+          <div>
+            <div class="debate-text">¿Como puede Canitas resolver el problema de comunicacion? La notoriedad es alta pero la conversion es baja porque el cliente no se cree la propuesta.</div>
+            <div class="debate-sub">Conecta con: Comunicacion (P4), Posicionamiento, Notoriedad vs. Comprension. Papel del boca-oreja.</div>
+          </div>
+        </li>
+        <li>
+          <div class="debate-num">4</div>
+          <div>
+            <div class="debate-text">¿La subida de cuota de 15,61 a 18,15 euros (+16%) es una decision correcta? ¿Como afecta a la retencion de socios actuales y a la captacion de nuevos?</div>
+            <div class="debate-sub">Conecta con: Estrategia de precio, Elasticidad al precio, Ciclo de vida del socio.</div>
+          </div>
+        </li>
+        <li>
+          <div class="debate-num">5</div>
+          <div>
+            <div class="debate-text">¿Cual es el mayor riesgo de Canitas: que le copien el modelo o que crezca demasiado rapido y pierda la calidad que es el nucleo de su diferenciacion?</div>
+            <div class="debate-sub">Conecta con: Amenazas competitivas, Personas (5P), Cultura organizativa como ventaja competitiva.</div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="highlight-navy">
+        <div class="highlight-navy-title">La perspectiva del framework</div>
+        <div class="highlight-navy-body">
+          Canitas es un caso excepcional de <strong>coherencia entre todas las variables del Marketing Mix</strong>: el producto (cobertura total), el precio (cuota accesible), la distribucion (clinicas propias de gran formato) y la comunicacion (democratizacion de la atencion veterinaria) refuerzan un unico posicionamiento.<br><br>
+          El reto de Eladio no es de marketing: es de <strong>escala sin perder coherencia</strong>. La 5P (personas) es el elemento mas fragil en la expansion. <strong>Los beneficios sostenibles de Canitas dependen de que el socio renueve ano tras ano</strong>, y eso solo ocurre si cada visita confirma que la propuesta de valor es real. Cada clinica que abre es una nueva oportunidad de confirmarla o destruirla.
+        </div>
+      </div>
+
+    </div><!-- /tab-decision -->
+
+  </div><!-- /content -->
+
+  <div class="page-footer">
+    <div class="footer-text">&larr; <a href="index.html" style="color:var(--text-light);text-decoration:none;">Volver al Marco General</a></div>
+    <div class="footer-text">MI-234 &bull; PYMEX Sevilla 2026</div>
+  </div>
+
+</main>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
