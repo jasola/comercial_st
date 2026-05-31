@@ -6,396 +6,268 @@
 <title>Marketing para la Direccion | PYMEX Sevilla 2026</title>
 <link rel="stylesheet" href="shared.css">
 <style>
-/* ============================================================
-   INDEX-SPECIFIC: Framework interactivo
-   ============================================================ */
+/* ===== INDEX-SPECIFIC ===== */
+.content-area { flex:1; padding:40px 56px 56px; }
 
-.content-area {
-  flex: 1;
-  padding: 44px 56px 56px;
-}
-
-/* ---------- Panel explicativo ---------- */
+/* Panel explicativo */
 #fw-panel {
-  min-height: 100px;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 0;
-  margin-bottom: 36px;
-  overflow: hidden;
-  transition: box-shadow .2s;
+  background:white; border:1px solid var(--border); border-radius:10px;
+  margin-bottom:32px; overflow:hidden;
+  transition:box-shadow .2s;
+  min-height:72px;
 }
-#fw-panel.visible {
-  box-shadow: 0 4px 24px rgba(26,39,68,.11);
+#fw-panel.open { box-shadow:0 4px 28px rgba(26,39,68,.12); }
+#fw-placeholder {
+  display:flex; align-items:center; gap:14px;
+  padding:22px 28px; color:var(--text-light);
+  font-family:var(--font-body); font-size:14px; font-weight:300;
 }
-#fw-panel-inner {
-  display: none;
-  padding: 28px 32px;
-}
-#fw-panel.visible #fw-panel-inner { display: block; }
-
-#fw-panel-placeholder {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 22px 32px;
-  color: var(--text-light);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 300;
-}
-#fw-panel.visible #fw-panel-placeholder { display: none; }
-
-.panel-eyebrow {
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
+#fw-panel.open #fw-placeholder { display:none; }
+#fw-content { display:none; padding:26px 32px; }
+#fw-panel.open #fw-content { display:block; }
+.panel-tag {
+  font-family:var(--font-body); font-size:10px; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase; margin-bottom:8px;
+  display:block;
 }
 .panel-title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--navy);
-  margin-bottom: 12px;
+  font-family:var(--font-display); font-size:20px; font-weight:600;
+  color:var(--navy); margin-bottom:14px; line-height:1.3;
 }
 .panel-body {
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: var(--text-mid);
-  line-height: 1.75;
-  max-width: 780px;
+  font-family:var(--font-body); font-size:14px; color:var(--text-mid);
+  line-height:1.8; max-width:800px;
 }
-.panel-body strong { color: var(--text-dark); font-weight: 700; }
+.panel-body strong { color:var(--text-dark); font-weight:700; }
+.panel-body em { color:var(--navy); font-style:italic; }
+.panel-body ul { padding-left:18px; margin-top:8px; }
+.panel-body li { margin-bottom:5px; }
 
-/* ---------- Framework diagram ---------- */
-.fw-wrap {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 32px 36px;
-  box-shadow: 0 2px 12px rgba(26,39,68,.06);
-  margin-bottom: 28px;
-  user-select: none;
+/* ===== FRAMEWORK DIAGRAM ===== */
+.fw-outer-wrap {
+  background:white; border:1px solid var(--border); border-radius:12px;
+  padding:28px 32px; box-shadow:0 2px 12px rgba(26,39,68,.05);
 }
-
-.fw-wrap-title {
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--text-light);
-  text-align: center;
-  margin-bottom: 24px;
+.fw-hint {
+  text-align:center; font-family:var(--font-body); font-size:10.5px;
+  font-weight:600; color:var(--text-light); letter-spacing:.12em;
+  text-transform:uppercase; margin-bottom:22px;
 }
 
-/* ---- Clickable element base ---- */
-.fw-el {
-  cursor: pointer;
-  transition: filter .15s, transform .12s, box-shadow .15s;
-  position: relative;
+/* clickable base */
+.fwc {
+  cursor:pointer;
+  transition:filter .15s, transform .12s;
 }
-.fw-el:hover  { filter: brightness(1.06); transform: translateY(-1px); }
-.fw-el:active { transform: translateY(0); }
-.fw-el.active-fw { box-shadow: 0 0 0 3px var(--gold); }
+.fwc:hover { filter:brightness(1.07); transform:translateY(-1px); }
+.fwc:active { transform:translateY(0px); }
+.fwc.sel { outline:3px solid var(--gold); outline-offset:2px; border-radius:inherit; }
 
-/* ---- ROW 1: Análisis 5C ---- */
-.fw-analysis-row {
-  background: var(--navy);
-  border-radius: 8px;
-  padding: 12px 14px;
-  display: flex;
-  gap: 8px;
-  margin-bottom: 10px;
+/* ============================================================
+   LAYOUT: left-brace | center | right-labels
+   ============================================================ */
+.fw-layout {
+  display:flex;
+  gap:0;
+  align-items:stretch;
+}
+
+/* ---- LEFT BRACE COLUMN (VALOR + Crear/Mantener) ---- */
+.fw-left {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  width:52px;
+  flex-shrink:0;
+  margin-right:8px;
+}
+
+/* spacer matching row-1 height */
+.fw-left-spacer-top {
+  /* matches analysis row height ~54px */
+  height:54px;
+  flex-shrink:0;
+}
+/* VALOR label spanning rows 2+3 */
+.fw-left-valor {
+  flex:1;
+  display:flex;
+  align-items:stretch;
+  gap:0;
+}
+.fw-left-valor-text {
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+  font-family:var(--font-body);
+  font-size:10px; font-weight:700;
+  color:var(--blue-accent);
+  letter-spacing:.18em; text-transform:uppercase;
+  display:flex; align-items:center; padding-right:4px;
+}
+.fw-left-valor-brace {
+  display:flex; flex-direction:column; align-items:flex-end;
+  gap:0; width:16px;
+}
+/* brace lines: top cap, middle vertical, bottom cap */
+.fw-brace-line {
+  background:var(--blue-accent);
+  border-radius:2px;
+}
+.fw-brace-top    { width:10px; height:3px; align-self:flex-end; }
+.fw-brace-mid    { width:3px; flex:1; align-self:flex-end; margin-right:7px; }
+.fw-brace-bottom { width:10px; height:3px; align-self:flex-end; }
+
+/* Sub-labels inside left brace: Crear / Mantener */
+.fw-left-sublabels {
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:0 4px 0 0;
+  /* vertically: Crear over Mix rows, Mantener over clients row */
+}
+.fw-sublabel {
+  font-family:var(--font-body);
+  font-size:10px; font-weight:700; font-style:italic;
+  color:var(--blue-accent); letter-spacing:.1em; text-transform:uppercase;
+  writing-mode:vertical-rl; transform:rotate(180deg);
+  display:flex; align-items:center;
+}
+
+/* ---- CENTER COLUMN ---- */
+.fw-center { flex:1; display:flex; flex-direction:column; gap:9px; }
+
+/* Row 1: 5C analysis */
+.fw-row-analysis {
+  background:var(--navy); border-radius:8px;
+  padding:11px 12px; display:flex; gap:7px;
 }
 .fw-5c {
-  flex: 1;
-  background: white;
-  border-radius: 5px;
-  padding: 9px 6px;
-  text-align: center;
-  font-family: var(--font-body);
-  font-size: 11.5px;
-  font-weight: 700;
-  color: var(--navy);
-  letter-spacing: .03em;
-  border: 2px solid transparent;
+  flex:1; background:white; border-radius:5px;
+  padding:9px 6px; text-align:center;
+  font-family:var(--font-body); font-size:11.5px; font-weight:700;
+  color:var(--navy); letter-spacing:.02em;
+  border:2px solid transparent; border-radius:5px;
 }
-.fw-5c.active-fw { border-color: var(--gold); box-shadow: none; }
+.fw-5c.sel { border-color:var(--gold); }
 
-/* ---- ROW 2: STP + Mix con etiquetas laterales ---- */
-.fw-middle {
-  display: flex;
-  gap: 10px;
-  align-items: stretch;
-  margin-bottom: 10px;
+/* Row 2: decisions box */
+.fw-row-decisions {
+  border:2px solid rgba(26,39,68,.14); border-radius:8px;
+  padding:13px 14px; background:white;
+  display:flex; flex-direction:column; gap:10px;
 }
-
-/* Etiqueta VALOR izquierda */
-.fw-label-valor {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-}
-.fw-label-valor-bar {
-  width: 3px;
-  border-radius: 2px;
-  background: var(--blue-accent);
-  align-self: stretch;
-}
-.fw-label-valor-text {
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--blue-accent);
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-}
-
-/* Bloque central con brace izquierdo */
-.fw-center-block {
-  flex: 1;
-  border: 2px solid rgba(26,39,68,.14);
-  border-radius: 8px;
-  padding: 14px 16px;
-  background: white;
-}
-
-/* Brace CREAR / CAPTURAR */
-.fw-brace-label {
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--blue-accent);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  font-style: italic;
-  margin-bottom: 8px;
-  display: block;
-}
-.fw-brace-label.bottom { margin-top: 10px; margin-bottom: 0; }
 
 /* STP row */
-.fw-stp-row {
-  background: #ebebeb;
-  border-radius: 6px;
-  padding: 11px 18px;
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  border: 2px solid transparent;
+.fw-stp {
+  background:#ebebeb; border-radius:6px;
+  padding:11px 16px; display:flex; align-items:center;
+  justify-content:center; gap:12px;
+  border:2px solid transparent;
 }
-.fw-stp-item {
-  font-family: var(--font-body);
-  font-size: 13.5px;
-  font-weight: 700;
-  color: var(--navy);
-}
-.fw-stp-arrow {
-  color: var(--navy);
-  font-size: 17px;
-  font-weight: 400;
-}
+.fw-stp-item { font-family:var(--font-body); font-size:13px; font-weight:700; color:var(--navy); }
+.fw-stp-arr  { color:var(--navy); font-size:16px; }
 
-/* Mix grupos */
-.fw-mix {
-  display: flex;
-  gap: 14px;
-}
+/* Mix row */
+.fw-mix-row { display:flex; gap:12px; }
 .fw-mix-group {
-  flex: 1;
-  border-radius: 6px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
+  flex:1; border-radius:6px; padding:10px 10px 12px;
+  display:flex; flex-direction:column; gap:7px;
 }
-.fw-mix-group.green  { border: 2px dashed #2e7d5e; }
-.fw-mix-group.orange { border: 2px dashed var(--orange-accent); }
-
-.fw-mix-group-label {
-  font-family: var(--font-body);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  font-style: italic;
-  text-align: center;
-  padding-bottom: 4px;
+.fw-mix-group.green  { border:2px dashed #2e7d5e; }
+.fw-mix-group.orange { border:2px dashed var(--orange-accent); }
+.fw-mix-group-lbl {
+  font-family:var(--font-body); font-size:9px; font-weight:700;
+  font-style:italic; text-align:center; letter-spacing:.08em; text-transform:uppercase;
+  padding-bottom:4px;
 }
-.fw-mix-group.green  .fw-mix-group-label { color: #2e7d5e; }
-.fw-mix-group.orange .fw-mix-group-label { color: var(--orange-accent); }
-
+.fw-mix-group.green  .fw-mix-group-lbl { color:#2e7d5e; }
+.fw-mix-group.orange .fw-mix-group-lbl { color:var(--orange-accent); }
 .fw-mix-item {
-  background: #cccccc;
-  border-radius: 4px;
-  padding: 9px 10px;
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--navy);
-  text-align: center;
-  border: 2px solid transparent;
+  background:#cccccc; border-radius:4px;
+  padding:9px 10px; text-align:center;
+  font-family:var(--font-body); font-size:13px; font-weight:700;
+  color:var(--navy); border:2px solid transparent;
 }
+.fw-mix-item.sel { border-color:var(--gold); }
 
-/* Etiqueta DECISIONES derecha */
-.fw-label-decisiones {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-  flex-shrink: 0;
-  min-width: 88px;
-  justify-content: space-between;
-  padding-left: 4px;
+/* Row 3: clients */
+.fw-row-clients { display:flex; gap:7px; }
+.fw-client {
+  flex:1; border:2px solid var(--navy); border-radius:6px;
+  padding:11px 8px; text-align:center;
+  font-family:var(--font-body); font-size:12px; font-weight:700;
+  color:var(--navy); line-height:1.3;
 }
-.fw-dec-label-line {
-  font-family: var(--font-body);
-  font-size: 9.5px;
-  font-weight: 700;
-  color: var(--orange-accent);
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  line-height: 1.3;
-}
-.fw-label-decisiones-bar-wrap {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  align-self: flex-end;
-  flex: 1;
-  justify-content: flex-end;
-  padding-top: 8px;
-}
-.fw-label-dec-bar {
-  width: 3px;
-  border-radius: 2px;
-  background: var(--orange-accent);
-  height: 80px;
-}
-.fw-label-decisiones-text {
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--orange-accent);
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-}
+.fw-client.sel { border-color:var(--gold); background:rgba(201,168,76,.05); }
 
-/* ---- ROW 3: Clientes ---- */
-.fw-clients-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 10px;
-  align-items: stretch;
+/* Row 4: benefits */
+.fw-row-benefits {
+  background:var(--navy); border-radius:8px;
+  padding:14px 22px; display:flex; align-items:center; gap:16px;
+  border:2px solid transparent;
 }
-.fw-clients-label-wrap {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-}
-.fw-clients-label-text {
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--blue-accent);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  font-style: italic;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-}
-.fw-clients-bar {
-  width: 2px;
-  background: rgba(44,95,138,.3);
-  border-radius: 2px;
-  align-self: stretch;
-}
-.fw-clients-inner {
-  flex: 1;
-  display: flex;
-  gap: 8px;
-}
-.fw-client-box {
-  flex: 1;
-  border: 2px solid var(--navy);
-  border-radius: 6px;
-  padding: 11px 8px;
-  text-align: center;
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--navy);
-  line-height: 1.3;
-}
-
-/* ---- ROW 4: Beneficios + RESULTADOS ---- */
-.fw-bottom-row {
-  display: flex;
-  align-items: stretch;
-  gap: 8px;
-}
-.fw-results-label {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-}
-.fw-results-bar {
-  width: 3px;
-  border-radius: 2px;
-  background: var(--orange-accent);
-  align-self: stretch;
-}
-.fw-results-text {
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--orange-accent);
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-}
-.fw-benefits {
-  flex: 1;
-  background: var(--navy);
-  border-radius: 8px;
-  padding: 15px 24px;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  border: 2px solid transparent;
-}
-.fw-benefits-title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 28px;
-  font-weight: 700;
-  color: white;
+.fw-benefits-big {
+  font-family:var(--font-display); font-size:26px; font-weight:700; color:white;
 }
 .fw-benefits-sub {
-  font-family: var(--font-body);
-  font-size: 12px;
-  color: rgba(255,255,255,.6);
-  line-height: 1.5;
+  font-family:var(--font-body); font-size:12px; color:rgba(255,255,255,.6); line-height:1.5;
+}
+
+/* ---- RIGHT LABELS COLUMN ---- */
+.fw-right {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  width:100px;
+  flex-shrink:0;
+  margin-left:10px;
+  gap:0;
+}
+
+/* Level-1 right labels: ANALISIS / DECISIONES / RESULTADOS */
+/* Each right-label-block contains: text + brace bar */
+.fw-right-block {
+  display:flex;
+  align-items:stretch;
+  gap:4px;
+}
+.fw-right-block-bar {
+  width:3px; border-radius:2px; flex-shrink:0;
+}
+.fw-right-block-content {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding-left:5px;
+}
+.fw-right-lbl1 {
+  font-family:var(--font-body); font-size:10px; font-weight:700;
+  letter-spacing:.15em; text-transform:uppercase; line-height:1.2;
+}
+.fw-right-lbl2 {
+  font-family:var(--font-body); font-size:8.5px; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase; line-height:1.3;
+  margin-top:3px; color:var(--text-light);
+}
+
+/* spacers to match center row heights */
+.fw-right-spacer { flex-shrink:0; }
+
+/* Level-2 sub-labels inside DECISIONES: Aspiracion / Plan de accion */
+.fw-right-sub {
+  display:flex; flex-direction:column; gap:3px;
+  padding-left:8px; border-left:2px solid rgba(212,114,42,.35);
+  margin-left:2px;
+}
+.fw-right-sub-lbl {
+  font-family:var(--font-body); font-size:8.5px; font-weight:700;
+  color:var(--orange-accent); letter-spacing:.1em; text-transform:uppercase; line-height:1.3;
 }
 </style>
 </head>
 <body>
 
-<!-- ===== SIDEBAR ===== -->
+<!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sidebar-header">
     <div class="sidebar-logo">Marketing para<br>la Direccion</div>
@@ -430,120 +302,176 @@
   </div>
 </aside>
 
-<!-- ===== MAIN ===== -->
+<!-- MAIN -->
 <main class="main">
-
   <div class="page-header">
     <div class="page-eyebrow">Framework de Direccion Comercial</div>
     <h1 class="page-title">El modelo integrado de <em>Marketing</em></h1>
-    <p class="page-desc">Pulsa sobre cada bloque del esquema para conocer su significado y funcion dentro del modelo de direccion comercial.</p>
+    <p class="page-desc">Pulsa sobre cualquier elemento del esquema para conocer su significado, su funcion en el modelo y como se aplica en la practica directiva.</p>
   </div>
 
   <div class="content-area">
 
-    <!-- ===== PANEL EXPLICATIVO ===== -->
+    <!-- PANEL EXPLICATIVO -->
     <div id="fw-panel">
-      <div id="fw-panel-placeholder">
-        <span style="font-size:22px; opacity:.4;">&#9757;</span>
-        <span>Selecciona cualquier elemento del esquema para ver su explicacion</span>
+      <div id="fw-placeholder">
+        <span style="font-size:22px;opacity:.35;">&#9757;</span>
+        <span>Selecciona cualquier elemento del esquema para ver su explicacion detallada</span>
       </div>
-      <div id="fw-panel-inner">
-        <div class="panel-eyebrow" id="panel-eyebrow" style="color:var(--gold);"></div>
-        <div class="panel-title"   id="panel-title"></div>
-        <div class="panel-body"    id="panel-body"></div>
+      <div id="fw-content">
+        <span class="panel-tag" id="p-tag"></span>
+        <div class="panel-title" id="p-title"></div>
+        <div class="panel-body"  id="p-body"></div>
       </div>
     </div>
 
-    <!-- ===== FRAMEWORK DIAGRAM ===== -->
-    <div class="fw-wrap">
-      <div class="fw-wrap-title">Pulsa sobre cada elemento para explorar el modelo</div>
+    <!-- FRAMEWORK DIAGRAM -->
+    <div class="fw-outer-wrap">
+      <div class="fw-hint">Pulsa sobre cada elemento &mdash; el esquema es interactivo</div>
 
-      <!-- ROW 1: 5C -->
-      <div class="fw-analysis-row">
-        <div class="fw-5c fw-el" data-key="compania">Compania</div>
-        <div class="fw-5c fw-el" data-key="clientes">Clientes</div>
-        <div class="fw-5c fw-el" data-key="competidores">Competidores</div>
-        <div class="fw-5c fw-el" data-key="colaboradores">Colaboradores</div>
-        <div class="fw-5c fw-el" data-key="contexto">Contexto</div>
-      </div>
+      <div class="fw-layout">
 
-      <!-- ROW 2: STP + Mix -->
-      <div class="fw-middle">
+        <!-- ===== LEFT BRACE: VALOR / Crear / Mantener ===== -->
+        <div class="fw-left">
+          <!-- spacer top: altura de row-analysis (~54px) -->
+          <div class="fw-left-spacer-top"></div>
 
-        <!-- VALOR (izq) -->
-        <div class="fw-label-valor">
-          <div class="fw-label-valor-text">VALOR</div>
-          <div class="fw-label-valor-bar"></div>
-        </div>
+          <!-- VALOR spanning decisions + clients rows -->
+          <!-- We split into two named sub-areas for Crear / Mantener -->
+          <div style="flex:1; display:flex; flex-direction:column; gap:0;">
 
-        <!-- Centro -->
-        <div class="fw-center-block">
-          <span class="fw-brace-label">Crear</span>
-
-          <!-- STP -->
-          <div class="fw-stp-row fw-el" data-key="stp">
-            <span class="fw-stp-item">Segmentacion</span>
-            <span class="fw-stp-arrow">&rarr;</span>
-            <span class="fw-stp-item">Targeting</span>
-            <span class="fw-stp-arrow">&rarr;</span>
-            <span class="fw-stp-item">Posicionamiento</span>
-          </div>
-
-          <!-- Mix -->
-          <div class="fw-mix">
-            <div class="fw-mix-group green">
-              <div class="fw-mix-group-label">Disenando la oferta</div>
-              <div class="fw-mix-item fw-el" data-key="producto">Producto</div>
-              <div class="fw-mix-item fw-el" data-key="precio">Precio</div>
+            <!-- CREAR section: spans decisions box -->
+            <div style="display:flex; align-items:stretch; flex:3;">
+              <div style="writing-mode:vertical-rl; transform:rotate(180deg); font-family:var(--font-body); font-size:10px; font-weight:700; font-style:italic; color:var(--blue-accent); letter-spacing:.14em; text-transform:uppercase; display:flex; align-items:center; padding-right:2px; white-space:nowrap;">Crear</div>
+              <div style="width:3px; background:rgba(44,95,138,.3); border-radius:2px; margin:0 3px;"></div>
             </div>
-            <div class="fw-mix-group orange">
-              <div class="fw-mix-group-label">Go to market &middot; Ventas</div>
-              <div class="fw-mix-item fw-el" data-key="distribucion">Distribucion</div>
-              <div class="fw-mix-item fw-el" data-key="comunicacion">Comunicacion</div>
+
+            <!-- gap between crear and mantener (~9px = gap of fw-center) -->
+            <div style="height:9px; flex-shrink:0;"></div>
+
+            <!-- MANTENER section: spans clients row -->
+            <div style="display:flex; align-items:stretch; flex:1;">
+              <div style="writing-mode:vertical-rl; transform:rotate(180deg); font-family:var(--font-body); font-size:10px; font-weight:700; font-style:italic; color:var(--blue-accent); letter-spacing:.14em; text-transform:uppercase; display:flex; align-items:center; padding-right:2px; white-space:nowrap;">Mantener</div>
+              <div style="width:3px; background:rgba(44,95,138,.3); border-radius:2px; margin:0 3px;"></div>
+            </div>
+
+            <!-- gap before benefits row -->
+            <div style="height:9px; flex-shrink:0;"></div>
+
+            <!-- empty for benefits row -->
+            <div style="flex:0.6;"></div>
+          </div>
+
+          <!-- VALOR outer bar + label -->
+          <div style="position:absolute; left:0; display:none;"><!-- handled inline --></div>
+        </div>
+
+        <!-- VALOR outer bar — absolutely positioned across crear+mantener -->
+        <!-- We do it inline in the left column as a separate flex child -->
+
+        <!-- ===== CENTER ===== -->
+        <div class="fw-center">
+
+          <!-- ROW 1: 5C Analysis -->
+          <div class="fw-row-analysis">
+            <div class="fw-5c fwc" data-k="compania">Compania</div>
+            <div class="fw-5c fwc" data-k="clientes">Clientes</div>
+            <div class="fw-5c fwc" data-k="competidores">Competidores</div>
+            <div class="fw-5c fwc" data-k="colaboradores">Colaboradores</div>
+            <div class="fw-5c fwc" data-k="contexto">Contexto</div>
+          </div>
+
+          <!-- ROW 2: Decisions -->
+          <div class="fw-row-decisions">
+            <!-- STP -->
+            <div class="fw-stp fwc" data-k="stp">
+              <span class="fw-stp-item">Segmentacion</span>
+              <span class="fw-stp-arr">&rarr;</span>
+              <span class="fw-stp-item">Targeting</span>
+              <span class="fw-stp-arr">&rarr;</span>
+              <span class="fw-stp-item">Posicionamiento</span>
+            </div>
+            <!-- Mix -->
+            <div class="fw-mix-row">
+              <div class="fw-mix-group green">
+                <div class="fw-mix-group-lbl">Disenando la oferta</div>
+                <div class="fw-mix-item fwc" data-k="producto">Producto</div>
+                <div class="fw-mix-item fwc" data-k="precio">Precio</div>
+              </div>
+              <div class="fw-mix-group orange">
+                <div class="fw-mix-group-lbl">Go to market &middot; Ventas</div>
+                <div class="fw-mix-item fwc" data-k="distribucion">Distribucion</div>
+                <div class="fw-mix-item fwc" data-k="comunicacion">Comunicacion</div>
+              </div>
             </div>
           </div>
 
-          <span class="fw-brace-label bottom">Capturar</span>
-        </div>
-
-        <!-- DECISIONES (der) -->
-        <div class="fw-label-decisiones">
-          <div class="fw-dec-label-line">1. Aspiracion</div>
-          <div class="fw-dec-label-line">2. Plan de accion</div>
-          <div class="fw-label-decisiones-bar-wrap">
-            <div class="fw-label-dec-bar"></div>
-            <div class="fw-label-decisiones-text">DECISIONES</div>
+          <!-- ROW 3: Clients -->
+          <div class="fw-row-clients">
+            <div class="fw-client fwc" data-k="adquisicion">Adquisicion<br>clientes</div>
+            <div class="fw-client fwc" data-k="vinculacion">Vinculacion<br>clientes</div>
+            <div class="fw-client fwc" data-k="retencion">Retencion<br>clientes</div>
           </div>
-        </div>
 
-      </div><!-- /fw-middle -->
+          <!-- ROW 4: Benefits -->
+          <div class="fw-row-benefits fwc" data-k="beneficios">
+            <div class="fw-benefits-big">Beneficios</div>
+            <div class="fw-benefits-sub">sostenibles<br>sirviendo a los involucrados</div>
+          </div>
 
-      <!-- ROW 3: Clientes -->
-      <div class="fw-clients-row">
-        <div class="fw-clients-label-wrap">
-          <div class="fw-clients-label-text">Mantener</div>
-          <div class="fw-clients-bar"></div>
-        </div>
-        <div class="fw-clients-inner">
-          <div class="fw-client-box fw-el" data-key="adquisicion">Adquisicion<br>clientes</div>
-          <div class="fw-client-box fw-el" data-key="vinculacion">Vinculacion<br>clientes</div>
-          <div class="fw-client-box fw-el" data-key="retencion">Retencion<br>clientes</div>
-        </div>
-      </div>
+        </div><!-- /fw-center -->
 
-      <!-- ROW 4: Beneficios -->
-      <div class="fw-bottom-row">
-        <div class="fw-results-label">
-          <div class="fw-results-text">RESULTADOS</div>
-          <div class="fw-results-bar"></div>
-        </div>
-        <div class="fw-benefits fw-el" data-key="beneficios">
-          <div class="fw-benefits-title">Beneficios</div>
-          <div class="fw-benefits-sub">sostenibles<br>sirviendo a los involucrados</div>
-        </div>
-      </div>
+        <!-- ===== RIGHT LABELS ===== -->
+        <div class="fw-right">
 
-    </div><!-- /fw-wrap -->
+          <!-- ANÁLISIS — aligned with row-analysis -->
+          <div style="display:flex; align-items:center; gap:5px; height:54px; flex-shrink:0;">
+            <div style="width:3px; background:var(--orange-accent); border-radius:2px; align-self:stretch;"></div>
+            <div>
+              <div style="font-family:var(--font-body); font-size:10px; font-weight:700; color:var(--orange-accent); letter-spacing:.15em; text-transform:uppercase;">Analisis</div>
+            </div>
+          </div>
+
+          <!-- gap matching fw-center gap(9px) -->
+          <div style="height:9px; flex-shrink:0;"></div>
+
+          <!-- DECISIONES — aligned with row-decisions, contains sub-labels -->
+          <div style="display:flex; align-items:stretch; gap:5px; flex:3; min-height:0;">
+            <div style="width:3px; background:var(--orange-accent); border-radius:2px; flex-shrink:0;"></div>
+            <div style="display:flex; flex-direction:column; justify-content:space-between; padding:4px 0;">
+              <div style="font-family:var(--font-body); font-size:10px; font-weight:700; color:var(--orange-accent); letter-spacing:.15em; text-transform:uppercase;">Decisiones</div>
+              <!-- sub-labels level 2 -->
+              <div style="display:flex; flex-direction:column; gap:6px; border-left:2px solid rgba(212,114,42,.3); padding-left:7px; margin-left:2px; margin-top:6px;">
+                <div style="font-family:var(--font-body); font-size:8.5px; font-weight:700; color:var(--orange-accent); letter-spacing:.09em; text-transform:uppercase; line-height:1.3;">1. Aspiracion<br><span style="font-weight:400; color:var(--text-light);">STP</span></div>
+                <div style="font-family:var(--font-body); font-size:8.5px; font-weight:700; color:var(--orange-accent); letter-spacing:.09em; text-transform:uppercase; line-height:1.3; margin-top:4px;">2. Plan de accion<br><span style="font-weight:400; color:var(--text-light);">Mix 4P</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- gap -->
+          <div style="height:9px; flex-shrink:0;"></div>
+
+          <!-- RESULTADOS — aligned with row-clients -->
+          <div style="display:flex; align-items:center; gap:5px; flex:1; min-height:0;">
+            <div style="width:3px; background:var(--orange-accent); border-radius:2px; align-self:stretch;"></div>
+            <div style="font-family:var(--font-body); font-size:10px; font-weight:700; color:var(--orange-accent); letter-spacing:.15em; text-transform:uppercase;">Resultados</div>
+          </div>
+
+          <!-- gap + benefits row — no label -->
+          <div style="height:9px; flex-shrink:0;"></div>
+          <div style="flex:0.6;"></div>
+
+        </div><!-- /fw-right -->
+
+      </div><!-- /fw-layout -->
+
+      <!-- VALOR outer bar — rendered as absolute overlay -->
+      <!-- We render it as a separate flex row below the diagram with position trick -->
+
+    </div><!-- /fw-outer-wrap -->
+
+    <!-- VALOR label positioned to the left of the diagram -->
+    <!-- Handled via the fw-left column above -->
 
   </div><!-- /content-area -->
 
@@ -551,131 +479,214 @@
     <div class="footer-text">Principios de Marketing para la Direccion &mdash; MIN-24 / MIN-25</div>
     <div class="footer-text">PYMEX Sevilla 2026</div>
   </div>
-
 </main>
 
 <script src="shared.js"></script>
 <script>
 /* ============================================================
-   Contenido de los paneles explicativos
+   Panel content data
    ============================================================ */
-var PANELS = {
+var DATA = {
 
-  compania: {
-    eyebrow: 'Analisis 5C &mdash; Compania',
-    title: 'La empresa: punto de partida del analisis',
-    body: 'Antes de tomar cualquier decision de marketing, la empresa debe conocerse a si misma con honestidad. El analisis interno identifica sus <strong>fortalezas y debilidades</strong>: recursos financieros, capacitacion del equipo, saber hacer acumulado, notoriedad de marca, calidad de la propuesta de valor. Estas variables endogenas condicionan lo que la empresa puede hacer en el mercado y en que condiciones. El marketing estrategico eficaz empieza por una autodiagnosis rigurosa.'
-  },
+compania:{
+  tag:'Analisis · Las 5C — Compania',color:'#2c5f8a',
+  title:'La empresa: conocerse antes de actuar',
+  body:`El analisis de la propia compania es el punto de partida obligatorio de cualquier estrategia de marketing. Antes de definir a quien nos dirigimos o como queremos posicionarnos, la empresa debe responder con honestidad a una pregunta fundamental: <strong>¿que somos y de que somos capaces?</strong>
+<br><br>Este autoanalisis tiene dos dimensiones inseparables:
+<ul>
+<li><strong>Fortalezas:</strong> aquello en lo que la empresa es genuinamente buena y que puede constituir una ventaja competitiva real. Puede ser una tecnologia propia, un equipo excepcional, una marca con historia, una relacion privilegiada con los clientes o un modelo de negocio que nadie ha sabido replicar.</li>
+<li><strong>Debilidades:</strong> las limitaciones que condicionan las opciones estrategicas disponibles. Una empresa que no conoce sus debilidades no puede gestionarlas; una que las niega acaba siendo victima de ellas.</li>
+</ul>
+<br>La coherencia entre <em>lo que la empresa es</em> y <em>lo que promete al mercado</em> es la condicion de credibilidad de cualquier estrategia. El marketing que no esta anclado en las capacidades reales de la organizacion genera expectativas que la empresa no puede cumplir — y eso destruye marca y confianza mas rapido que cualquier error de comunicacion. La estrategia de marketing tiene que estar coordinada con la estrategia general de la empresa: las decisiones financieras, de recursos humanos y de operaciones deben estar alineadas con las de marketing para que la orientacion al cliente sea real y no solo declarativa.`
+},
 
-  clientes: {
-    eyebrow: 'Analisis 5C &mdash; Clientes',
-    title: 'Los clientes: el epicentro de toda estrategia',
-    body: 'Los clientes son la razon de ser del negocio: sin ellos no hay ingresos, y sin ingresos no hay empresa. El analisis de clientes busca comprender sus <strong>necesidades, aspiraciones y expectativas</strong>, tanto explicitas como latentes. Es necesario conocer quien compra, como decide, que valora, que le frena y como evoluciona su comportamiento. Segmentar correctamente el mercado de clientes es el primer paso para disenar una propuesta de valor que conecte de verdad.'
-  },
+clientes:{
+  tag:'Analisis · Las 5C — Clientes',color:'#2c5f8a',
+  title:'Los clientes: el epicentro de toda estrategia',
+  body:`Sin clientes no hay negocio, y sin negocio no hay empresa. Esta afirmacion, que parece obvia, tiene consecuencias profundas para la gestion: <strong>la orientacion hacia el cliente no es una opcion estrategica entre otras, es el fundamento sobre el que se construye cualquier decision de marketing</strong>, independientemente del tamanio de la empresa o del sector en el que opere.
+<br><br>Conocer a los clientes implica ir mucho mas alla de los datos demograficos basicos. Implica comprender:
+<ul>
+<li><strong>Necesidades expresas:</strong> lo que el cliente dice que necesita y busca activamente.</li>
+<li><strong>Necesidades latentes:</strong> lo que el cliente necesita pero no sabe articular, o que todavia no ha identificado como necesidad. Las innovaciones mas relevantes suelen nacer aqui.</li>
+<li><strong>Aspiraciones:</strong> los estados deseados que el cliente quiere alcanzar con el acto de compra, mas alla de la funcion objetiva del producto.</li>
+<li><strong>Expectativas:</strong> el nivel de prestacion que el cliente anticipa recibir. La satisfaccion no es una medida absoluta sino relativa a estas expectativas: un servicio objetivamente bueno puede decepcionar si las expectativas eran mas altas.</li>
+</ul>
+<br>Para los directivos, <em>ponerse en los zapatos del cliente</em> no es una metafora sino una disciplina de gestion. Las empresas mas orientadas al cliente no preguntan solo "¿que vendemos?" sino "¿que problema resuelve nuestra propuesta en la vida del cliente?" La respuesta a esa pregunta es el punto de partida del diseno de cualquier producto, precio, canal o mensaje.`
+},
 
-  competidores: {
-    eyebrow: 'Analisis 5C &mdash; Competidores',
-    title: 'Los competidores: agentes que condicionan las decisiones',
-    body: 'Ninguna empresa compite en el vacio. Los competidores &mdash;actuales y potenciales&mdash; determinan las franjas de precio, el nivel de servicio esperado y las posiciones disponibles en la mente del cliente. El analisis competitivo examina sus fortalezas, sus estrategias de precio y distribucion, su posicionamiento y sus vulnerabilidades. La pregunta clave: <strong>por que un cliente elegiria nuestra propuesta frente a la de la competencia</strong>? La respuesta debe ser concreta y sostenible.'
-  },
+competidores:{
+  tag:'Analisis · Las 5C — Competidores',color:'#2c5f8a',
+  title:'Los competidores: el entorno que condiciona cada decision',
+  body:`Ninguna empresa compite en el vacio. Los competidores — actuales y potenciales — son agentes fundamentales del entorno que inciden directamente en el comportamiento de los clientes y en las decisiones estrategicas disponibles para la empresa.
+<br><br>El analisis competitivo tiene tres niveles:
+<ul>
+<li><strong>Competidores directos:</strong> empresas que ofrecen productos o servicios similares al mismo segmento de clientes. Son los mas visibles y los que generan la presion competitiva mas inmediata.</li>
+<li><strong>Competidores indirectos:</strong> empresas que satisfacen la misma necesidad con una propuesta diferente. A menudo son mas peligrosos precisamente porque no se perciben como amenaza hasta que ya han cambiado las reglas del sector.</li>
+<li><strong>Competidores potenciales:</strong> actores que podrian entrar en el mercado si las condiciones lo hacen atractivo. La rentabilidad visible de un sector es siempre una invitacion a nuevos entrantes.</li>
+</ul>
+<br>La pregunta directiva clave no es "¿quienes son nuestros competidores?" sino <em>¿por que un cliente elegiria nuestra propuesta frente a la de cualquier alternativa disponible?</em> La respuesta honesta a esa pregunta define la ventaja competitiva real. Una ventaja que no se puede articular con claridad probablemente no existe. En la economia actual, altamente digitalizada y globalizada, las disrupciones competitivas llegan con frecuencia de sectores adyacentes que nadie habia identificado como amenaza.`
+},
 
-  colaboradores: {
-    eyebrow: 'Analisis 5C &mdash; Colaboradores',
-    title: 'Los colaboradores: aliados para crear y entregar valor',
-    body: 'La empresa no opera sola. Los colaboradores &mdash;proveedores, distribuidores, socios tecnologicos, prescriptores&mdash; forman parte del sistema de creacion y entrega de valor. Analizar su papel permite identificar dependencias criticas, oportunidades de alianza y riesgos en la cadena. En el sector servicios, el equipo interno es tambien un colaborador clave: los empleados en contacto con el cliente <strong>son el producto</strong> (la 5P del Marketing Mix).'
-  },
+colaboradores:{
+  tag:'Analisis · Las 5C — Colaboradores',color:'#2c5f8a',
+  title:'Los colaboradores: el ecosistema que hace posible la propuesta',
+  body:`La empresa no crea ni entrega valor en solitario. Un ecosistema de colaboradores — proveedores, distribuidores, socios tecnologicos, prescriptores, aliados institucionales — forma parte del sistema que hace posible que la propuesta de valor llegue al cliente en las condiciones prometidas.
+<br><br>El analisis de colaboradores examina:
+<ul>
+<li><strong>Dependencias criticas:</strong> relaciones sin las cuales el modelo de negocio no funciona. Una dependencia no gestionada es una vulnerabilidad estrategica.</li>
+<li><strong>Poder de negociacion:</strong> la capacidad de cada parte para influir en los terminos de la relacion. Cuando un proveedor o distribuidor tiene mas poder que la empresa, condiciona tanto la rentabilidad como las decisiones de marketing.</li>
+<li><strong>Oportunidades de alianza:</strong> colaboraciones que podrian ampliar la propuesta de valor, reducir costes o acelerar la llegada a nuevos mercados.</li>
+</ul>
+<br>En el sector servicios, el equipo interno es el colaborador mas critico de todos: <strong>los empleados en contacto con el cliente son, literalmente, el producto</strong>. Por eso en el Marketing Mix de servicios existe una quinta P — Personas — que reconoce que la calidad de la experiencia del cliente depende en ultimo termino de las personas que la protagonizan. La coherencia entre la cultura interna de la empresa y la propuesta de valor que se hace al mercado es una condicion necesaria, aunque frecuentemente descuidada, de la estrategia de marketing.`
+},
 
-  contexto: {
-    eyebrow: 'Analisis 5C &mdash; Contexto',
-    title: 'El contexto: el escenario general que condiciona todo',
-    body: 'Las empresas no operan en un vacio: se desenvuelven en un escenario social, economico, tecnologico, legal y geopolitico que influye en el comportamiento de los mercados. El contexto incluye las <strong>megatendencias</strong> (digitalizacion, envejecimiento, sostenibilidad), las disrupciones inesperadas (crisis financieras, pandemias) y los valores sociales emergentes. Gobernar con "luces largas" significa anticipar como evolucionara ese entorno y adaptar la estrategia antes de que la ola llegue.'
-  },
+contexto:{
+  tag:'Analisis · Las 5C — Contexto',color:'#2c5f8a',
+  title:'El contexto: el escenario que lo enmarca todo',
+  body:`Las empresas no operan en un espacio aislado: se desenvuelven en un escenario general — social, economico, tecnologico, legal y geopolitico — que condiciona el comportamiento de los mercados, las expectativas de los clientes y las oportunidades disponibles para la empresa.
+<br><br>El contexto opera en dos velocidades:
+<ul>
+<li><strong>Variables de tendencia:</strong> cambios graduales y anticipables — digitalizacion, envejecimiento demografico, sensibilidad medioambiental, nuevos valores sociales — que permiten a las empresas que los siguen de cerca anticiparse y adaptar su propuesta antes de que el mercado lo exija. Gobernar con "luces largas" significa precisamente esto: elevar la mirada por encima de los limites del mercado actual para ver hacia donde se mueve la sociedad.</li>
+<li><strong>Variables inesperadas:</strong> disrupciones abruptas — crisis financieras, pandemias, conflictos geopoliticos, irrupciones tecnologicas — que alteran de forma radical y rapida las reglas del juego. La economia digital ha generado en la ultima decada algunas de las disrupciones mas profundas: plataformas como Uber, Airbnb o Amazon han redefinido sectores enteros en pocos anos.</li>
+</ul>
+<br>La conclusion practica para el directivo es que <em>el marketing no opera en escenarios estaticos</em>. La capacidad de adaptacion — de "surfear la ola en vez de luchar contra ella" — es tan importante como la calidad del producto o la eficacia de la comunicacion. Un DAFO bien construido con informacion objetiva del contexto es el punto de partida mas solido para cualquier planificacion de marketing.`
+},
 
-  stp: {
-    eyebrow: 'Decisiones &mdash; STP',
-    title: 'Segmentacion &rarr; Targeting &rarr; Posicionamiento',
-    body: '<strong>Segmentacion:</strong> dividir el mercado en grupos de clientes con necesidades o comportamientos similares. Las variables pueden ser geograficas, sociodemograficas o psicograficas. En la era digital se avanza hacia la hipersegmentacion: un millon de segmentos de un cliente.<br><br><strong>Targeting:</strong> elegir a que segmento o segmentos se va a dirigir la empresa. Como decia Michael Porter: "La buena estrategia consiste en elegir a los clientes que quieras servir y hacerlo de forma unica".<br><br><strong>Posicionamiento:</strong> definir como quiere ser percibida la empresa en la mente de ese publico objetivo. El posicionamiento es la promesa de valor que diferencia a la empresa de sus competidores. Una vez definido, todas las decisiones del Marketing Mix deben ser coherentes con el.'
-  },
+stp:{
+  tag:'Decisiones · Aspiracion — STP',color:'#d4722a',
+  title:'Segmentacion, Targeting y Posicionamiento: la columna vertebral de la estrategia',
+  body:`El STP es el nucleo de las decisiones estrategicas de marketing y el puente entre el analisis del entorno y las decisiones operativas del Marketing Mix. Define, en esencia, <strong>a quien nos dirigimos y como queremos ser percibidos por ese publico</strong>. Sin una respuesta clara a estas dos preguntas, el Marketing Mix carece de direccion.
+<br><br><strong>Segmentacion:</strong> el mercado nunca es homogeneo. Los clientes tienen necesidades, comportamientos y capacidades economicas diferentes. Segmentar consiste en identificar grupos de clientes suficientemente homogeneos en su interior y diferenciados entre si, para poder disenar propuestas de valor especificas y eficaces. Las variables de segmentacion pueden ser geograficas (zona, habitat), sociodemograficas (edad, renta, educacion) o psicograficas (estilo de vida, valores, actitudes). La tecnologia digital ha llevado este concepto a su limite: la hipersegmentacion permite, en teoria, disenar una propuesta personalizada para cada cliente individual.
+<br><br><strong>Targeting:</strong> una vez identificados los segmentos posibles, la empresa debe elegir a cuales se dirige. Esta eleccion no es neutra: define la propuesta de valor, el precio, el canal y el mensaje. Como sintetizo Michael Porter, "la buena estrategia consiste en elegir a los clientes que quieras servir y hacerlo de forma unica". Elegir bien el target es elegir tambien a quien <em>no</em> te diriges — y esa renuncia tiene tanto valor estrategico como la eleccion.
+<br><br><strong>Posicionamiento:</strong> es la imagen que la empresa quiere ocupar en la mente de su publico objetivo. No es lo que la empresa dice ser, sino como el cliente la percibe. La distancia entre el posicionamiento pretendido y el percibido es uno de los problemas de marketing mas frecuentes y mas costosos de corregir. Una buena ecuacion de posicionamiento responde a: para quien, que propuesta, por que es diferente y por que es creible.`
+},
 
-  producto: {
-    eyebrow: 'Disenando la oferta &mdash; Producto',
-    title: 'El producto: la propuesta de valor al mercado',
-    body: 'Una correcta politica de producto pone enfasis en la <strong>creacion de valor para el cliente</strong>, mas alla de las caracteristicas tecnicas del producto o servicio. La gama de productos evoluciona conforme a un ciclo de vida con cinco fases: introduccion, crecimiento, madurez, saturacion y declive. En cada fase, el segmento de clientes que adopta el producto es diferente (innovadores, primeros adoptantes, mayoria, tardios). La innovacion es la via para revitalizar el ciclo y evitar el declive. Peter Drucker lo resumia: "La empresa comercial tiene dos, y solo dos, funciones basicas: el marketing y la innovacion".'
-  },
+producto:{
+  tag:'Decisiones · Plan de Accion — Producto',color:'#d4722a',
+  title:'El producto: la propuesta de valor hecha tangible',
+  body:`La primera P del Marketing Mix es el punto de partida de la accion comercial. Una correcta politica de producto no se centra en las caracteristicas tecnicas de lo que se vende, sino en <strong>el valor que aporta al cliente</strong>: que problema resuelve, que necesidad satisface, que aspiracion ayuda a cumplir.
+<br><br>La gama de productos — el conjunto de lo que la empresa ofrece al mercado — se organiza con dos criterios: el ancho (numero de productos o servicios distintos) y la profundidad (numero de variantes de cada uno). Las empresas tienden a ampliar la gama para reducir la dependencia de un solo producto, pero la extension de gama tiene riesgos: la dispersion, el alejamiento de aquello en lo que la empresa es genuinamente experta y el habito de no discontinuar lo que ya no aporta valor.
+<br><br>Todo producto sigue un <strong>ciclo de vida</strong> con cinco fases: introduccion (adoptantes innovadores), crecimiento (primeros seguidores), madurez (aceptacion mayoritaria), saturacion (competencia maxima) y declive (mercado residual). En cada fase, el perfil del cliente que adopta el producto es diferente, y las decisiones de precio, comunicacion y distribucion deben adaptarse en consecuencia. La innovacion es la palanca para revitalizar el ciclo y evitar el declive: como decia Peter Drucker, "la empresa comercial tiene dos, y solo dos, funciones basicas: el marketing y la innovacion". El riesgo de no innovar no es la inmovilidad, es el retroceso.`
+},
 
-  precio: {
-    eyebrow: 'Disenando la oferta &mdash; Precio',
-    title: 'El precio: captura de valor y senal de posicionamiento',
-    body: 'El precio que los consumidores estan dispuestos a pagar depende de un principio: <strong>el valor que aporte a cada uno comparado con la propuesta de los competidores</strong>. Existen dos grandes estrategias genericas: <em>premium</em> (banda superior, fundamentada en diferenciacion) y <em>low cost</em> (banda inferior, basada en volumen y escalabilidad). El precio no es solo una variable financiera: es una senal de posicionamiento. Fijar el precio incorrecto puede contradecir toda la estrategia de marketing, aunque el producto sea excelente. La elasticidad al precio &mdash;la sensibilidad de las ventas ante variaciones de precio&mdash; es un indicador critico que debe monitorizarse.'
-  },
+precio:{
+  tag:'Decisiones · Plan de Accion — Precio',color:'#d4722a',
+  title:'El precio: captura de valor y senal de posicionamiento',
+  body:`El precio es la unica variable del Marketing Mix que genera ingresos — todas las demas generan costes. Pero su funcion va mucho mas alla de la aritmetica financiera: <strong>el precio es una senal de posicionamiento</strong>. Comunica al cliente el valor que la empresa otorga a su propia propuesta y, por tanto, el valor que el cliente deberia esperar recibir.
+<br><br>El principio rector es claro: <em>el precio que los consumidores estan dispuestos a pagar se determina en funcion del valor que la propuesta aporta a cada uno, comparado con las alternativas disponibles</em>. No existe un precio "correcto" en abstracto: existe un precio adecuado para un segmento concreto, en un momento concreto, frente a una competencia concreta.
+<br><br>Las dos grandes estrategias genericas de precio son:
+<ul>
+<li><strong>Premium:</strong> precio por encima de la media del mercado, sustentado en una diferenciacion real y percibida. La marca es el activo que justifica ese sobreprecio. Sin diferenciacion creible, el precio premium solo genera abandono.</li>
+<li><strong>Low cost:</strong> precio por debajo de la media, con un modelo de negocio disenado para ser eficiente a escala. El margen unitario es bajo pero el volumen compensa. Es la estrategia de muchas plataformas digitales cuyo objetivo inicial es la escalabilidad.</li>
+</ul>
+<br>Un concepto critico es la <strong>elasticidad al precio</strong>: la sensibilidad de las ventas ante una variacion del precio. En mercados muy elasticos, una subida moderada puede provocar una caida significativa de la demanda. En mercados poco elasticos — donde el valor percibido es alto o el coste de cambiar de proveedor es elevado — la empresa tiene mayor margen de maniobra para subir precios sin perder clientes.`
+},
 
-  distribucion: {
-    eyebrow: 'Go to Market &mdash; Distribucion',
-    title: 'La distribucion: como llega la propuesta al cliente',
-    body: 'El canal de distribucion es el intermediario que hace llegar la propuesta de la empresa al consumidor final. Existen tres estrategias generales: <strong>intensiva</strong> (maximo numero de puntos de venta, habitual en gran consumo), <strong>selectiva</strong> (canales especificos que refuerzan el posicionamiento) y <strong>exclusiva</strong> (control total, habitual en lujo o servicios profesionales). Internet ha revolucionado la distribucion generando desintermediacion, e-commerce y la omnicanalidad: el cliente accede a la propuesta en cualquier momento, lugar y canal en condiciones homogeneas. Esta variable ha pasado de ser secundaria a ser <strong>la llave de acceso al mercado</strong>.'
-  },
+distribucion:{
+  tag:'Decisiones · Plan de Accion — Distribucion',color:'#d4722a',
+  title:'La distribucion: como la propuesta llega al cliente',
+  body:`La distribucion es la variable del Marketing Mix que resuelve la pregunta operativa mas basica: <strong>¿como hacemos llegar nuestra propuesta al cliente, donde y cuando la necesita?</strong> Hasta mediados del siglo XX era una variable relativamente secundaria. Desde entonces se ha convertido en una de las decisiones mas estrategicas del modelo de negocio, y la irrupcion de Internet la ha transformado radicalmente.
+<br><br>Existen tres estrategias generales de distribucion:
+<ul>
+<li><strong>Intensiva:</strong> maxima cobertura de puntos de venta. Objetivo: que el producto este disponible en el mayor numero posible de lugares. Tipica de productos de gran consumo donde la accesibilidad es una ventaja competitiva en si misma.</li>
+<li><strong>Selectiva:</strong> distribucion a traves de un numero limitado de puntos de venta cuidadosamente elegidos. Compatible con un posicionamiento de calidad o especializacion.</li>
+<li><strong>Exclusiva:</strong> distribucion muy controlada, frecuentemente mediante acuerdos exclusivos. Refuerza el posicionamiento premium y la percepcion de escasez o exclusividad.</li>
+</ul>
+<br>Internet ha generado la <strong>desintermediacion</strong>: los fabricantes y prestadores de servicios pueden llegar directamente al consumidor final sin pasar por intermediarios. El e-commerce ha dado a las pymes acceso a mercados antes reservados a las grandes empresas. La omnicanalidad — garantizar al cliente la misma propuesta de valor independientemente del canal por el que acceda — es el reto de distribucion mas relevante del momento presente.`
+},
 
-  comunicacion: {
-    eyebrow: 'Go to Market &mdash; Comunicacion',
-    title: 'La comunicacion: dar a conocer y construir imagen',
-    body: 'La comunicacion da a conocer la propuesta de valor al publico objetivo. Sus dos conceptos fundamentales son la <strong>notoriedad</strong> (el mercado nos conoce) y el <strong>posicionamiento</strong> (el mercado nos percibe como queremos). Se puede tener alta notoriedad y mala imagen, o buena imagen pero escasa notoriedad. Las herramientas incluyen publicidad (resultados a medio plazo), promocion (corto plazo), relaciones publicas, imagen corporativa y diseno. La comunicacion digital &mdash;SEO, SEM, redes sociales&mdash; ha cambiado las reglas: mayor rapidez, segmentacion precisa y los consumidores como amplificadores. La coherencia entre el mensaje comunicado y la experiencia real del cliente es la condicion de credibilidad de cualquier estrategia de comunicacion.'
-  },
+comunicacion:{
+  tag:'Decisiones · Plan de Accion — Comunicacion',color:'#d4722a',
+  title:'La comunicacion: dar a conocer y construir posicionamiento',
+  body:`La comunicacion es la variable del Marketing Mix mas visible y, por ello, la que con mas frecuencia se confunde con el marketing en su totalidad. <strong>La comunicacion no es el marketing: es uno de sus instrumentos</strong>, y solo es eficaz cuando existe una propuesta de valor solida, un posicionamiento claro y un publico objetivo bien definido.
+<br><br>Dos conceptos son fundamentales para entender la comunicacion de marketing:
+<ul>
+<li><strong>Notoriedad:</strong> el grado en que el publico objetivo conoce la existencia de la empresa, el producto o la marca, con independencia de la imagen que tenga. Se puede tener notoriedad muy alta con una imagen negativa. La notoriedad es condicion necesaria pero no suficiente.</li>
+<li><strong>Posicionamiento:</strong> la imagen que el publico objetivo tiene de la empresa o marca. Es el resultado de todos los mensajes y experiencias acumuladas en la mente del cliente. Una cosa es lo que la empresa quiere transmitir; otra, como es realmente percibida. La brecha entre ambas es uno de los problemas de comunicacion mas frecuentes.</li>
+</ul>
+<br>Las herramientas de comunicacion incluyen la publicidad (impacto a medio plazo), la promocion (resultados a corto plazo), las relaciones publicas, la imagen corporativa y el diseno. La comunicacion digital — SEO, SEM, redes sociales — ha ampliado el espectro y ha convertido a los propios consumidores en amplificadores del mensaje. El boca-oreja digital, en particular, tiene un alcance y una credibilidad que ninguna campana de publicidad convencional puede replicar. <em>La coherencia entre lo que se comunica y lo que el cliente experimenta es la condicion de credibilidad de cualquier estrategia de comunicacion.</em>`
+},
 
-  adquisicion: {
-    eyebrow: 'Gestion de Clientes &mdash; Adquisicion',
-    title: 'Adquisicion de clientes: atraer y convertir',
-    body: 'La adquisicion es el primer paso del ciclo de vida del cliente: conseguir que un cliente potencial realice su primera compra o contratacion. Los canales de adquisicion pueden ser directos (publicidad, ventas) o indirectos (boca-oreja, prescriptores). El coste de adquisicion de un cliente (CAC) debe estar siempre en relacion con el <strong>valor de vida del cliente</strong> (LTV): adquirir clientes es valioso si se van a quedar y si van a generar valor suficiente para rentabilizar la inversion de captacion. Las empresas con altos costes de adquisicion deben priorizar la retencion.'
-  },
+adquisicion:{
+  tag:'Resultados — Adquisicion de Clientes',color:'#1a2744',
+  title:'Adquisicion: atraer y convertir al cliente potencial',
+  body:`La adquisicion es el primer paso del ciclo de vida del cliente: conseguir que alguien que no es cliente todavia realice su primera compra o contratacion. Es el momento en que la promesa de la comunicacion se convierte en una transaccion real — y en que el cliente comienza a formarse una opinion sobre si esa promesa se cumple.
+<br><br>Los mecanismos de adquisicion pueden ser:
+<ul>
+<li><strong>Push (salida activa):</strong> la empresa va al cliente — publicidad, fuerza de ventas, promociones. Mas costoso pero mas controlable en terminos de alcance y timing.</li>
+<li><strong>Pull (atraccion):</strong> el cliente viene a la empresa — posicionamiento en buscadores, reputacion, boca-oreja, prescripcion. Mas eficiente a largo plazo pero mas lento de construir.</li>
+</ul>
+<br>La metrica clave es el <strong>Coste de Adquisicion de Cliente (CAC)</strong>: cuanto cuesta, en promedio, conseguir un nuevo cliente. Este coste solo tiene sentido en relacion con el <strong>Valor de Vida del Cliente (LTV)</strong>: el valor total que ese cliente generara durante toda su relacion con la empresa. Si el CAC es mayor que el LTV, el negocio no es sostenible. Si el LTV multiplica significativamente al CAC, la empresa tiene un modelo de negocio con potencial de escala. La adquisicion es cara; por eso, retener a los clientes captados es siempre economicamente mas eficiente que captar nuevos.`
+},
 
-  vinculacion: {
-    eyebrow: 'Gestion de Clientes &mdash; Vinculacion',
-    title: 'Vinculacion de clientes: crear relacion y confianza',
-    body: 'Captar un cliente es solo el principio. La vinculacion busca <strong>construir una relacion duradera</strong> basada en la confianza, la satisfaccion y el valor mutuo. Las palancas de vinculacion incluyen la calidad del servicio, la personalizacion, los programas de fidelizacion, las ventas cruzadas y la comunicacion continua de valor. Un cliente vinculado no solo repite: prescribe y recomienda. En el modelo de cuota subscription, la vinculacion es el motor del negocio porque los ingresos son recurrentes mientras el cliente permanece. La experiencia en cada punto de contacto es la piedra angular de la vinculacion.'
-  },
+vinculacion:{
+  tag:'Resultados — Vinculacion de Clientes',color:'#1a2744',
+  title:'Vinculacion: construir la relacion y ampliar el valor',
+  body:`Captar un cliente es solo el comienzo. La vinculacion busca construir una relacion duradera basada en la confianza, la satisfaccion y el valor mutuo creciente. <strong>Un cliente vinculado no solo repite: prescribe, recomienda y defiende la marca</strong>. Es el activo mas valioso que una empresa puede tener, y el mas dificil de construir.
+<br><br>Las palancas de vinculacion son:
+<ul>
+<li><strong>Calidad de la experiencia:</strong> cada punto de contacto entre el cliente y la empresa es una oportunidad para confirmar o erosionar la promesa de valor. En el sector servicios, donde el "producto" es la experiencia, cada interaccion — con el equipo, con el espacio fisico, con los sistemas digitales — construye o destruye vinculacion.</li>
+<li><strong>Personalizacion:</strong> la capacidad de adaptar la propuesta a las necesidades especificas de cada cliente genera un valor adicional que es muy dificil de replicar por la competencia.</li>
+<li><strong>Venta cruzada y upselling:</strong> ampliar la relacion con el cliente mas alla de la compra inicial, ofreciendo productos o servicios complementarios que aumentan el valor recibido y el valor generado para la empresa.</li>
+<li><strong>Programa de referidos:</strong> convertir la satisfaccion del cliente en un mecanismo de captacion de nuevos clientes. El boca-oreja es el canal de adquisicion mas eficiente y mas creible.</li>
+</ul>
+<br>En los modelos de negocio de suscripcion, la vinculacion es el motor del crecimiento: los ingresos son recurrentes mientras el cliente permanece, y cada anio de relacion incrementa el LTV sin incurrir en nuevos costes de adquisicion.`
+},
 
-  retencion: {
-    eyebrow: 'Gestion de Clientes &mdash; Retencion',
-    title: 'Retencion de clientes: evitar el abandono',
-    body: 'Retener a un cliente existente es entre cinco y diez veces mas economico que adquirir uno nuevo. La retencion gestiona activamente el riesgo de abandono identificando clientes insatisfechos, resolviendo problemas antes de que se conviertan en baja y reforzando el valor percibido. Las barreras de salida &mdash;contratos anuales, costes de cambio, habito&mdash; ayudan a retener pero no sustituyen a la <strong>satisfaccion real</strong>. La empresa orientada al cliente debe preguntarse constantemente: por que se van los clientes que se van? La respuesta es siempre una lectura del mercado mas honesta que cualquier encuesta de satisfaccion.'
-  },
+retencion:{
+  tag:'Resultados — Retencion de Clientes',color:'#1a2744',
+  title:'Retencion: proteger el activo mas valioso',
+  body:`Retener a un cliente existente es entre cinco y diez veces mas economico que adquirir uno nuevo. Este dato, ampliamente documentado, tiene una implicacion directa para la gestion: <strong>la retencion de clientes no es una actividad defensiva sino una inversion con un retorno extraordinario</strong>.
+<br><br>La retencion gestiona activamente el riesgo de abandono. Sus mecanismos son:
+<ul>
+<li><strong>Identificacion temprana del riesgo:</strong> detectar seniales de insatisfaccion o desenganche antes de que se conviertan en baja. La frecuencia de uso, el nivel de respuesta a comunicaciones y la evolucion del ticket son indicadores de alerta temprana.</li>
+<li><strong>Resolucion de problemas:</strong> la forma en que una empresa gestiona un problema o una queja tiene un impacto desproporcionado en la fidelidad. Un cliente cuyo problema se resuelve bien puede ser mas leal que uno que nunca ha tenido problemas.</li>
+<li><strong>Barreras de salida:</strong> contratos de permanencia, costes de cambio, integracion en el ecosistema de la empresa. Son utiles pero tienen un limite: si la unica razon por la que un cliente permanece es que le resulta caro irse, en cuanto esa barrera desaparezca se marchara. La retencion basada en valor es siempre mas solida que la basada en bloqueo.</li>
+</ul>
+<br><em>La empresa debe preguntarse constantemente: ¿por que se van los clientes que se van?</em> La respuesta es siempre la lectura del mercado mas honesta disponible — mas honesta que cualquier encuesta de satisfaccion y mas util que cualquier analisis de competencia.`
+},
 
-  beneficios: {
-    eyebrow: 'Resultados',
-    title: 'Beneficios sostenibles sirviendo a los involucrados',
-    body: 'El fin ultimo del modelo es generar <strong>beneficios sostenibles</strong> que sirvan a todos los involucrados: clientes (que reciben valor por su dinero), empleados (que trabajan en un proyecto con futuro), sociedad (que se beneficia de empresas que crean riqueza responsablemente) y accionistas o propietarios (que obtienen retorno de su inversion). La sostenibilidad del beneficio no depende de maximizar ventas puntuales sino de construir relaciones duraderas con clientes que confian en la propuesta de valor y la recomiendan. Sin negocio no hay empresa, y sin empresa no hay empleo, innovacion ni valor social.'
-  }
+beneficios:{
+  tag:'Resultados — Beneficios Sostenibles',color:'#1a2744',
+  title:'Beneficios sostenibles: el fin ultimo del modelo',
+  body:`Los beneficios sostenibles son el resultado de un modelo de marketing bien construido y coherentemente ejecutado. No son el objetivo en si mismos — son la consecuencia de haber creado valor real para los clientes, haberlo capturado de forma eficiente y haber mantenido relaciones duraderas con quienes confian en la propuesta de la empresa.
+<br><br>La palabra <strong>sostenibles</strong> tiene aqui un significado preciso: beneficios que no dependen de decisiones oportunistas de corto plazo (bajadas de precio agresivas, reduccion de costes a expensas de la calidad, captacion masiva sin capacidad de servir) sino de una propuesta de valor que el mercado reconoce, valora y prefiere de forma estable en el tiempo.
+<br><br>Y la expresion <strong>sirviendo a los involucrados</strong> reconoce que los beneficios empresariales no se generan en el vacio: son el resultado de servir bien a multiples partes:
+<ul>
+<li><strong>Clientes:</strong> que reciben valor superior al precio que pagan.</li>
+<li><strong>Empleados:</strong> que trabajan en un proyecto con futuro y con sentido.</li>
+<li><strong>Accionistas o propietarios:</strong> que obtienen un retorno justo de su inversion y su riesgo.</li>
+<li><strong>Sociedad:</strong> que se beneficia de empresas que crean riqueza, empleo e innovacion de forma responsable.</li>
+</ul>
+<br>Esta vision integrada del beneficio — que va mas alla de la maximizacion del resultado financiero a corto plazo — es la que distingue a las empresas con vocacion de permanencia de las que optimizan para el siguiente trimestre. El marketing orientado al cliente no es solo una estrategia comercial: es una forma de entender que el negocio y el valor para la sociedad no son objetivos contradictorios sino, cuando se gestiona bien, profundamente complementarios.`
+}
 
 };
 
-/* ---------- Logica de clicks ---------- */
-(function () {
-  var activeEl = null;
+/* ============================================================
+   Interaction logic
+   ============================================================ */
+(function(){
+  var active = null;
 
-  function activateEl (el) {
-    if (activeEl && activeEl !== el) {
-      activeEl.classList.remove('active-fw');
-    }
-    el.classList.add('active-fw');
-    activeEl = el;
-  }
+  document.querySelectorAll('.fwc').forEach(function(el){
+    el.addEventListener('click', function(){
+      var key  = el.getAttribute('data-k');
+      var data = DATA[key];
+      if(!data) return;
 
-  document.querySelectorAll('.fw-el').forEach(function (el) {
-    el.addEventListener('click', function () {
-      var key  = el.getAttribute('data-key');
-      var data = PANELS[key];
-      if (!data) return;
+      if(active && active !== el) active.classList.remove('sel');
+      el.classList.add('sel');
+      active = el;
 
-      activateEl(el);
-
-      document.getElementById('panel-eyebrow').innerHTML = data.eyebrow;
-      document.getElementById('panel-title').textContent  = '';
-      // allow HTML in title for arrow
-      document.getElementById('panel-title').innerHTML    = data.title;
-      document.getElementById('panel-body').innerHTML     = data.body;
+      document.getElementById('p-tag').textContent = data.tag;
+      document.getElementById('p-tag').style.color  = data.color;
+      document.getElementById('p-title').innerHTML  = data.title;
+      document.getElementById('p-body').innerHTML   = data.body;
 
       var panel = document.getElementById('fw-panel');
-      panel.classList.add('visible');
-      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      panel.classList.add('open');
+      panel.scrollIntoView({ behavior:'smooth', block:'nearest' });
     });
   });
 }());

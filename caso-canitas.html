@@ -6,62 +6,121 @@
 <title>Canitas: La seguridad social de tu mascota | MI-234</title>
 <link rel="stylesheet" href="shared.css">
 <style>
-/* ============================================================
-   CASO-SPECIFIC styles
-   ============================================================ */
-.content { padding: 44px 56px 64px; max-width: 960px; }
+.content { padding:40px 56px 64px; max-width:960px; }
 
-.lead-text {
-  font-family: 'Source Serif 4', 'Source Sans 3', Georgia, serif;
-  font-size: 17px;
-  color: var(--text-dark);
-  line-height: 1.75;
-  margin-bottom: 28px;
-  max-width: 760px;
+/* Mini framework tracker */
+.fw-tracker {
+  background:white; border:1px solid var(--border); border-radius:10px;
+  padding:16px 22px; margin-bottom:32px;
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
 }
-.lead-text strong { color: var(--navy); font-weight: 700; }
+.fw-tracker-label {
+  font-family:var(--font-body); font-size:9.5px; font-weight:700;
+  color:var(--text-light); letter-spacing:.16em; text-transform:uppercase;
+  margin-right:4px; flex-shrink:0;
+}
+.fw-t-block {
+  font-family:var(--font-body); font-size:11.5px; font-weight:600;
+  padding:5px 14px; border-radius:20px; white-space:nowrap;
+  transition: all .2s;
+}
+.fw-t-block.off  { background:#ececec; color:#bbb; }
+.fw-t-block.on   { background:var(--navy); color:white; }
+.fw-t-block.gold { background:var(--gold); color:var(--navy-dark); }
+.fw-t-sep { color:#ddd; font-size:16px; line-height:1; }
 
-/* fw-map */
-.fw-map {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 20px 24px;
-  margin-bottom: 28px;
+/* Section headers within tabs */
+.block-header {
+  display:flex; align-items:center; gap:14px; margin-bottom:18px; margin-top:36px;
 }
-.fw-map-title {
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--text-light);
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  margin-bottom: 14px;
+.block-header:first-of-type { margin-top:0; }
+.block-number {
+  font-family:var(--font-display); font-size:13px; font-weight:700;
+  color:white; background:var(--navy); border-radius:50%;
+  width:32px; height:32px; display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
 }
-.fw-map-row { display: flex; gap: 8px; margin-bottom: 7px; }
-.fw-map-block {
-  flex: 1;
-  padding: 9px 12px;
-  border-radius: 6px;
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 600;
-  text-align: center;
-  line-height: 1.3;
+.block-label {
+  font-family:var(--font-body); font-size:10px; font-weight:700;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--gold);
+  display:block; margin-bottom:2px;
 }
-.fw-map-block.dim           { background: #eaeaea; color: #aaa; }
-.fw-map-block.active-block  { background: var(--navy); color: white; }
-.fw-map-block.highlight-block { background: var(--gold); color: var(--navy-dark); }
-.fw-map-block.accent-block  { background: rgba(212,114,42,.15); color: var(--orange-accent); border: 1.5px solid rgba(212,114,42,.3); }
+.block-title {
+  font-family:var(--font-display); font-size:19px; font-weight:600;
+  color:var(--navy); line-height:1.2;
+}
+.divider-gold { width:40px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:20px; margin-top:4px; }
 
-@media (max-width: 900px) {
-  .content { padding: 28px 24px; }
+/* Key insight box */
+.insight-box {
+  background:linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  border-radius:10px; padding:24px 28px; margin:20px 0;
+  border-left:4px solid var(--gold); position:relative;
+}
+.insight-box-label {
+  font-family:var(--font-body); font-size:9.5px; font-weight:700;
+  color:var(--gold); letter-spacing:.16em; text-transform:uppercase;
+  margin-bottom:8px; display:block;
+}
+.insight-box-body {
+  font-family:var(--font-body); font-size:14px; color:rgba(255,255,255,.82);
+  line-height:1.75;
+}
+.insight-box-body strong { color:var(--gold-light); }
+
+/* Concept pill */
+.concept-pill {
+  display:inline-block; background:var(--gold-pale); color:var(--orange-accent);
+  font-family:var(--font-body); font-size:10.5px; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase; padding:4px 10px;
+  border-radius:20px; border:1px solid rgba(212,114,42,.25); margin:2px;
+}
+
+/* Options grid */
+.options-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0; }
+.option-card {
+  background:white; border:1px solid var(--border); border-radius:10px;
+  padding:22px; position:relative; overflow:hidden;
+}
+.option-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:4px;
+}
+.option-card.blue::before { background:var(--blue-accent); }
+.option-card.orange::before { background:var(--orange-accent); }
+.option-card.green::before { background:var(--green-dot); }
+.option-card.purple::before { background:#7b5ea7; }
+.option-card-title {
+  font-family:var(--font-display); font-size:15px; font-weight:600;
+  color:var(--navy); margin-bottom:10px; margin-top:6px;
+}
+.option-pros-cons { font-family:var(--font-body); font-size:13px; color:var(--text-mid); line-height:1.65; }
+.option-pros-cons strong { color:var(--text-dark); }
+
+/* Synthesis connections */
+.synthesis-row {
+  display:flex; align-items:flex-start; gap:14px;
+  padding:16px 0; border-bottom:1px solid var(--border);
+}
+.synthesis-row:last-child { border-bottom:none; }
+.synthesis-fw-tag {
+  font-family:var(--font-body); font-size:10px; font-weight:700;
+  color:white; background:var(--navy); padding:4px 10px; border-radius:4px;
+  letter-spacing:.08em; text-transform:uppercase; white-space:nowrap;
+  flex-shrink:0; margin-top:2px;
+}
+.synthesis-text { font-family:var(--font-body); font-size:13.5px; color:var(--text-mid); line-height:1.68; }
+.synthesis-text strong { color:var(--text-dark); }
+
+@media(max-width:900px){
+  .content { padding:28px 22px; }
+  .options-grid { grid-template-columns:1fr; }
+  .fw-tracker { gap:5px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ===== SIDEBAR ===== -->
+<!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sidebar-header">
     <div class="sidebar-logo">Marketing para<br>la Direccion</div>
@@ -96,7 +155,7 @@
   </div>
 </aside>
 
-<!-- ===== MAIN ===== -->
+<!-- MAIN -->
 <main class="main">
 
   <div class="page-header">
@@ -107,400 +166,901 @@
       <span class="header-tag">Servicios veterinarios &bull; Andalucia</span>
     </div>
     <h1 class="page-title">Canitas: <em>La seguridad social<br>de tu mascota</em></h1>
-    <p class="page-desc">Eladio Alvarez ha construido un modelo de cuota mensual que rompe con el sector veterinario tradicional. En enero de 2022 debe decidir como y cuando crecer sin comprometer lo que ha construido.</p>
-    <div class="focus-badges" style="margin-top:20px;">
+    <p class="page-desc">Un modelo de negocio que rompe con un sector que no habia evolucionado en decadas. Enero de 2022: buenos resultados, pero la ventana para crecer se esta cerrando.</p>
+    <div class="focus-badges">
       <span class="focus-badge gold">Segmentacion &amp; Targeting</span>
-      <span class="focus-badge blue">Modelo de Precio (Cuota)</span>
-      <span class="focus-badge orange">Crecimiento &amp; Distribucion</span>
+      <span class="focus-badge blue">Modelo de cuota (precio)</span>
+      <span class="focus-badge orange">Crecimiento &amp; distribucion</span>
     </div>
   </div>
 
   <!-- TABS -->
   <div class="tabs-bar">
-    <button class="tab-btn active" onclick="showTab('situacion',this)">Situacion</button>
-    <button class="tab-btn" onclick="showTab('analisis',this)">Analisis 5C</button>
-    <button class="tab-btn" onclick="showTab('stp',this)">STP &amp; Posicionamiento</button>
-    <button class="tab-btn" onclick="showTab('mix',this)">Marketing Mix</button>
-    <button class="tab-btn" onclick="showTab('decision',this)">Decision Directiva</button>
+    <button class="tab-btn active"  onclick="showTab('caso',this)">El Caso</button>
+    <button class="tab-btn" onclick="showTab('analisis',this)">Analisis · 5C</button>
+    <button class="tab-btn" onclick="showTab('aspiracion',this)">Aspiracion · STP</button>
+    <button class="tab-btn" onclick="showTab('accion',this)">Plan de Accion · Mix</button>
+    <button class="tab-btn" onclick="showTab('resultados',this)">Resultados</button>
+    <button class="tab-btn" onclick="showTab('sintesis',this)">Sintesis Directiva</button>
   </div>
 
   <div class="content">
 
-    <!-- ============ TAB: SITUACION ============ -->
-    <div class="tab-panel active" id="tab-situacion">
+    <!-- ====================================================
+         TAB 1: EL CASO
+         ==================================================== -->
+    <div class="tab-panel active" id="tab-caso">
 
-      <h2 class="section-title">El problema directivo</h2>
-      <div class="section-divider"></div>
+      <div class="fw-tracker">
+        <span class="fw-tracker-label">Framework:</span>
+        <span class="fw-t-block gold">El caso</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">5C</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">STP</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Mix 4P</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Resultados</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Sintesis</span>
+      </div>
 
-      <p class="lead-text">En enero de 2022, Eladio Alvarez dirige una empresa con seis clinicas veterinarias, mas de 20.000 socios y mas de 1,5 millones de euros de beneficio. Los resultados son buenos, pero siente que no esta extrayendo todo el potencial del negocio. La pregunta central: <strong>crecer o consolidar, y como hacerlo sin destruir lo construido.</strong></p>
+      <div class="block-header">
+        <div class="block-number">1</div>
+        <div>
+          <span class="block-label">Situacion</span>
+          <div class="block-title">El protagonista y su empresa</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text"><strong>Eladio Alvarez</strong> es funcionario de Correos de profesion, aunque desde joven ha desarrollado proyectos empresariales movido por la busqueda de "ganancias exponenciales". En 2010, a los 36 anos, identifica una oportunidad que el sector veterinario no ha sabido ver: las familias espanolas estan incorporando mascotas a sus hogares a un ritmo acelerado y tratandolas cada vez mas como miembros de la familia, pero las clinicas veterinarias siguen operando con el mismo modelo de hace decadas — pago por acto, precios elevados, cobertura parcial.</p>
+
+      <p class="body-text">Su respuesta es <strong>Canitas</strong>, que abre su primera clinica en Sevilla en abril de 2012 con un concepto radicalmente diferente: asistencia veterinaria completa e ilimitada mediante una <strong>cuota mensual asequible</strong>. El lema lo dice todo: <em>"la seguridad social de tu mascota"</em>. En enero de 2022, diez anos despues, Canitas tiene seis clinicas en tres provincias andaluzas, mas de 20.000 socios y una facturacion de casi 7 millones de euros.</p>
 
       <div class="data-row">
         <div class="data-card">
-          <div class="data-value">6<span class="data-unit" style="font-size:16px;">M&euro;</span></div>
-          <div style="height:2px;background:var(--gold);width:32px;margin:6px auto 8px;border-radius:1px;"></div>
+          <div class="data-value">6<span class="data-unit">M&euro;</span></div>
+          <div style="height:2px;background:var(--gold);width:28px;margin:6px auto 8px;border-radius:1px;"></div>
           <div class="data-label">Facturacion 2021</div>
         </div>
         <div class="data-card">
           <div class="data-value">+20<span class="data-unit">.000</span></div>
-          <div style="height:2px;background:var(--gold);width:32px;margin:6px auto 8px;border-radius:1px;"></div>
+          <div style="height:2px;background:var(--gold);width:28px;margin:6px auto 8px;border-radius:1px;"></div>
           <div class="data-label">Socios activos</div>
         </div>
         <div class="data-card">
-          <div class="data-value">6</div>
-          <div style="height:2px;background:var(--gold);width:32px;margin:6px auto 8px;border-radius:1px;"></div>
-          <div class="data-label">Clinicas en 3 prov.</div>
+          <div class="data-value">1,6<span class="data-unit">M&euro;</span></div>
+          <div style="height:2px;background:var(--gold);width:28px;margin:6px auto 8px;border-radius:1px;"></div>
+          <div class="data-label">Beneficio 2021</div>
         </div>
         <div class="data-card">
-          <div class="data-value">18<span class="data-unit">&euro;</span></div>
-          <div style="height:2px;background:var(--gold);width:32px;margin:6px auto 8px;border-radius:1px;"></div>
-          <div class="data-label">Cuota mensual socio</div>
+          <div class="data-value">89</div>
+          <div style="height:2px;background:var(--gold);width:28px;margin:6px auto 8px;border-radius:1px;"></div>
+          <div class="data-label">Personas en plantilla</div>
         </div>
       </div>
 
+      <div class="block-header">
+        <div class="block-number">2</div>
+        <div>
+          <span class="block-label">Modelo de negocio</span>
+          <div class="block-title">Como funciona Canitas</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">El modelo tiene tres fuentes de ingresos que se retroalimentan: las <strong>cuotas de socios</strong> (base estable y recurrente), los <strong>servicios veterinarios adicionales</strong> no cubiertos por la cuota, y la <strong>venta de productos</strong> — piensos y accesorios — a precios con descuento para socios. A medida que crece el numero de socios, crece tambien el consumo de productos: el ticket promedio de compras de socios aumento un 8% anual entre 2018 y 2021.</p>
+
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">Lo que incluye la cuota mensual</div>
+          <div class="info-card-body">Todas las consultas sin limite &bull; Vacunas del plan vacunal completo &bull; Desparasitacion interna &bull; Microchip y pasaporte &bull; Higiene bucal &bull; Ecografias y radiografias &bull; Electrocardiogramas &bull; Analiticas &bull; Cirugia menor &bull; Curas y suturas &bull; Atencion de urgencias (40 euros por apertura fuera de horario)</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">Tambien incluye</div>
+          <div class="info-card-body"><strong>50% de descuento</strong> sobre precio de mercado en cirugias mayores, hospitalizaciones y diagnosticos especializados &bull; <strong>Descuentos importantes</strong> en piensos y accesorios &bull; Clinicas abiertas de <strong>martes a sabado</strong> (vs. lunes-viernes de las tradicionales) &bull; Veterinario localizable para urgencias fuera de horario</div>
+        </div>
+      </div>
+
+      <div class="block-header">
+        <div class="block-number">3</div>
+        <div>
+          <span class="block-label">El problema directivo</span>
+          <div class="block-title">La decision que tiene sobre la mesa</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
       <div class="quote-block">
-        <div class="quote-text">"Estoy convencido de que podriamos llegar a estar entre los grandes grupos veterinarios espanoles y, por que no, tambien europeos. Es el momento de dar ese nuevo impulso que requiere el negocio?"</div>
+        <div class="quote-text">"¿Que deberiamos hacer para aprovechar las oportunidades del entorno antes de que otros competidores nos las pisen? Estoy convencido de que podriamos llegar a estar entre los grandes grupos veterinarios espanoles y, ¿por que no?, tambien europeos. ¿Es el momento de dar ese nuevo impulso que requiere el negocio?"</div>
         <div class="quote-source">Eladio Alvarez, fundador de Canitas &mdash; enero 2022</div>
       </div>
 
-      <h2 class="section-title" style="margin-top:36px;">El modelo de negocio Canitas</h2>
-      <div class="section-divider"></div>
+      <p class="body-text">Eladio tiene buenos resultados — pero siente que no esta sacando todo el partido al negocio. Recibe una oferta de financiacion bancaria en condiciones ventajosas. La decision es compleja porque combina tres dimensiones que se condicionan mutuamente: <strong>como crecer</strong> (clinicas propias vs. franquicia), <strong>a que ritmo</strong> (rapido antes de que le copien vs. despacio para no perder la calidad) y <strong>donde</strong> (que mercados priorizar). Detras de cada opcion hay un trade-off entre velocidad, control y riesgo financiero.</p>
 
-      <div class="cards-2">
-        <div class="info-card">
-          <div class="info-card-title">La propuesta de valor</div>
-          <div class="info-card-body">Asistencia veterinaria <strong>completa e ilimitada</strong> mediante una cuota mensual asequible. Sin copagos, sin limites de consultas, sin letra pequena. El lema: <strong>"La seguridad social de tu mascota"</strong>. Cubre vacunas, cirugia menor, analiticas, ecografias, urgencias y descuentos del 50% en cirugia mayor.</div>
-        </div>
-        <div class="info-card">
-          <div class="info-card-title">La diferencia con el sector</div>
-          <div class="info-card-body">Las clinicas tradicionales cobran <strong>por acto</strong> (31 euros/consulta media). Algunas cadenas tienen planes parciales de 20-40 euros/mes con coberturas limitadas. Canitas es la unica con un modelo <strong>"todo incluido"</strong> real: clinicas de mas de 500 m2, horario martes-sabado y atencion de urgencias fuera de horario.</div>
-        </div>
-        <div class="info-card">
-          <div class="info-card-title">Los tres flujos de ingresos</div>
-          <div class="info-card-body">1. <strong>Cuotas de socios</strong> &mdash; base estable y recurrente.<br>2. <strong>Servicios veterinarios adicionales</strong> (fuera del contrato).<br>3. <strong>Venta de alimentos y accesorios</strong> con descuento para socios.<br><br>El ticket promedio de productos crecio un 8% anual entre 2018 y 2021. El crecimiento de socios arrastra directamente las ventas de tienda.</div>
-        </div>
-        <div class="info-card">
-          <div class="info-card-title">La palanca: el veterinario</div>
-          <div class="info-card-body">La facturacion media por veterinario crecio un <strong>+14% anual</strong> (2018-2021). Durante el confinamiento Covid-19, en lugar de caer, aumento gracias a la prescripcion del equipo. Los veterinarios no solo atienden: <strong>captan socios, generan confianza y realizan ventas cruzadas</strong>. Son la 5P del servicio.</div>
-        </div>
+      <div class="insight-box">
+        <span class="insight-box-label">Por que este caso es relevante para el framework de marketing</span>
+        <div class="insight-box-body">Canitas ilustra de forma excepcional como <strong>todas las variables del modelo de marketing estan interconectadas</strong>. El modelo de cuota no es solo una decision de precio: define el producto, el tipo de cliente al que se dirige, el canal de distribucion necesario, el mensaje de comunicacion y la forma de relacionarse con el cliente a lo largo del tiempo. Analizar este caso siguiendo el framework permite ver como una innovacion en un bloque del modelo — el precio — obliga a redisenar todos los demas.</div>
       </div>
 
-      <h2 class="section-title" style="margin-top:8px;">Comparativa de modelos en el sector</h2>
-      <div class="section-divider"></div>
+    </div><!-- /tab-caso -->
 
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Servicio</th>
-            <th>Clinica tradicional</th>
-            <th>Cadena con plan salud</th>
-            <th>Canitas (socio)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Consulta estandar</td><td>31 euros</td><td>Incluidas desde 4/ano</td><td class="highlight">0 euros</td></tr>
-          <tr><td>Consulta + vacunacion</td><td>50-80 euros</td><td>Entre 0 y 50 euros</td><td class="highlight">0 euros</td></tr>
-          <tr><td>Limpieza bucal</td><td>150 euros</td><td>Hasta 20% descuento</td><td class="highlight">0 euros</td></tr>
-          <tr><td>Cirugia convencional</td><td>300 euros</td><td>150 euros</td><td class="highlight">0 euros</td></tr>
-          <tr><td>Urgencia fuera horario</td><td>350-700 euros</td><td>n/d</td><td class="highlight">40 euros</td></tr>
-          <tr><td><strong>Cuota mensual</strong></td><td><strong>0</strong> (pago por acto)</td><td><strong>20-40 euros/mes</strong></td><td class="highlight"><strong>18,15 euros/mes</strong></td></tr>
-        </tbody>
-      </table>
 
-    </div>
-
-    <!-- ============ TAB: ANÁLISIS 5C ============ -->
+    <!-- ====================================================
+         TAB 2: ANÁLISIS 5C
+         ==================================================== -->
     <div class="tab-panel" id="tab-analisis">
 
-      <div class="fw-map">
-        <div class="fw-map-title">Donde estamos en el framework</div>
-        <div class="fw-map-row">
-          <div class="fw-map-block active-block">Compania</div>
-          <div class="fw-map-block active-block">Clientes</div>
-          <div class="fw-map-block active-block">Competidores</div>
-          <div class="fw-map-block active-block">Colaboradores</div>
-          <div class="fw-map-block active-block">Contexto</div>
+      <div class="fw-tracker">
+        <span class="fw-tracker-label">Framework:</span>
+        <span class="fw-t-block off">El caso</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block gold">5C: Analisis</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">STP</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Mix 4P</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Resultados</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Sintesis</span>
+      </div>
+
+      <p class="lead-text">El analisis de las 5C es el diagnostico del entorno en el que Canitas opera y debe tomar sus decisiones. Antes de definir a quien se dirige o como quiere crecer, Eladio necesita una imagen clara y objetiva de su empresa, sus clientes, sus competidores, sus aliados y el contexto macro que condiciona todas las decisiones.</p>
+
+      <!-- COMPANIA -->
+      <div class="block-header">
+        <div class="block-number">C1</div>
+        <div>
+          <span class="block-label">Primera C</span>
+          <div class="block-title">Compania: fortalezas y debilidades de Canitas</div>
         </div>
-        <div class="fw-map-row">
-          <div class="fw-map-block dim" style="flex:3;">STP &amp; Marketing Mix</div>
-          <div class="fw-map-block dim" style="flex:2;">Clientes: Adq. &bull; Vinc. &bull; Ret.</div>
-        </div>
-        <div class="fw-map-row">
-          <div class="fw-map-block dim">Beneficios sostenibles</div>
-        </div>
       </div>
+      <div class="divider-gold"></div>
 
-      <h2 class="section-title">Las 5C de Canitas</h2>
-      <div class="section-divider"></div>
+      <p class="body-text">La primera pregunta del analisis interno es siempre: ¿de que somos capaces y en que somos vulnerables? En el caso de Canitas, el autodiagnostico revela un perfil muy asimetrico: fortalezas notables en el modelo de negocio y en los resultados, debilidades criticas en presencia geografica y en la capacidad de comunicar la propuesta.</p>
 
-      <div class="info-card" style="margin-bottom:16px;">
-        <div class="info-card-title">1. Compania</div>
-        <div class="info-card-body"><strong>Fortalezas:</strong> modelo diferencial y probado, crecimiento sostenido de socios (+16% anual), alta rentabilidad (beneficio/ventas >20%), equipo veterinario cualificado, marca reconocida en Sevilla y Huelva (83% de conocimiento).<br><br><strong>Debilidades:</strong> escasa presencia geografica (solo Andalucia), dificultad para comunicar la propuesta (se confunde con igualas), modelo intensivo en capital (300.000 euros por clinica), dependencia de la gestion directa del fundador.</div>
-      </div>
-
-      <div class="info-card" style="margin-bottom:16px;">
-        <div class="info-card-title">2. Clientes</div>
-        <div class="info-card-body"><strong>Perfil mayoritario:</strong> mujeres (64%), 30-45 anos, con hijos. Eladio considera que Canitas atrae a todas las clases sociales gracias al precio accesible.<br><br><strong>Comportamiento:</strong> captacion principal por cercania (30%) y recomendacion (27%). El veterinario es la principal fuente de informacion para el 60% de los propietarios.<br><br><strong>Criterios de eleccion:</strong> amabilidad del personal (8,86/10), limpieza y orden (8,76), disponibilidad de medios tecnicos (8,21), proximidad (7,78). El precio ocupa el 6.o lugar (6,28).</div>
-      </div>
-
-      <div class="info-card" style="margin-bottom:16px;">
-        <div class="info-card-title">3. Competidores</div>
-        <div class="info-card-body"><strong>Mercado muy atomizado:</strong> 6.550 centros en Espana, facturacion media de 330.000 euros. En Sevilla hay 278 centros, en Malaga 286, en Huelva 71.<br><br><strong>Competidores locales:</strong> clinicas de 100-150 m2 con pago por acto. Algunas con "igualas" parciales (50 euros/ano, descuentos del 10-15%).<br><br><strong>Cadenas:</strong> Kivet (+50), Mivet (35), AniCura (42). Cuotas entre 19-25 euros/mes pero coberturas parciales. Implantacion principalmente en Cataluna y Madrid. El reconocimiento de Canitas (78%) triplica al de cualquier competidor en sus mercados.</div>
-      </div>
-
-      <div class="info-card" style="margin-bottom:16px;">
-        <div class="info-card-title">4. Colaboradores</div>
-        <div class="info-card-body"><strong>Equipo interno:</strong> 89 personas con perfil hibrido sanitario-comercial. Su capacidad de generar confianza y prescribir es la 5P del modelo.<br><br><strong>Financiero:</strong> entidades bancarias con oferta activa de prestamos en condiciones ventajosas, recurso disponible para la expansion.<br><br><strong>Otros:</strong> protectoras de animales (9% de clientes), fabricantes de piensos reconocidos (avalados por veterinarios y vendidos con descuento para socios).</div>
-      </div>
-
-      <div class="info-card" style="margin-bottom:28px;">
-        <div class="info-card-title">5. Contexto</div>
-        <div class="info-card-body"><strong>Tendencia positiva:</strong> 29 millones de mascotas en Espana en 2021 (+39,7% vs 2019). El 50,2% de las familias tiene mascota. Gasto medio anual: 1.282 euros.<br><br><strong>Sector en crecimiento:</strong> 7 anos consecutivos de expansion, dos digitos desde 2019 (14% en 2021). Concentracion sectorial en curso: solo el 5% del mercado pertenece a una cadena (vs 50% en Reino Unido). Ventana de oportunidad antes de que los fondos de inversion concentren el mercado.</div>
-      </div>
-
-      <h2 class="section-title">Sintesis DAFO</h2>
-      <div class="section-divider"></div>
       <div class="cards-2">
         <div class="info-card" style="border-top:3px solid var(--blue-accent);">
           <div class="info-card-title" style="color:var(--blue-accent);">Fortalezas</div>
-          <div class="info-card-body">Modelo sin competidor real en "todo incluido" &bull; Alta fidelizacion (vida media socio >4 anos) &bull; Rentabilidad muy superior al sector (EBITDA ~24% vs 10%) &bull; Marca reconocida y valorada &bull; Equipo con perfil comercial-sanitario unico</div>
+          <div class="info-card-body">
+            <strong>Modelo diferencial sin equivalente real:</strong> ninguna clinica espanola ofrece un "todo incluido" verdadero a este precio.<br><br>
+            <strong>Alta rentabilidad:</strong> EBITDA estimado en torno al 24%, muy por encima de la media del sector (10%). Beneficio de 1,6M sobre 6,9M de facturacion en 2021.<br><br>
+            <strong>Crecimiento sostenido y predecible:</strong> +16% anual en socios durante tres anos consecutivos. Vida media del socio superior a cuatro anos, lo que da visibilidad a los ingresos futuros.<br><br>
+            <strong>Equipo como ventaja competitiva:</strong> la facturacion media por veterinario crece al +14% anual. El perfil hibrido sanitario-comercial es dificil de replicar rapidamente.<br><br>
+            <strong>Marca reconocida en sus mercados:</strong> 83% de conocimiento en Sevilla, 73% en Malaga, frente al 5-25% de cualquier competidor.
+          </div>
         </div>
         <div class="info-card" style="border-top:3px solid var(--orange-accent);">
           <div class="info-card-title" style="color:var(--orange-accent);">Debilidades</div>
-          <div class="info-card-body">Dificultad para comunicar la propuesta &bull; Presencia geografica muy limitada &bull; Alta inversion por apertura (300.000+ euros) &bull; Dependencia de la gestion directa &bull; Notoriedad nula en mercados nuevos</div>
-        </div>
-        <div class="info-card" style="border-top:3px solid var(--green-dot);">
-          <div class="info-card-title" style="color:var(--green-dot);">Oportunidades</div>
-          <div class="info-card-body">Mercado en crecimiento de doble digito &bull; Baja concentracion sectorial &bull; Modelo replicable en otras provincias &bull; Financiacion bancaria disponible &bull; Potencial de escala (franquicia)</div>
-        </div>
-        <div class="info-card" style="border-top:3px solid #cc4444;">
-          <div class="info-card-title" style="color:#cc4444;">Amenazas</div>
-          <div class="info-card-body">Modelo facil de copiar si no se gana escala &bull; Cadenas con plan de salud mejorando coberturas &bull; Entrada de fondos de inversion &bull; Riesgo de perdida de calidad en la expansion &bull; Elasticidad al precio tras la subida de cuota</div>
+          <div class="info-card-body">
+            <strong>Presencia geografica muy limitada:</strong> seis clinicas en tres provincias andaluzas. Fuera de ese territorio, Canitas es desconocida.<br><br>
+            <strong>Modelo intensivo en capital:</strong> cada apertura requiere mas de 300.000 euros y locales de mas de 500 m2. El crecimiento organico es lento y costoso.<br><br>
+            <strong>Dificultad para comunicar la propuesta:</strong> muchos clientes potenciales confunden el modelo con las igualas tradicionales (50 euros/ano, cobertura minima) o simplemente no se creen que "todo" este incluido en 18 euros al mes.<br><br>
+            <strong>Dependencia de la gestion directa:</strong> Eladio es el alma del negocio. Escalar sin perder la cultura y los estandares de calidad es un reto organizativo mayusculo.<br><br>
+            <strong>Presencia digital debil:</strong> solo el 17% de los clientes de Canitas llegaron a traves de busqueda en Google; las redes sociales apenas aportan.
+          </div>
         </div>
       </div>
 
-    </div>
-
-    <!-- ============ TAB: STP ============ -->
-    <div class="tab-panel" id="tab-stp">
-
-      <div class="fw-map">
-        <div class="fw-map-title">Donde estamos en el framework</div>
-        <div class="fw-map-row"><div class="fw-map-block dim" style="flex:5;">Analisis 5C</div></div>
-        <div class="fw-map-row">
-          <div class="fw-map-block highlight-block" style="flex:3;">Segmentacion &rarr; Targeting &rarr; Posicionamiento</div>
-          <div class="fw-map-block dim" style="flex:2;">Marketing Mix</div>
-        </div>
-        <div class="fw-map-row">
-          <div class="fw-map-block dim" style="flex:3;">Adq. &bull; Vinc. &bull; Ret.</div>
-          <div class="fw-map-block dim">Beneficios</div>
+      <!-- CLIENTES -->
+      <div class="block-header">
+        <div class="block-number">C2</div>
+        <div>
+          <span class="block-label">Segunda C</span>
+          <div class="block-title">Clientes: quien es el cliente de Canitas y como decide</div>
         </div>
       </div>
+      <div class="divider-gold"></div>
 
-      <h2 class="section-title">Segmentacion del mercado</h2>
-      <div class="section-divider"></div>
+      <p class="body-text">Comprender al cliente de Canitas va mas alla de describir su perfil demografico. Es necesario entender como descubre la clinica, que valora al elegirla, por que algunos no contratan a pesar de conocerla, y como evoluciona su relacion con la empresa a lo largo del tiempo.</p>
 
-      <p class="body-text">Canitas opera con una segmentacion <strong>amplia e inclusiva</strong>: el precio accesible busca que cualquier propietario acceda a atencion veterinaria de calidad. Pero esta amplitud tiene implicaciones para el targeting y la comunicacion.</p>
-
-      <table class="data-table" style="margin-bottom:24px;">
-        <thead>
-          <tr><th>Variable</th><th>Segmentacion actual</th><th>Implicacion estrategica</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>Geografica</strong></td><td>Areas urbanas con alta densidad de mascotas y poblacion de renta media-alta</td><td>La ubicacion en calles principales y centros comerciales filtra el perfil del cliente</td></tr>
-          <tr><td><strong>Sociodemografica</strong></td><td>Mujeres (64%), 30-45 anos, con hijos. Todas las clases sociales por diseno</td><td>La comunicacion debe apelar a la dimension familiar y emocional con la mascota</td></tr>
-          <tr><td><strong>Psicografica</strong></td><td>Propietarios que consideran a su mascota "miembro de la familia" (9,83/10)</td><td>El concepto "seguridad social" conecta con esta actitud: la mascota merece la misma proteccion que un familiar</td></tr>
-          <tr><td><strong>Comportamiento</strong></td><td>Propietarios que usan servicios veterinarios de forma regular, no solo urgencias</td><td>La cuota solo es percibida como valor si el propietario usa los servicios; hay que activar la frecuencia de visita</td></tr>
-        </tbody>
-      </table>
-
-      <h2 class="section-title">Targeting</h2>
-      <div class="section-divider"></div>
-      <p class="body-text">La estrategia de targeting es de <strong>marketing amplio en clase social</strong> pero muy <strong>selectiva en actitud hacia la mascota</strong>. Se dirige al propietario que trata a su animal como un miembro de la familia y quiere lo mejor para el <em>a un precio justo</em>.</p>
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">Perfil del cliente</div>
+          <div class="info-card-body">
+            <strong>Genero:</strong> 64% mujeres, 36% hombres. Las mujeres tienen entre 30 y 45 anos con hijos; los hombres una edad media mayor.<br><br>
+            <strong>Clase social:</strong> Eladio considera que Canitas atrae a todas las clases sociales. El precio accesible hace posible esta amplitud, algo inusual en el sector veterinario.<br><br>
+            <strong>Actitud:</strong> propietarios que consideran a su mascota un miembro de la familia. En Espana, el indice de "humanizacion" de las mascotas alcanza un 9,83/10. La mascota no es un gasto optativo; es una responsabilidad afectiva que el propietario no negocia.
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">Como llega el cliente a Canitas</div>
+          <div class="info-card-body">
+            <strong>30%</strong> la descubre porque esta cerca de su casa.<br>
+            <strong>27%</strong> llega por recomendacion de un amigo, familiar o companero.<br>
+            <strong>20%</strong> la ve anunciada en la calle (autobuses, vallas).<br>
+            <strong>17%</strong> la encuentra buscando en Google.<br>
+            <strong>16%</strong> la descubre en redes sociales.<br>
+            <strong>14%</strong> la conoce por anuncios en radio, television o prensa.<br><br>
+            <em>Lectura directiva:</em> la cercania y el boca-oreja son los dos canales dominantes. Esto implica que la estrategia de expansion geografica y la calidad de la experiencia del socio son, en la practica, las dos mejores herramientas de captacion.
+          </div>
+        </div>
+      </div>
 
       <div class="alert-box blue">
         <div class="alert-icon">&#9432;</div>
-        <div class="alert-body"><strong>El cliente objetivo de Canitas</strong> es el propietario que gasta mas de 187 euros anuales en su mascota (precio de la cuota). El gasto medio en servicios veterinarios en Espana es de <strong>352 euros anuales por mascota</strong>: casi el doble que la cuota anual de Canitas.</div>
+        <div class="alert-body"><strong>Lo que mas valora el cliente al elegir veterinario:</strong> 1.o amabilidad del personal (8,86/10), 2.o limpieza y orden (8,76), 3.o disponibilidad de medios tecnicos (8,21), 4.o proximidad (7,78). El precio ocupa el <strong>6.o lugar</strong> (6,28/10) y las resenas en Internet el ultimo (3,14). Esta jerarquia de valores es critica para Canitas: los atributos que mas importan al cliente son precisamente los que Canitas tiene bien resueltos.</div>
       </div>
 
-      <h2 class="section-title" style="margin-top:32px;">Posicionamiento</h2>
-      <div class="section-divider"></div>
-
-      <div class="highlight-navy" style="margin-bottom:24px;">
-        <div class="highlight-navy-title">La ecuacion de posicionamiento de Canitas</div>
-        <div class="highlight-navy-body"><strong>Para</strong> el propietario de mascotas que quiere lo mejor para su animal sin barreras economicas,<br><strong>Canitas es</strong> la unica clinica que ofrece asistencia integral ilimitada por una cuota mensual asequible,<br><strong>porque</strong> concibe la salud animal como un derecho, no como un lujo.<br><br><strong>"La seguridad social de tu mascota"</strong> &mdash; doble diferenciacion: calidad maxima + accesibilidad maxima.</div>
-      </div>
-
-      <div class="alert-box orange">
-        <div class="alert-icon">&#9888;</div>
-        <div class="alert-body"><strong>El principal riesgo:</strong> la propuesta es tan innovadora que muchos clientes no se la creen o la confunden con las igualas tradicionales. La brecha entre notoriedad alta (78-83%) y comprension real de la propuesta es el mayor problema de comunicacion de Canitas.</div>
-      </div>
-
-      <div class="cards-2" style="margin-top:20px;">
+      <div class="cards-2">
         <div class="info-card">
-          <div class="info-card-title">Notoriedad vs. Comprension</div>
-          <div class="info-card-body">En Sevilla, el <strong>83%</strong> conoce Canitas pero solo el <strong>54%</strong> ha visitado alguna vez una clinica. En Malaga, el <strong>73%</strong> la conoce pero solo el <strong>42%</strong> la ha visitado. La barrera no es el precio ni la calidad: es el <strong>escepticismo ante una propuesta que parece demasiado buena para ser verdad</strong>.</div>
+          <div class="info-card-title">Por que contratan (67%)</div>
+          <div class="info-card-body">
+            <strong>48%</strong> valora las buenas y amplias coberturas.<br>
+            <strong>47%</strong> destaca el precio economico y asequible.<br>
+            <strong>16%</strong> le parece interesante el modelo.<br>
+            <strong>14%</strong> valora la tranquilidad y seguridad que da.<br>
+            <strong>11%</strong> valora la calidad del servicio y los profesionales.
+          </div>
         </div>
         <div class="info-card">
           <div class="info-card-title">Por que no contratan (13%)</div>
-          <div class="info-card-body">El 31% que no contrata dice que "es caro". El 13% prefiere pagar por uso. El 11% esta satisfecho con su veterinario actual. <strong>Solo el 7% dice que la clinica no le da confianza.</strong> El problema es de comunicacion y percepcion, no de producto.</div>
+          <div class="info-card-body">
+            <strong>31%</strong> dice que es caro o mas caro que su clinica actual.<br>
+            <strong>13%</strong> prefiere pagar por uso.<br>
+            <strong>13%</strong> esta satisfecho con lo que tiene.<br>
+            <strong>11%</strong> prefiere no pagar cuota mensual.<br>
+            <strong>7%</strong> dice que la clinica no le da confianza.<br><br>
+            <em>Lectura:</em> el problema no es el producto, es la percepcion y la comunicacion.
+          </div>
         </div>
       </div>
 
-    </div>
-
-    <!-- ============ TAB: MARKETING MIX ============ -->
-    <div class="tab-panel" id="tab-mix">
-
-      <div class="fw-map">
-        <div class="fw-map-title">Donde estamos en el framework</div>
-        <div class="fw-map-row"><div class="fw-map-block dim" style="flex:5;">Analisis 5C</div></div>
-        <div class="fw-map-row">
-          <div class="fw-map-block dim" style="flex:3;">STP</div>
-          <div class="fw-map-block highlight-block" style="flex:2;">Producto &bull; Precio &bull; Distribucion &bull; Comunicacion</div>
-        </div>
-        <div class="fw-map-row">
-          <div class="fw-map-block dim" style="flex:3;">Adq. &bull; Vinc. &bull; Ret.</div>
-          <div class="fw-map-block dim">Beneficios</div>
+      <!-- COMPETIDORES -->
+      <div class="block-header">
+        <div class="block-number">C3</div>
+        <div>
+          <span class="block-label">Tercera C</span>
+          <div class="block-title">Competidores: un sector atomizado con senales de concentracion</div>
         </div>
       </div>
+      <div class="divider-gold"></div>
 
-      <h2 class="section-title">Las 4P (+ la 5P) en Canitas</h2>
-      <div class="section-divider"></div>
+      <p class="body-text">El mercado veterinario espanol esta en un momento de transicion: altamente fragmentado hoy, con senales claras de que se va a concentrar rapidamente. Esta ventana — el tiempo entre "fragil y concentrado" — es exactamente el momento estrategico en que se encuentra Canitas.</p>
 
-      <!-- P1 Producto -->
-      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px;">
-        <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--gold-pale);">P1</div>
-        <h3 style="font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--navy);">Producto</h3>
-      </div>
-      <div class="body-text">El "producto" de Canitas es un <strong>servicio integral de salud animal</strong> con tres capas: el contrato de asistencia universal (cuota), los servicios adicionales especializados y los productos fisicos de la tienda. El ciclo de vida del modelo de cuota en veterinaria esta en fase de <strong>introduccion-crecimiento</strong>: Canitas es el pionero. La mayoria del sector sigue en el pago por acto.</div>
-      <div class="alert-box green">
-        <div class="alert-icon">&#10003;</div>
-        <div class="alert-body"><strong>Implicacion directiva:</strong> el producto nucleo (la cuota) genera la relacion y arrastra el resto. La innovacion del modelo debe protegerse ganando escala antes de que los competidores la repliquen. Peter Drucker: "La empresa tiene dos funciones: el marketing y la innovacion".</div>
+      <div class="alert-box gold">
+        <div class="alert-icon">&#9733;</div>
+        <div class="alert-body"><strong>El mapa del sector:</strong> 6.550 centros veterinarios en Espana. Facturacion media: 330.000 euros. El 46% son clinicas pequenas (menos de 225.000 euros/ano). Solo el 5% del mercado pertenece a alguna cadena — frente al 50% en Reino Unido. Los fondos de inversion europeos ya estan entrando en el mercado espanol adquiriendo clinicas. <strong>La ventana de oportunidad para Canitas es real y tiene fecha de caducidad.</strong></div>
       </div>
 
-      <!-- P2 Precio -->
-      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px;margin-top:32px;">
-        <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--gold-pale);">P2</div>
-        <h3 style="font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--navy);">Precio</h3>
+      <table class="data-table">
+        <thead>
+          <tr><th>Modelo</th><th>Cuota mensual</th><th>Cobertura</th><th>Implantacion</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Clinica tradicional</strong></td><td>No aplica (pago por acto)</td><td>Lo que se paga en cada visita</td><td>Todo Espana, atomizada</td></tr>
+          <tr><td><strong>Igualas clasicas</strong></td><td>~4 euros/mes (50 euros/ano)</td><td>Descuentos del 10-15% en algunos servicios</td><td>Algunas ciudades, minoritario</td></tr>
+          <tr><td><strong>Cadenas con plan salud</strong> (Kivet, Mivet, UNAVETS...)</td><td>19-25 euros/mes</td><td>Servicios seleccionados incluidos + descuentos en el resto</td><td>Cataluna, Madrid, Madrid &mdash; escasa presencia en Andalucia</td></tr>
+          <tr><td class="hl"><strong>Canitas</strong></td><td class="hl"><strong>18,15 euros/mes</strong></td><td class="hl"><strong>Todo incluido, sin limite, sin carencias</strong></td><td class="hl"><strong>Sevilla, Huelva, Malaga</strong></td></tr>
+        </tbody>
+      </table>
+
+      <div class="insight-box">
+        <span class="insight-box-label">Ventaja competitiva de Canitas frente a sus competidores</span>
+        <div class="insight-box-body">Canitas tiene en sus mercados un reconocimiento de marca (78-83%) que <strong>triplica o cuadruplica al de cualquier competidor</strong>. Las cadenas nacionales con mayor numero de centros (Kivet: >50, Mivet: 35) tienen reconocimiento inferior al 20% en Sevilla y Malaga. Esta diferencia no es solo un dato de marketing: es una barrera competitiva construida durante diez anos de presencia y calidad de servicio que un competidor nuevo no puede replicar en meses.</div>
       </div>
-      <div class="body-text">La cuota de <strong>18,15 euros/mes</strong> (218 euros/ano incluyendo inscripcion) frente al gasto medio de 352 euros/ano en clinicas tradicionales supone un <strong>ahorro percibido del 38%</strong>. Canitas combina diferenciacion (calidad superior, cobertura total) con precio accesible: <em>accesibilidad democratizadora de calidad</em>.</div>
+
+      <!-- COLABORADORES -->
+      <div class="block-header">
+        <div class="block-number">C4</div>
+        <div>
+          <span class="block-label">Cuarta C</span>
+          <div class="block-title">Colaboradores: los aliados que hacen posible el modelo</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
       <div class="cards-2">
         <div class="info-card">
-          <div class="info-card-title">Estrategia de precio</div>
-          <div class="info-card-body">No es low cost ni premium clasico. Es la combinacion de las dos estrategias de Porter: <strong>diferenciacion + accesibilidad</strong>. La comparacion correcta no es con otras clinicas sino con lo que el propietario gastaría de forma desordenada en el sector tradicional.</div>
+          <div class="info-card-title">El equipo como colaborador critico</div>
+          <div class="info-card-body">Los <strong>89 empleados</strong> de Canitas — veterinarios, auxiliares, peluqueros, equipo de tienda, administracion — son el activo mas critico del modelo. En un negocio de servicios, el equipo <em>es</em> el producto. Los veterinarios de Canitas tienen un perfil hibrido: son clinicos de alta cualificacion Y prescriptores comerciales. Esta combinacion no se forma de un dia para otro; es una cultura organizativa construida durante diez anos.<br><br>La facturacion media por veterinario crece al +14% anual, incluso durante el confinamiento. Esto demuestra que la calidad del equipo no es un activo que se deprecia con el tiempo: se aprecia.</div>
         </div>
         <div class="info-card">
-          <div class="info-card-title">Elasticidad al precio</div>
-          <div class="info-card-body">La cuota acaba de subir de 15,61 a 18,15 euros (+16%). El modelo subscription tiene <strong>alta inercia</strong>: los socios captados raramente se van (vida media >4 anos). El riesgo mayor esta en la captacion de nuevos socios, no en el abandono de los actuales.</div>
+          <div class="info-card-title">Otros colaboradores clave</div>
+          <div class="info-card-body"><strong>Entidades bancarias:</strong> la oferta de financiacion en condiciones ventajosas que Eladio acaba de recibir es el detonante de la decision estrategica. Es un colaborador financiero disponible y con disposicion a apoyar el crecimiento.<br><br><strong>Fabricantes de piensos:</strong> las marcas reconocidas avaladas por los veterinarios de Canitas se venden con descuento a los socios. Esta relacion genera ingresos adicionales y refuerza la percepcion de valor de la cuota.<br><br><strong>Protectoras de animales:</strong> el 9% de los clientes de Canitas llegan a traves de protectoras. Son un canal de captacion de bajo coste y alta credibilidad.</div>
         </div>
       </div>
 
-      <!-- P3 Distribucion -->
-      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px;margin-top:32px;">
-        <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--gold-pale);">P3</div>
-        <h3 style="font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--navy);">Distribucion</h3>
+      <!-- CONTEXTO -->
+      <div class="block-header">
+        <div class="block-number">C5</div>
+        <div>
+          <span class="block-label">Quinta C</span>
+          <div class="block-title">Contexto: un mercado en aceleracion con viento de cola</div>
+        </div>
       </div>
-      <div class="body-text">Distribucion <strong>selectiva</strong>: clinicas propias de mas de 500 m2 en ubicaciones premium (calles principales y centros comerciales con aparcamiento). Esta decision es coherente con el posicionamiento de gran cadena y facilita la captacion por cercania (30% de los clientes). Coste: 300.000 euros por apertura.</div>
-      <div class="alert-box orange">
-        <div class="alert-icon">&#9888;</div>
-        <div class="alert-body"><strong>La gran disyuntiva:</strong> mantener clinicas propias (control de calidad, mayor inversion) o explorar la franquicia (velocidad de expansion, menor capital, riesgo de perder la cultura Canitas). La ubicacion y el tamano de la clinica son inseparables del modelo de servicio.</div>
-      </div>
+      <div class="divider-gold"></div>
 
-      <!-- P4 Comunicacion -->
-      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px;margin-top:32px;">
-        <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--gold-pale);">P4</div>
-        <h3 style="font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--navy);">Comunicacion</h3>
-      </div>
-      <div class="body-text">Estrategia <strong>push y local</strong>: flyers (10.000 unidades), publicidad exterior en autobuses, television y radio local en prime time. 25.000 euros por apertura + 15.000 euros/ano de recurrencia. Canitas fue la primera veterinaria en anunciarse en una cadena regional.</div>
+      <p class="body-text">El contexto en el que opera Canitas en enero de 2022 es extraordinariamente favorable. Rara vez un emprendedor encuentra tantas variables del entorno alineadas a su favor al mismo tiempo. Pero los contextos favorables son tambien imanes para competidores: cuanto mas atractivo es un mercado, mas rapido llegan nuevos entrantes.</p>
+
       <div class="cards-2">
         <div class="info-card">
-          <div class="info-card-title">Lo que funciona</div>
-          <div class="info-card-body">Alta notoriedad en sus mercados. El mensaje "TODO GRATIS por tan solo 15,61 euros/mes" es impactante. El lema "la seguridad social de tu mascota" es intuitivo. El <strong>boca-oreja</strong> es el canal mas eficiente: 27% de los clientes llegan por recomendacion.</div>
+          <div class="info-card-title">El mercado de mascotas en Espana</div>
+          <div class="info-card-body">
+            <strong>29 millones de mascotas</strong> en Espana en 2021, un 39,7% mas que en 2019.<br><br>
+            El <strong>50,2% de las familias</strong> espanolas tiene un animal de compania.<br><br>
+            Los espanoles valoran a sus mascotas como miembros de la familia con un <strong>9,83/10</strong>.<br><br>
+            El <strong>gasto medio anual por mascota</strong> es de 1.282 euros: 840 en comida, 352 en veterinaria, 90 en accesorios.<br><br>
+            La tendencia al alza se espera que continue: la penetracion en Espana aun esta por debajo de mercados maduros como EE.UU. o Australia.
+          </div>
         </div>
         <div class="info-card">
-          <div class="info-card-title">Lo que hay que mejorar</div>
-          <div class="info-card-body">El mensaje "todo gratis" crea <strong>escepticismo</strong>. El cliente no entiende que incluye y que no. <strong>El digital es una asignatura pendiente</strong>: solo el 17% descubrio Canitas por busqueda en Google.</div>
+          <div class="info-card-title">El sector veterinario en crecimiento</div>
+          <div class="info-card-body">
+            <strong>7 anos de crecimiento sostenido</strong>, con ritmo de doble digito desde 2019: 13,9% (2019), 14,8% (2020), 14,0% (2021).<br><br>
+            Facturacion total del sector: <strong>2.163 millones de euros</strong> en 2021.<br><br>
+            <strong>Concentracion inminente:</strong> fondos de inversion europeos entrando activamente. Solo el 5% del mercado esta en manos de cadenas hoy — el 50% en Reino Unido. El proceso de concentracion ya ha ocurrido en todos los mercados maduros.<br><br>
+            <strong>Valores post-Covid:</strong> mayor sensibilidad hacia la salud y la sostenibilidad, reforzando la actitud "lo mejor para mi mascota".
+          </div>
         </div>
       </div>
-
-      <!-- P5 Personas -->
-      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px;margin-top:32px;">
-        <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--gold-pale);">P5</div>
-        <h3 style="font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--navy);">Personas &mdash; La 5P del servicio</h3>
-      </div>
-      <div class="body-text">En un negocio de servicios como Canitas, el equipo <strong>es</strong> el producto. Los veterinarios generan confianza, retienen socios, prescriben servicios adicionales y captan nuevos socios. La facturacion por veterinario crece al +14% anual. <strong>Mantener la cultura y el perfil del equipo en la expansion es el mayor reto.</strong></div>
-
-    </div>
-
-    <!-- ============ TAB: DECISION ============ -->
-    <div class="tab-panel" id="tab-decision">
-
-      <div class="fw-map">
-        <div class="fw-map-title">Donde estamos en el framework</div>
-        <div class="fw-map-row"><div class="fw-map-block dim" style="flex:5;">Analisis 5C</div></div>
-        <div class="fw-map-row"><div class="fw-map-block dim" style="flex:5;">STP &bull; Marketing Mix</div></div>
-        <div class="fw-map-row">
-          <div class="fw-map-block accent-block" style="flex:3;">Adquisicion &bull; Vinculacion &bull; Retencion</div>
-          <div class="fw-map-block highlight-block">Beneficios Sostenibles</div>
-        </div>
-      </div>
-
-      <h2 class="section-title">La decision directiva de Eladio</h2>
-      <div class="section-divider"></div>
-
-      <p class="lead-text">Eladio tiene que responder a una pregunta que combina tres dimensiones: <strong>como crecer</strong> (franquicia vs. propias), <strong>cuanto crecer</strong> (ritmo) y <strong>donde crecer</strong> (mercados prioritarios). Detras de cada opcion hay un trade-off entre velocidad, control de calidad y riesgo financiero.</p>
-
-      <div class="cards-2">
-        <div class="info-card" style="border-top:3px solid var(--blue-accent);">
-          <div class="info-card-title" style="color:var(--blue-accent);">Opcion A: Clinicas propias</div>
-          <div class="info-card-body">Financiacion bancaria + cash flow para abrir nuevas clinicas bajo control directo.<br><br><strong>A favor:</strong> control de calidad total, coherencia de marca, modelo probado, rentabilidad alta (~24% EBITDA).<br><br><strong>En contra:</strong> velocidad limitada (300.000 euros/apertura), riesgo de que los competidores copien antes de alcanzar escala.</div>
-        </div>
-        <div class="info-card" style="border-top:3px solid var(--orange-accent);">
-          <div class="info-card-title" style="color:var(--orange-accent);">Opcion B: Franquicia</div>
-          <div class="info-card-body">Ceder el modelo a franquiciados que inviertan su propio capital.<br><br><strong>A favor:</strong> velocidad de expansion muy superior, menor capital propio, presencia rapida en nuevos mercados.<br><br><strong>En contra:</strong> riesgo de perder cultura y calidad; la mayoria de "franquicias" en el sector son centrales de compra sin control real.</div>
-        </div>
-        <div class="info-card" style="border-top:3px solid var(--green-dot);">
-          <div class="info-card-title" style="color:var(--green-dot);">Opcion C: Consolidar</div>
-          <div class="info-card-body">Enfocarse en aumentar socios y rentabilidad en las seis clinicas actuales.<br><br><strong>A favor:</strong> cero riesgo de expansion, mejora del modelo en mercados conocidos, potencial de subida de precio.<br><br><strong>En contra:</strong> deja la ventana abierta para que cadenas con plan de salud ocupen el espacio en grandes ciudades.</div>
-        </div>
-        <div class="info-card" style="border-top:3px solid #7b5ea7;">
-          <div class="info-card-title" style="color:#7b5ea7;">Opcion D: Modelo hibrido</div>
-          <div class="info-card-body">Propias en mercados prioritarios (grandes ciudades) + franquicia muy controlada en secundarios.<br><br><strong>A favor:</strong> equilibra velocidad y control, reserva el capital para mercados de mayor potencial.<br><br><strong>En contra:</strong> mayor complejidad de gestion, riesgo de incoherencia de marca entre centros propios y franquiciados.</div>
-        </div>
-      </div>
-
-      <h2 class="section-title" style="margin-top:36px;">Preguntas para el debate en clase</h2>
-      <div class="section-divider"></div>
-
-      <ul class="debate-list">
-        <li>
-          <div class="debate-num">1</div>
-          <div><div class="debate-text">Es la propuesta de valor de Canitas realmente sostenible a escala? El modelo de cuota soporta el crecimiento del numero de socios sin deteriorar la calidad del servicio?</div><div class="debate-sub">Conecta con: Producto, Precio, Personas (5P). Analisis de elasticidad del modelo de subscription.</div></div>
-        </li>
-        <li>
-          <div class="debate-num">2</div>
-          <div><div class="debate-text">Que mercados deberia priorizar Canitas para su expansion? Que criterios deberia usar para seleccionarlos?</div><div class="debate-sub">Conecta con: Segmentacion geografica, Variables exogenas del entorno, Competidores por ciudad.</div></div>
-        </li>
-        <li>
-          <div class="debate-num">3</div>
-          <div><div class="debate-text">Como puede Canitas resolver el problema de comunicacion? La notoriedad es alta pero la conversion es baja porque el cliente no se cree la propuesta.</div><div class="debate-sub">Conecta con: Comunicacion (P4), Posicionamiento, Notoriedad vs. Comprension.</div></div>
-        </li>
-        <li>
-          <div class="debate-num">4</div>
-          <div><div class="debate-text">La subida de cuota de 15,61 a 18,15 euros (+16%) es una decision correcta? Como afecta a la retencion de socios actuales y a la captacion de nuevos?</div><div class="debate-sub">Conecta con: Estrategia de precio, Elasticidad, Ciclo de vida del socio.</div></div>
-        </li>
-        <li>
-          <div class="debate-num">5</div>
-          <div><div class="debate-text">Cual es el mayor riesgo de Canitas: que le copien el modelo o que crezca demasiado rapido y pierda la calidad que es el nucleo de su diferenciacion?</div><div class="debate-sub">Conecta con: Amenazas competitivas, Personas (5P), Cultura organizativa como ventaja competitiva.</div></div>
-        </li>
-      </ul>
 
       <div class="highlight-navy">
-        <div class="highlight-navy-title">La perspectiva del framework</div>
-        <div class="highlight-navy-body">Canitas es un caso excepcional de <strong>coherencia entre todas las variables del Marketing Mix</strong>: producto (cobertura total), precio (cuota accesible), distribucion (clinicas propias de gran formato) y comunicacion (democratizacion de la atencion veterinaria) refuerzan un unico posicionamiento.<br><br>El reto de Eladio no es de marketing: es de <strong>escala sin perder coherencia</strong>. La 5P (personas) es el elemento mas fragil en la expansion. <strong>Los beneficios sostenibles de Canitas dependen de que el socio renueve ano tras ano</strong>, y eso solo ocurre si cada visita confirma que la propuesta de valor es real.</div>
+        <div class="highlight-navy-title">Sintesis del analisis 5C: que nos dice sobre la decision a tomar</div>
+        <div class="highlight-navy-body">El analisis de las 5C apunta en una direccion muy clara: <strong>las condiciones para crecer son excepcionales y probablemente no se repetiran</strong>. El contexto es favorable, los clientes estan receptivos, los competidores con un modelo equivalente son todavia debiles en Andalucia, y Canitas tiene fortalezas que son genuinamente dificiles de replicar. Pero el tiempo juega en contra: la ventana se esta cerrando. La debilidad critica — la dificultad para comunicar la propuesta — es el freno mas importante a la captacion de nuevos socios, y debe resolverse antes o en paralelo a cualquier estrategia de expansion.</div>
       </div>
 
-    </div>
+    </div><!-- /tab-analisis -->
+
+
+    <!-- ====================================================
+         TAB 3: ASPIRACIÓN — STP
+         ==================================================== -->
+    <div class="tab-panel" id="tab-aspiracion">
+
+      <div class="fw-tracker">
+        <span class="fw-tracker-label">Framework:</span>
+        <span class="fw-t-block off">El caso</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">5C</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block gold">Aspiracion · STP</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Mix 4P</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Resultados</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Sintesis</span>
+      </div>
+
+      <p class="lead-text">El STP define la aspiracion estrategica de Canitas: a quien quiere servir, que necesidad concreta satisface y como quiere ser percibida en la mente de ese cliente. Es el nucleo de toda la estrategia de marketing y el criterio que valida o invalida cada decision operativa del Marketing Mix.</p>
+
+      <!-- SEGMENTACION -->
+      <div class="block-header">
+        <div class="block-number">S</div>
+        <div>
+          <span class="block-label">Segmentacion</span>
+          <div class="block-title">Como divide Canitas el mercado de propietarios de mascotas</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">El mercado de propietarios de mascotas no es homogeneo. Hay propietarios que gastan lo minimo imprescindible y solo visitan el veterinario en caso de urgencia; hay otros que tratan a su mascota como a un hijo y no escatiman en su cuidado. Canitas ha hecho una apuesta estrategica deliberada: dirigirse a los segundos, pero con un precio que hace la propuesta accesible a ambos.</p>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Variable de segmentacion</th><th>Como la usa Canitas</th><th>Por que importa</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Geografica</strong></td>
+            <td>Areas urbanas con alta densidad de poblacion y mascotas. Calles principales y centros comerciales con aparcamiento</td>
+            <td>La cercania al domicilio es el primer criterio de eleccion de clinica veterinaria (30% de los clientes). La ubicacion es parte del modelo de servicio</td>
+          </tr>
+          <tr>
+            <td><strong>Sociodemografica</strong></td>
+            <td>Amplia (todas las clases sociales, por diseno del precio). Perfil mayoritario: mujeres 30-45 anos con hijos</td>
+            <td>El precio de 18 euros/mes hace posible la accesibilidad universal. La comunicacion debe hablar en femenino y apelar a la dimension familiar</td>
+          </tr>
+          <tr>
+            <td><strong>Psicografica</strong></td>
+            <td>Propietarios que humanizan a su mascota: "miembro de la familia", 9,83/10 en Espana</td>
+            <td>Este perfil de propietario no negocia con la salud de su mascota. El modelo de cuota le da paz mental y elimina la angustia economica de las visitas inesperadas</td>
+          </tr>
+          <tr>
+            <td><strong>Por comportamiento</strong></td>
+            <td>Propietarios que usan el veterinario de forma regular, no solo en urgencias. Gasto anual >187 euros en veterinaria</td>
+            <td>El ahorro economico de la cuota frente al pago por acto solo es real si el propietario usa los servicios con cierta frecuencia. El cliente que nunca va al veterinario no es el target optimo</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- TARGETING -->
+      <div class="block-header">
+        <div class="block-number">T</div>
+        <div>
+          <span class="block-label">Targeting</span>
+          <div class="block-title">A quien elige servir Canitas</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">La estrategia de targeting de Canitas es <strong>amplia en clase social pero selectiva en actitud</strong>. No se dirige al propietario que busca el veterinario mas barato del barrio, sino al que quiere lo mejor para su mascota y esta dispuesto a pagar una cuota razonable por tener esa tranquilidad garantizada.</p>
+
+      <div class="alert-box blue">
+        <div class="alert-icon">&#9432;</div>
+        <div class="alert-body"><strong>El dato que define el target:</strong> el gasto medio anual en servicios veterinarios en Espana es de <strong>352 euros por mascota</strong>. La cuota anual de Canitas (incluyendo la inscripcion) es de aproximadamente 218 euros. Cualquier propietario que gaste mas de 218 euros anuales en veterinaria — y son la mayoria — es un candidato racional para convertirse en socio Canitas. El target no es un nicho estrecho: es la mayoria del mercado.</div>
+      </div>
+
+      <p class="body-text">Esta decision de targeting tiene una consecuencia estrategica de primer orden: <strong>Canitas no tiene que convencer al cliente de que gaste mas, sino de que gaste mejor</strong>. El mensaje no es "invierte en la salud de tu mascota" (que implica un gasto adicional) sino "lo que ya estas gastando, gastalo de forma mas inteligente y con mayor tranquilidad". Este es un argumento de marketing extraordinariamente poderoso cuando se consigue comunicar bien.</p>
+
+      <!-- POSICIONAMIENTO -->
+      <div class="block-header">
+        <div class="block-number">P</div>
+        <div>
+          <span class="block-label">Posicionamiento</span>
+          <div class="block-title">Como quiere ser percibida Canitas en la mente del cliente</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <div class="insight-box">
+        <span class="insight-box-label">La ecuacion de posicionamiento de Canitas</span>
+        <div class="insight-box-body">
+          <strong>Para</strong> el propietario de mascotas que quiere garantizar el mejor cuidado para su animal sin que el coste sea una barrera,<br><br>
+          <strong>Canitas es</strong> la unica clinica veterinaria que ofrece asistencia completa e ilimitada mediante una cuota mensual asequible,<br><br>
+          <strong>porque</strong> concibe la salud animal como un derecho, no como un privilegio economico.<br><br>
+          <strong>"La seguridad social de tu mascota"</strong> — una frase que en seis palabras comunica los dos atributos diferenciadores: <em>accesibilidad economica</em> (seguridad social, lo que esta al alcance de todos) y <em>cobertura completa</em> (como la seguridad social humana, que cubre todo sin copagos ni sorpresas).
+        </div>
+      </div>
+
+      <p class="body-text">El posicionamiento de Canitas es extraordinariamente solido en teoria. El problema es la brecha entre el posicionamiento pretendido (lo que Canitas quiere comunicar) y el posicionamiento percibido (lo que muchos clientes potenciales entienden realmente).</p>
+
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">El posicionamiento que Canitas ha conseguido</div>
+          <div class="info-card-body">
+            <strong>Sevilla:</strong> 83% de conocimiento de la marca, 54% ha visitado alguna vez.<br>
+            <strong>Malaga:</strong> 73% de conocimiento, 42% ha visitado.<br><br>
+            Estos datos de notoriedad son excepcionales para una empresa con solo seis clinicas. Canitas ha construido en diez anos una marca reconocida en sus mercados con una inversion de comunicacion relativamente modesta. El boca-oreja ha sido el gran amplificador.
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">La brecha de posicionamiento: el problema central</div>
+          <div class="info-card-body">
+            El 31% de los que no contratan dice que Canitas "es caro". Esto es una paradoja: Canitas es objetivamente mas barato que pagar por acto para cualquier propietario que use el veterinario con regularidad. La explicacion es que <strong>el cliente no ha hecho el calculo comparativo</strong> — no entiende bien que incluye la cuota y no la ha comparado con lo que paga actualmente. Es un problema de comunicacion, no de precio ni de producto.
+          </div>
+        </div>
+      </div>
+
+      <div class="alert-box orange">
+        <div class="alert-icon">&#9888;</div>
+        <div class="alert-body"><strong>El riesgo estrategico clave del posicionamiento:</strong> el concepto "todo gratis" genera escepticismo en una parte del mercado. Cuando algo parece demasiado bueno para ser verdad, el mecanismo de defensa del consumidor es la desconfianza. Canitas tiene que resolver este problema de credibilidad antes de que cualquier esfuerzo de expansion en nuevos mercados sea eficiente — porque en un mercado donde nadie te conoce, el escepticismo es aun mayor.</div>
+      </div>
+
+    </div><!-- /tab-aspiracion -->
+
+
+    <!-- ====================================================
+         TAB 4: PLAN DE ACCION — MARKETING MIX
+         ==================================================== -->
+    <div class="tab-panel" id="tab-accion">
+
+      <div class="fw-tracker">
+        <span class="fw-tracker-label">Framework:</span>
+        <span class="fw-t-block off">El caso</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">5C</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">STP</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block gold">Plan de Accion · Mix 4P</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Resultados</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Sintesis</span>
+      </div>
+
+      <p class="lead-text">El Marketing Mix de Canitas es un ejemplo de coherencia entre las cuatro variables. Cada P refuerza a las demas y todas estan al servicio del posicionamiento definido en el STP. Analizar cada P por separado permite ver como una innovacion en el precio — el modelo de cuota — obliga a redisenar el producto, el canal y el mensaje.</p>
+
+      <!-- P1 PRODUCTO -->
+      <div class="block-header">
+        <div class="block-number">P1</div>
+        <div>
+          <span class="block-label">Primera P — Disenando la oferta</span>
+          <div class="block-title">Producto: el servicio integral como propuesta de valor</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">El "producto" de Canitas no es una clinica veterinaria — es un <strong>sistema de gestion de la salud animal</strong> que combina asistencia medica integral, peluqueria e higiene, y una tienda de productos. Esta arquitectura de producto de tres capas es deliberada: el contrato de asistencia (la cuota) genera la relacion, los servicios complementarios amplian el valor percibido y los productos de la tienda generan ingresos adicionales mientras refuerzan la vinculacion.</p>
+
+      <div class="alert-box green">
+        <div class="alert-icon">&#10003;</div>
+        <div class="alert-body"><strong>El ciclo de vida del modelo de cuota en veterinaria:</strong> el modelo de subscription aplicado al sector veterinario esta en Espana en plena fase de introduccion-crecimiento. Canitas es el pionero real — no el "todo incluido" limitado de las cadenas, sino el modelo autentico sin carencias. Los competidores con "planes de salud" parciales son los primeros imitadores, pero no ofrecen lo mismo. La ventaja del pionero es real pero temporal: si Canitas no gana escala rapidamente, perdera la oportunidad de definir las reglas del juego antes de que otros lo hagan.</div>
+      </div>
+
+      <p class="body-text">La gama de Canitas esta bien disenada: un producto nucleo (el contrato de asistencia universal) que es la razon de ser de la relacion, y una serie de servicios y productos complementarios que amplian el valor y los ingresos sin diluir el posicionamiento. El riesgo clasico de extension de gama — alejarse de aquello en lo que la empresa es genuinamente experta — no aplica aqui porque todos los complementos son coherentes con la propuesta de salud integral de la mascota.</p>
+
+      <!-- P2 PRECIO -->
+      <div class="block-header">
+        <div class="block-number">P2</div>
+        <div>
+          <span class="block-label">Segunda P — Disenando la oferta</span>
+          <div class="block-title">Precio: la innovacion que define todo el modelo</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">La decision de precio de Canitas es la mas revolucionaria del modelo — y la que mas implicaciones tiene para todas las demas variables. El modelo de cuota mensual rompe con el principio de "pago por acto" que ha regido el sector veterinario durante siglos. Es, en el fondo, una reinvencion del seguro medico aplicado a las mascotas, pero con una diferencia crucial: no hay carencias, no hay copagos, no hay letra pequena.</p>
+
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">La logica economica del modelo de cuota</div>
+          <div class="info-card-body">
+            Cuota mensual: <strong>18,15 euros</strong> (216 euros/ano) + inscripcion de 30 euros = ~246 euros en el primer ano.<br><br>
+            Gasto medio anual del propietario en servicios veterinarios: <strong>352 euros</strong>.<br><br>
+            <strong>Ahorro percibido en el primer ano: ~106 euros (30%)</strong>. Sin contar la cobertura de cirugias mayores, urgencias y hospitalizacion, que en una clinica tradicional pueden superar facilmente los 300-700 euros en un solo episodio.<br><br>
+            El argumento economico es solido. El problema es que el cliente no lo ha calculado — y la comunicacion de Canitas no le esta ayudando a hacerlo.
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">La subida de cuota de enero 2022</div>
+          <div class="info-card-body">
+            Eladio acaba de subir la cuota de <strong>15,61 a 18,15 euros/mes (+16%)</strong>. Esta es una decision con dos lecturas:<br><br>
+            <strong>Lectura positiva:</strong> el modelo de subscription tiene alta inercia — los socios ya captados tienen una vida media superior a cuatro anos y rara vez se van por subidas moderadas de precio. El precio seguia siendo mas bajo que las cadenas competidoras (19-25 euros/mes) con coberturas menores.<br><br>
+            <strong>Lectura de riesgo:</strong> el 31% de los no-socios ya percibia Canitas como "cara". La subida refuerza esa percepcion en el segmento mas sensible al precio, precisamente cuando Canitas quiere captar nuevos mercados.
+          </div>
+        </div>
+      </div>
+
+      <!-- P3 DISTRIBUCION -->
+      <div class="block-header">
+        <div class="block-number">P3</div>
+        <div>
+          <span class="block-label">Tercera P — Go to Market</span>
+          <div class="block-title">Distribucion: la clinica como canal y como experiencia</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">En un negocio de servicios como Canitas, el canal de distribucion <em>es</em> el lugar donde se presta el servicio. La clinica no es solo un punto de venta: es el escenario donde el cliente experimenta la propuesta de valor, forma su opinion sobre si la promesa se cumple y decide si recomienda Canitas a sus conocidos.</p>
+
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">Las decisiones de distribucion de Canitas</div>
+          <div class="info-card-body">
+            <strong>Estrategia selectiva:</strong> clinicas propias en ubicaciones premium — calles principales y centros comerciales con aparcamiento y buena comunicacion.<br><br>
+            <strong>Formato grande:</strong> mas de 500 m2 con zonas diferenciadas (consultas, laboratorio, diagnostico por imagen, cirugia, hospitalizacion, peluqueria, tienda). Este formato es parte del posicionamiento: transmite "gran clinica" frente a la consulta de 100 m2 del veterinario tradicional.<br><br>
+            <strong>Horario diferenciado:</strong> martes a sabado frente al lunes-viernes de la mayoria. Un detalle pequeno que en la practica es un factor diferenciador relevante para familias trabajadoras.
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">La disyuntiva estrategica de expansion</div>
+          <div class="info-card-body">
+            <strong>Clinicas propias:</strong> control total de la experiencia, coherencia de marca, pero inversion de 300.000+ euros por clinica y tiempo de madurez de 2-3 anos para que una clinica nueva alcance su potencial de socios.<br><br>
+            <strong>Franquicia:</strong> expansion mas rapida, menor capital propio, pero riesgo de perder la cultura Canitas. Las "franquicias" del sector veterinario espanol son en su mayoria centrales de compra sin control real sobre la experiencia del cliente.<br><br>
+            <strong>La tension fundamental:</strong> la calidad de la clinica — fisica y humana — es el corazon del modelo. Cualquier formula de expansion que comprometa esa calidad destruye el activo mas valioso.
+          </div>
+        </div>
+      </div>
+
+      <!-- P4 COMUNICACION -->
+      <div class="block-header">
+        <div class="block-number">P4</div>
+        <div>
+          <span class="block-label">Cuarta P — Go to Market</span>
+          <div class="block-title">Comunicacion: alta notoriedad, baja comprension</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">La comunicacion de Canitas es el bloque del Marketing Mix con mayor potencial de mejora. Ha construido una notoriedad excepcional con recursos relativamente modestos — pero no ha conseguido traducir ese conocimiento en comprension de la propuesta ni en captacion eficiente de nuevos socios.</p>
+
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">El modelo de comunicacion actual</div>
+          <div class="info-card-body">
+            <strong>En cada apertura:</strong> 25.000 euros de inversion — flyers (10.000 unidades por ciudad), publicidad exterior en autobuses (2 meses), publicidad en prime time en television y radio regional.<br><br>
+            <strong>Anualmente:</strong> 15.000 euros de comunicacion recurrente.<br><br>
+            <strong>Digital:</strong> pagina web con informacion y cita previa. Presencia en redes sociales limitada.<br><br>
+            Canitas fue la <strong>primera clinica veterinaria de Espana en anunciarse en una cadena de television regional</strong>. Una decision pionera que ha contribuido a construir la imagen de "gran cadena".
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">El problema de comunicacion: la paradoja del "todo gratis"</div>
+          <div class="info-card-body">
+            El mensaje "TODO GRATIS por tan solo 15,61 euros al mes" es poderoso e impactante — pero genera el efecto contrario en una parte del mercado: <strong>desconfianza</strong>. Cuando algo parece demasiado bueno para ser verdad, el mecanismo de defensa del consumidor es el escepticismo.<br><br>
+            La investigacion de mercado confirma que la percepcion de precio (caro) no esta acompanada de comprension de la cobertura real. El cliente no ha hecho el calculo. Y Canitas no le esta ayudando a hacerlo de forma clara y persuasiva.
+          </div>
+        </div>
+      </div>
+
+      <!-- P5 PERSONAS -->
+      <div class="block-header">
+        <div class="block-number">P5</div>
+        <div>
+          <span class="block-label">Quinta P — Sector servicios</span>
+          <div class="block-title">Personas: el activo mas valioso y mas fragil</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">En cualquier empresa de servicios, las personas que estan en contacto con el cliente son, literalmente, el producto. En Canitas esto es especialmente cierto: el veterinario no solo trata a la mascota — genera confianza con el propietario, prescribe servicios adicionales, capta nuevos socios por recomendacion interna y es el principal responsable de que el cliente renueve su contrato ano tras ano.</p>
+
+      <div class="insight-box">
+        <span class="insight-box-label">Por que las personas son la ventaja competitiva mas dificil de replicar</span>
+        <div class="insight-box-body">La facturacion media por veterinario crece al <strong>+14% anual</strong> durante cuatro anos consecutivos. Incluso durante el confinamiento Covid-19, cuando la economia se contraia, la facturacion media por veterinario de Canitas aumento. Esto no es una coincidencia: es el resultado de haber construido un equipo con un perfil hibrido — clinico de alta cualificacion Y prescriptor comercial — que no se puede reclutar en el mercado porque no existe. Se forma dentro de la cultura Canitas. <strong>Cualquier formula de crecimiento que no garantice la transmision de esa cultura a los nuevos centros no es una expansion de Canitas — es una clonacion superficial del logo.</strong></div>
+      </div>
+
+    </div><!-- /tab-accion -->
+
+
+    <!-- ====================================================
+         TAB 5: RESULTADOS
+         ==================================================== -->
+    <div class="tab-panel" id="tab-resultados">
+
+      <div class="fw-tracker">
+        <span class="fw-tracker-label">Framework:</span>
+        <span class="fw-t-block off">El caso</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">5C</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">STP</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Mix 4P</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block gold">Resultados</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Sintesis</span>
+      </div>
+
+      <p class="lead-text">Los resultados del modelo de marketing son la consecuencia de haber gestionado bien los tres momentos del ciclo de vida del cliente: captarlo, vincularlo y retenerlo. En Canitas, estos tres momentos tienen caracteristicas muy especificas que determinan la salud del negocio y su potencial de crecimiento.</p>
+
+      <!-- ADQUISICION -->
+      <div class="block-header">
+        <div class="block-number">R1</div>
+        <div>
+          <span class="block-label">Mantener — Adquisicion</span>
+          <div class="block-title">Como capta Canitas nuevos socios</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">La adquisicion de socios en Canitas tiene un coste relativamente bajo gracias a la combinacion de publicidad local, cercania geografica y boca-oreja. Pero la eficiencia del proceso de captacion tiene un cuello de botella claro: la dificultad para comunicar la propuesta de valor de forma creible y comprensible.</p>
+
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">El embudo de adquisicion de Canitas</div>
+          <div class="info-card-body">
+            <strong>Conocimiento:</strong> 73-83% del mercado en sus ciudades conoce Canitas. Excelente.<br><br>
+            <strong>Visita:</strong> 42-54% ha visitado alguna vez una clinica. Hay una brecha de 29-31 puntos entre conocimiento y visita que indica que muchos clientes conocen Canitas pero no han dado el paso de entrar.<br><br>
+            <strong>Conversion a socio:</strong> de los que visitan, la mayoria acaba contratando — la experiencia de la visita es muy persuasiva. El propio Eladio lo reconoce: "una vez que entra, se da cuenta de que es mas".<br><br>
+            <em>Lectura directiva:</em> el objetivo de comunicacion no debe ser aumentar la notoriedad (ya es muy alta) sino <strong>reducir la barrera entre conocer y visitar</strong>.
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">El mecanismo de adquisicion mas eficiente: el boca-oreja</div>
+          <div class="info-card-body">
+            El 27% de los clientes de Canitas llegan por recomendacion de un amigo, familiar o companero. Es el segundo canal mas importante, muy cercano a la cercania geografica (30%).<br><br>
+            Canitas tiene un programa de incentivos bien disenado: <strong>una cuota mensual gratis por cada nuevo socio referido</strong>, sin limite de recomendaciones. Este mecanismo alinea el interes del socio con el crecimiento de la empresa de forma elegante y economica.<br><br>
+            El crecimiento del numero de socios ha sido de <strong>+54 socios/mes en la clinica mas antigua</strong> (Luis Montoto, Sevilla), y de +63 en Huelva — lo que indica que el modelo "madura" con el tiempo.
+          </div>
+        </div>
+      </div>
+
+      <!-- VINCULACION -->
+      <div class="block-header">
+        <div class="block-number">R2</div>
+        <div>
+          <span class="block-label">Mantener — Vinculacion</span>
+          <div class="block-title">Como construye Canitas la relacion con sus socios</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">La vinculacion en Canitas se construye sobre tres pilares que se refuerzan mutuamente: la calidad clinica (que genera confianza en el veterinario como asesor), la amplitud de la propuesta (que hace que el socio encuentre en Canitas todo lo que necesita para su mascota) y el modelo economico (que elimina la tension entre lo que es mejor para la mascota y lo que el propietario puede pagar).</p>
+
+      <div class="insight-box">
+        <span class="insight-box-label">El mecanismo de vinculacion mas poderoso: la confianza sin conflicto de intereses</span>
+        <div class="insight-box-body">Eladio lo explica con precision: en una clinica tradicional, el veterinario que recomienda una prueba adicional puede ser percibido como alguien que "quiere vender". En Canitas, dado que todo esta incluido en la cuota, <strong>el socio sabe que el veterinario le recomienda lo mejor para su mascota, sin ningun incentivo economico para inflar el tratamiento</strong>. Esta eliminacion del conflicto de intereses es una fuente de confianza y vinculacion extraordinariamente solida que pocas empresas de servicios de salud consiguen construir.</div>
+      </div>
+
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">Palancas de vinculacion de Canitas</div>
+          <div class="info-card-body">
+            <strong>El veterinario como asesor de confianza:</strong> el 60% de los propietarios citan al veterinario como su principal fuente de informacion sobre el cuidado de su mascota. Canitas ha convertido este dato en una ventaja comercial: el veterinario prescribe productos de la tienda y servicios adicionales desde una posicion de autoridad y confianza.<br><br>
+            <strong>La experiencia de la clinica:</strong> locales amplios, modernos, con imagen de "gran cadena". Cuando el cliente entra y ve la calidad de las instalaciones, la promesa de la marca se hace creible de inmediato.<br><br>
+            <strong>El club de socios:</strong> descuentos en tienda, bonificaciones por referidos, acceso a urgencias.
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">Los indicadores de vinculacion</div>
+          <div class="info-card-body">
+            <strong>Ticket promedio de socios:</strong> crecimiento del +8% anual entre 2018 y 2021. Los socios gastan cada vez mas en Canitas, no solo en cuota sino en productos y servicios adicionales.<br><br>
+            <strong>Facturacion por veterinario:</strong> +14% anual. El equipo vincula a los socios existentes y capta nuevos de forma sistematica.<br><br>
+            <strong>Comportamiento durante Covid:</strong> en lugar de caer, la facturacion por veterinario <em>aumento</em> durante el confinamiento. Esto indica un nivel de vinculacion muy solido: los socios no cancelaron cuando la economia se contrajo.
+          </div>
+        </div>
+      </div>
+
+      <!-- RETENCION -->
+      <div class="block-header">
+        <div class="block-number">R3</div>
+        <div>
+          <span class="block-label">Mantener — Retencion</span>
+          <div class="block-title">Por que los socios de Canitas se quedan</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">La retencion es el indicador mas honesto de la salud de un modelo de negocio de suscripcion. En Canitas, el dato clave es que la <strong>vida media de un socio supera los cuatro anos</strong>. En un modelo en el que la cuota anual ronda los 218 euros, un socio con vida media de cuatro anos genera aproximadamente 870 euros en cuotas, mas los ingresos adicionales en productos y servicios. Frente a un coste de adquisicion relativamente bajo, el LTV de un socio Canitas es extraordinariamente atractivo.</p>
+
+      <div class="alert-box green">
+        <div class="alert-icon">&#10003;</div>
+        <div class="alert-body"><strong>Por que los socios se quedan:</strong> el modelo de cuota tiene alta inercia por diseno. La permanencia obligatoria de un ano reduce el abandono impulsivo. Pero la razon mas profunda es que <strong>el socio que usa Canitas regularmente no quiere volver a la incertidumbre economica del pago por acto</strong>. Una vez que has experimentado tener la salud de tu mascota cubierta sin sobresaltos economicos, el modelo tradicional parece irresponsable. Esta es la definicion de un cliente con alta barrera de salida basada en valor — la mas solida que existe.</div>
+      </div>
+
+      <!-- BENEFICIOS -->
+      <div class="block-header">
+        <div class="block-number">R4</div>
+        <div>
+          <span class="block-label">Resultados finales</span>
+          <div class="block-title">Beneficios sostenibles: el resultado del modelo bien ejecutado</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Indicador</th><th>2018</th><th>2019</th><th>2020</th><th>2021</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Ingresos totales</strong></td><td>4,4M&euro;</td><td>5,4M&euro;</td><td>5,9M&euro;</td><td>6,9M&euro;</td></tr>
+          <tr><td><strong>Beneficio</strong></td><td>0,77M&euro;</td><td>0,86M&euro;</td><td>1,31M&euro;</td><td class="hl">1,67M&euro;</td></tr>
+          <tr><td><strong>Margen beneficio</strong></td><td>17,5%</td><td>15,9%</td><td>22,2%</td><td class="hl">24,2%</td></tr>
+          <tr><td><strong>Plantilla</strong></td><td>66</td><td>74</td><td>80</td><td>89</td></tr>
+          <tr><td><strong>Crecimiento socios</strong></td><td>&mdash;</td><td>+17,4%</td><td>+16,0%</td><td>+15,8%</td></tr>
+        </tbody>
+      </table>
+
+      <p class="body-text">Los datos son extraordinarios para el sector: un margen de beneficio del 24% frente al EBITDA medio del sector del 10%, crecimiento de ingresos sostenido incluso durante la pandemia, y un crecimiento de socios estable y predecible. Canitas esta generando beneficios sostenibles porque ha construido valor real para sus clientes — y estos lo reconocen quedandose y recomendando.</p>
+
+    </div><!-- /tab-resultados -->
+
+
+    <!-- ====================================================
+         TAB 6: SINTESIS DIRECTIVA
+         ==================================================== -->
+    <div class="tab-panel" id="tab-sintesis">
+
+      <div class="fw-tracker">
+        <span class="fw-tracker-label">Framework:</span>
+        <span class="fw-t-block on">El caso</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block on">5C</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block on">STP</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block on">Mix 4P</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block on">Resultados</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block gold">Sintesis</span>
+      </div>
+
+      <p class="lead-text">La sintesis directiva integra todo el analisis del framework para dar respuesta a la pregunta real que tiene Eladio sobre la mesa: ¿como aprovechamos las oportunidades del entorno sin destruir lo que hemos construido? No hay una respuesta unica — hay un conjunto de decisiones interdependientes que deben tomarse con coherencia.</p>
+
+      <!-- LO QUE EL FRAMEWORK NOS DICE -->
+      <div class="block-header">
+        <div class="block-number">1</div>
+        <div>
+          <span class="block-label">Lectura integrada</span>
+          <div class="block-title">Lo que el framework completo revela sobre Canitas</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <div style="margin-bottom:24px;">
+        <div class="synthesis-row">
+          <div class="synthesis-fw-tag">5C</div>
+          <div class="synthesis-text">El contexto es excepcionalmente favorable y tiene fecha de caducidad. La ventana de oportunidad existe porque el sector aun esta atomizado, pero los fondos de inversion europeos ya estan entrando. <strong>Quien no escale en los proximos dos-tres anos estara compitiendo contra actores con capital y estructura muy superiores.</strong></div>
+        </div>
+        <div class="synthesis-row">
+          <div class="synthesis-fw-tag">STP</div>
+          <div class="synthesis-text">El posicionamiento de Canitas es solido y diferencial, pero tiene un problema de comunicacion critico: alta notoriedad, baja comprension. <strong>Antes de invertir en expansion geografica, hay que resolver la brecha entre "conocer Canitas" y "entender lo que ofrece Canitas"</strong>. Si no, la inversion en publicidad de nuevas ciudades tendra un retorno mucho menor del posible.</div>
+        </div>
+        <div class="synthesis-row">
+          <div class="synthesis-fw-tag">Mix 4P</div>
+          <div class="synthesis-text">Las cuatro variables del Marketing Mix son coherentes entre si y con el posicionamiento. La subida de precio es razonable pero hay que monitorizar su impacto en captacion. <strong>El elemento mas fragil en la expansion es la P5 — las personas.</strong> La calidad del equipo es el corazon del modelo y la variable mas dificil de escalar sin degradar.</div>
+        </div>
+        <div class="synthesis-row">
+          <div class="synthesis-fw-tag">Resultados</div>
+          <div class="synthesis-text">El ciclo de vida del cliente (captacion, vinculacion, retencion) funciona muy bien en los mercados donde Canitas lleva mas anos. <strong>La vida media superior a cuatro anos y el crecimiento del ticket por socio son los indicadores de salud mas importantes del modelo.</strong> Cualquier decision de expansion debe preservar estos indicadores.</div>
+        </div>
+      </div>
+
+      <!-- OPCIONES DE DECISION -->
+      <div class="block-header">
+        <div class="block-number">2</div>
+        <div>
+          <span class="block-label">Opciones estrategicas</span>
+          <div class="block-title">Las cuatro alternativas de Eladio y sus implicaciones</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <div class="options-grid">
+        <div class="option-card blue">
+          <div class="option-card-title">A. Expansion con clinicas propias</div>
+          <div class="option-pros-cons">
+            Utilizar la financiacion bancaria para abrir nuevas clinicas propias en las principales ciudades espanolas, priorizando mercados sin presencia de cadenas con plan de salud.<br><br>
+            <strong>A favor:</strong> control total de la experiencia y la cultura. Coherencia perfecta con el posicionamiento. Modelo ya probado con EBITDA del 24%.<br><br>
+            <strong>En contra:</strong> velocidad limitada — 300.000 euros por clinica y dos-tres anos para alcanzar el potencial de socios. Riesgo de que competidores ocupen los mejores mercados antes.
+          </div>
+        </div>
+        <div class="option-card orange">
+          <div class="option-card-title">B. Expansion via franquicia</div>
+          <div class="option-pros-cons">
+            Ceder el modelo a franquiciados que inviertan su propio capital a cambio de acceso a la marca y al sistema Canitas.<br><br>
+            <strong>A favor:</strong> velocidad de expansion muy superior. Menor necesidad de capital propio. Presencia rapida en multiples mercados simultaneamente.<br><br>
+            <strong>En contra:</strong> riesgo real de perder la cultura y los estandares de calidad — el activo mas valioso del modelo. La franquicia en el sector veterinario espanol es en muchos casos una central de compras, no un sistema de gestion de calidad.
+          </div>
+        </div>
+        <div class="option-card green">
+          <div class="option-card-title">C. Consolidar los mercados actuales</div>
+          <div class="option-pros-cons">
+            Enfocarse en aumentar el numero de socios y la rentabilidad de las seis clinicas actuales antes de abrir nuevas, mejorando la comunicacion y el modelo de captacion.<br><br>
+            <strong>A favor:</strong> cero riesgo de expansion. Mejora de los indicadores en mercados conocidos. Potencial de subida de precio gradual.<br><br>
+            <strong>En contra:</strong> deja la ventana abierta para que cadenas con recursos superiores ocupen los mejores mercados. Perdida de la ventaja del pionero a medida que el modelo se replica.
+          </div>
+        </div>
+        <div class="option-card purple">
+          <div class="option-card-title">D. Modelo hibrido: propias en grandes ciudades + franquicia controlada</div>
+          <div class="option-pros-cons">
+            Clinicas propias en los mercados estrategicos (Madrid, Barcelona, Valencia) + franquicia muy controlada con protocolo estricto en mercados secundarios.<br><br>
+            <strong>A favor:</strong> equilibra velocidad y control. Reserva el capital para los mercados de mayor potencial. Permite ganar escala nacional antes de que lleguen los fondos.<br><br>
+            <strong>En contra:</strong> mayor complejidad de gestion. Requiere un sistema de franquicia solido que Canitas todavia no ha desarrollado. Riesgo de incoherencia de marca si el control de la franquicia no es efectivo.
+          </div>
+        </div>
+      </div>
+
+      <!-- CONCLUSION -->
+      <div class="block-header">
+        <div class="block-number">3</div>
+        <div>
+          <span class="block-label">La perspectiva del framework</span>
+          <div class="block-title">Que nos dice el modelo integrado sobre la mejor decision</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <div class="highlight-navy">
+        <div class="highlight-navy-title">El dilema central de Canitas, visto desde el framework</div>
+        <div class="highlight-navy-body">
+          El framework revela que Canitas tiene un problema que ningun analisis financiero aislado puede resolver: <strong>la tension entre la velocidad que exige el contexto competitivo y la preservacion de la calidad que exige el modelo de negocio</strong>.<br><br>
+          Crecer rapido es necesario porque la ventana de oportunidad se esta cerrando. Pero crecer mal — comprometiendo la calidad de la experiencia del socio — destruiria el activo mas valioso de Canitas: la confianza de sus clientes y la cultura de su equipo. Y esos activos, una vez erosionados, no se recuperan rapidamente.<br><br>
+          <strong>La recomendacion que emerge del analisis completo del framework es la opcion D</strong>, con una condicion previa: antes de cualquier expansion geografica significativa, Canitas debe resolver el problema de comunicacion que impide que la notoriedad alta se convierta en captacion eficiente. Un mensaje mas claro y pedagogico — que ayude al cliente potencial a hacer el calculo comparativo entre lo que gasta ahora y lo que pagaria con Canitas — no cuesta 300.000 euros por clinica: cuesta un buen trabajo de comunicacion. Y ese es el primer paso, no el ultimo.
+        </div>
+      </div>
+
+      <div class="cards-2">
+        <div class="info-card" style="border-top:3px solid var(--gold);">
+          <div class="info-card-title">Las decisiones prioritarias, en orden</div>
+          <div class="info-card-body">
+            <strong>1. Comunicacion:</strong> redisenar el mensaje para que el cliente potencial entienda y calcule el valor de la propuesta. El objetivo no es mas notoriedad; es mas conversion.<br><br>
+            <strong>2. Digital:</strong> desarrollar la presencia en Google y redes sociales. Solo el 17% llega por busqueda — hay un potencial enorme sin explotar.<br><br>
+            <strong>3. Expansion selectiva propia:</strong> abrir en los 2-3 mercados mas estrategicos con clinicas propias, aprovechando la financiacion disponible.<br><br>
+            <strong>4. Sistema de franquicia:</strong> desarrollar el protocolo de control de calidad necesario para una franquicia que preserve la cultura Canitas antes de activarla.
+          </div>
+        </div>
+        <div class="info-card" style="border-top:3px solid var(--orange-accent);">
+          <div class="info-card-title">Los riesgos que hay que gestionar activamente</div>
+          <div class="info-card-body">
+            <strong>Copia del modelo:</strong> es inevitable. La respuesta no es frenar la copia (imposible) sino ganar escala y marca mas rapido que los imitadores.<br><br>
+            <strong>Perdida de calidad en la expansion:</strong> el mayor riesgo interno. Requiere un sistema de seleccion, formacion y cultura muy solido antes de escalar el equipo.<br><br>
+            <strong>Impacto de la subida de cuota:</strong> monitorizar la tasa de captacion de nuevos socios en los proximos trimestres. Si cae significativamente, revisar el mensaje de comunicacion del precio.<br><br>
+            <strong>Dependencia del fundador:</strong> construir un equipo directivo que pueda gestionar el crecimiento sin que todo pase por Eladio.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tab-sintesis -->
 
   </div><!-- /content -->
 
