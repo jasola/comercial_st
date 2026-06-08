@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curled Metal Inc. | MI-86-T</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+.content { padding:40px 56px 64px; max-width:980px; }
+
+.fw-tracker {
+  background:white; border:1px solid var(--border); border-radius:10px;
+  padding:16px 22px; margin-bottom:32px;
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+}
+.fw-tracker-label {
+  font-family:var(--font-body); font-size:9.5px; font-weight:700;
+  color:var(--text-light); letter-spacing:.16em; text-transform:uppercase;
+  margin-right:4px; flex-shrink:0;
+}
+.fw-t-block {
+  font-family:var(--font-body); font-size:11.5px; font-weight:600;
+  padding:5px 14px; border-radius:20px; white-space:nowrap;
+}
+.fw-t-block.off  { background:#ececec; color:#bbb; }
+.fw-t-block.on   { background:var(--navy); color:white; }
+.fw-t-block.gold { background:var(--gold); color:var(--navy-dark); }
+.fw-t-sep { color:#ddd; font-size:16px; line-height:1; }
+
+.block-header { display:flex; align-items:center; gap:14px; margin-bottom:18px; margin-top:36px; }
+.block-header:first-of-type { margin-top:0; }
+.block-number {
+  font-family:var(--font-display); font-size:13px; font-weight:700;
+  color:white; background:var(--navy); border-radius:50%;
+  width:32px; height:32px; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.block-label { font-family:var(--font-body); font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:2px; }
+.block-title { font-family:var(--font-display); font-size:19px; font-weight:600; color:var(--navy); line-height:1.2; }
+.divider-gold { width:40px; height:3px; background:var(--gold); border-radius:2px; margin-bottom:20px; margin-top:4px; }
+
+/* Clave blocks */
+.clave-block { background:white; border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:16px; }
+.clave-header { display:flex; align-items:center; gap:16px; padding:18px 24px; background:rgba(26,39,68,.03); border-bottom:1px solid var(--border); }
+.clave-num { font-family:var(--font-display); font-size:22px; font-weight:700; color:var(--gold); line-height:1; min-width:36px; flex-shrink:0; }
+.clave-titulo { font-family:var(--font-display); font-size:17px; font-weight:600; color:var(--navy); line-height:1.3; }
+.clave-body { padding:20px 24px; font-family:var(--font-body); font-size:14px; color:var(--text-mid); line-height:1.78; }
+.clave-body p + p { margin-top:12px; }
+.clave-body strong { color:var(--text-dark); font-weight:700; }
+
+/* Calc boxes */
+.calc-box {
+  background:#f8f6f0; border:1px solid var(--border); border-radius:8px;
+  padding:20px 24px; margin:16px 0; font-family:'Courier New', monospace;
+  font-size:13px; line-height:1.9; color:var(--text-dark);
+}
+.calc-box .calc-title {
+  font-family:var(--font-body); font-size:10px; font-weight:700;
+  color:var(--gold); letter-spacing:.16em; text-transform:uppercase;
+  margin-bottom:12px; display:block; font-style:normal;
+}
+.calc-box .result {
+  border-top:2px solid var(--navy); margin-top:8px; padding-top:8px;
+  font-weight:700; color:var(--navy); font-size:14px;
+}
+.calc-box .note {
+  font-family:var(--font-body); font-size:12px; color:var(--text-light);
+  margin-top:8px; font-style:italic;
+}
+
+/* Comparison table enhanced */
+.comp-table {
+  width:100%; border-collapse:collapse; margin:16px 0;
+  font-family:var(--font-body); font-size:13px;
+  background:white; border-radius:10px; overflow:hidden; border:1px solid var(--border);
+}
+.comp-table th {
+  background:var(--navy); color:var(--gold-light); font-weight:700;
+  font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+  padding:11px 16px; text-align:left;
+}
+.comp-table th.center { text-align:center; }
+.comp-table td { padding:10px 16px; border-bottom:1px solid var(--border); color:var(--text-mid); vertical-align:middle; }
+.comp-table tr:last-child td { border-bottom:none; }
+.comp-table td strong { color:var(--text-dark); }
+.comp-table td.hl  { background:rgba(201,168,76,.08); font-weight:700; color:var(--navy); }
+.comp-table td.bad { background:rgba(212,114,42,.06); color:#7a3a10; }
+.comp-table td.good{ background:rgba(46,125,94,.06); color:#1a4a34; font-weight:700; }
+.comp-table td.center { text-align:center; }
+
+/* insight box */
+.insight-box { background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%); border-radius:10px; padding:24px 28px; margin:20px 0; border-left:4px solid var(--gold); }
+.insight-box-label { font-family:var(--font-body); font-size:9.5px; font-weight:700; color:var(--gold); letter-spacing:.16em; text-transform:uppercase; margin-bottom:8px; display:block; }
+.insight-box-body { font-family:var(--font-body); font-size:14px; color:rgba(255,255,255,.82); line-height:1.75; }
+.insight-box-body strong { color:var(--gold-light); }
+
+/* influencer cards */
+.inf-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin:16px 0; }
+.inf-card { background:white; border:1px solid var(--border); border-radius:8px; padding:16px; }
+.inf-card-title { font-family:var(--font-body); font-size:10px; font-weight:700; color:var(--gold); letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px; }
+.inf-card-body { font-family:var(--font-body); font-size:12.5px; color:var(--text-mid); line-height:1.6; }
+.inf-card-body strong { color:var(--text-dark); }
+.inf-card.priority { border-top:3px solid var(--gold); }
+.inf-card.secondary { border-top:3px solid var(--blue-accent); }
+.inf-card.caution { border-top:3px solid var(--orange-accent); }
+
+/* price scenario cards */
+.price-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin:20px 0; }
+.price-card { background:white; border:1px solid var(--border); border-radius:10px; padding:22px; text-align:center; }
+.price-card.rejected { opacity:.65; }
+.price-card.recommended { border:2px solid var(--gold); box-shadow:0 4px 20px rgba(201,168,76,.15); }
+.price-amount { font-family:var(--font-display); font-size:36px; font-weight:700; color:var(--navy); line-height:1; margin:8px 0; }
+.price-unit { font-family:var(--font-body); font-size:11px; color:var(--text-light); letter-spacing:.1em; text-transform:uppercase; }
+.price-label { font-family:var(--font-body); font-size:12px; color:var(--text-mid); margin-top:8px; line-height:1.5; }
+.price-verdict { font-family:var(--font-body); font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-top:12px; padding:5px 12px; border-radius:20px; display:inline-block; }
+.price-verdict.no   { background:#fde8e8; color:#c0392b; }
+.price-verdict.yes  { background:rgba(46,125,94,.1); color:var(--green-dot); }
+.price-verdict.warn { background:rgba(212,114,42,.1); color:var(--orange-accent); }
+
+/* synthesis row */
+.synthesis-row { display:flex; align-items:flex-start; gap:14px; padding:14px 0; border-bottom:1px solid var(--border); }
+.synthesis-row:last-child { border-bottom:none; }
+.synthesis-fw-tag { font-family:var(--font-body); font-size:10px; font-weight:700; color:white; background:var(--navy); padding:4px 10px; border-radius:4px; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; flex-shrink:0; margin-top:2px; }
+.synthesis-text { font-family:var(--font-body); font-size:13.5px; color:var(--text-mid); line-height:1.68; }
+.synthesis-text strong { color:var(--text-dark); }
+
+@media(max-width:900px){
+  .content { padding:28px 22px; }
+  .inf-grid { grid-template-columns:1fr 1fr; }
+  .price-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">Marketing para<br>la Direccion</div>
+    <div class="sidebar-subtitle">PYMEX Sevilla 2026</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Inicio</div>
+    <a href="index.html" class="nav-item">
+      <span class="nav-item-title">Marco General</span>
+      <span class="nav-item-sub">Framework de Direccion Comercial</span>
+    </a>
+    <div class="nav-section-label">Casos</div>
+    <a href="caso-canitas.html" class="nav-item">
+      <span class="nav-item-title">Canitas <span class="nav-badge">MI-234</span></span>
+      <span class="nav-item-sub">Segmentacion &amp; Modelo de Negocio</span>
+    </a>
+    <a href="caso-cmi.html" class="nav-item">
+      <span class="nav-item-title">Curled Metal Inc. <span class="nav-badge">MI-86-T</span></span>
+      <span class="nav-item-sub">Precio por valor &bull; B2B Industrial</span>
+    </a>
+    <a href="#" class="nav-item disabled">
+      <span class="nav-item-title">Caso 3 <span class="nav-badge coming">Proximo</span></span>
+      <span class="nav-item-sub">Por determinar</span>
+    </a>
+    <a href="#" class="nav-item disabled">
+      <span class="nav-item-title">Caso 4 <span class="nav-badge coming">Proximo</span></span>
+      <span class="nav-item-sub">Por determinar</span>
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-footer-text">Principios de Marketing<br>para la Direccion<br>MIN-24 / MIN-25</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="page-header">
+    <div class="header-meta">
+      <span class="header-code">MI-86-T</span>
+      <span class="header-tag">Caso practico</span>
+      <span class="header-tag">&bull;</span>
+      <span class="header-tag">Productos industriales &bull; B2B &bull; EE.UU.</span>
+    </div>
+    <h1 class="page-title">Curled Metal Inc.<br><em>La decision de precio que lo cambia todo</em></h1>
+    <p class="page-desc">CMI ha desarrollado un cojinete amortiguador tecnica y funcionalmente superior a todo lo existente. La pregunta no es si venderlo — es a que precio, a quien y como. Una decision de precio mal tomada en el lanzamiento puede destruir el mayor potencial de producto de la historia de la compania.</p>
+    <div class="focus-badges">
+      <span class="focus-badge gold">Precio por valor (B2B)</span>
+      <span class="focus-badge blue">Targeting &bull; Influenciadores</span>
+      <span class="focus-badge orange">Lanzamiento producto nuevo</span>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-bar">
+    <button class="tab-btn active"  onclick="showTab('caso',this)">El Caso</button>
+    <button class="tab-btn" onclick="showTab('analisis',this)">Analisis · 5C</button>
+    <button class="tab-btn" onclick="showTab('aspiracion',this)">Aspiracion · STP</button>
+    <button class="tab-btn" onclick="showTab('accion',this)">Plan de Accion · Mix</button>
+    <button class="tab-btn" onclick="showTab('resultados',this)">Resultados</button>
+    <button class="tab-btn" onclick="showTab('sintesis',this)">Sintesis Directiva</button>
+  </div>
+
+  <div class="content">
+
+    <!-- ======================================================
+         TAB 1: EL CASO
+         ====================================================== -->
+    <div class="tab-panel active" id="tab-caso">
+
+      <div class="fw-tracker">
+        <span class="fw-tracker-label">Framework:</span>
+        <span class="fw-t-block gold">El caso</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">5C</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">STP</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Mix</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Resultados</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Sintesis</span>
+      </div>
+
+      <div class="block-header">
+        <div class="block-number">1</div>
+        <div><span class="block-label">La empresa</span>
+        <div class="block-title">Curled Metal Inc.: una empresa que necesita diversificarse</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text"><strong>Curled Metal Inc. (CMI)</strong> es una empresa que ha crecido de 750.000 dolares en 1991 a 55,6 millones en 2007 gracias principalmente a un producto: el <strong>Slip-Seal</strong>, una valvula de alta temperatura para fabricantes de automoviles que represento una gran oportunidad cuando la normativa medioambiental obligo a los fabricantes a controlar las emisiones de gases de escape. Con ese producto, CMI alcanzo una cuota de mercado del 80% y creció con rapidez.</p>
+
+      <p class="body-text">El problema es que la directiva no confia en que esa posicion sea sostenible a largo plazo. CMI busca activamente nuevas oportunidades para reducir su dependencia del sector del automovil. Cuando un representante de ventas de Houston les presenta una nueva aplicacion para sus espirales metalicas — un cojinete amortiguador para clavar pilotes en obra civil — la examinan con interes genuino. El vicepresidente Fernandez lo resume: <em>"parece casi demasiado bonito para ser verdad"</em>.</p>
+
+      <div class="data-row">
+        <div class="data-card">
+          <div class="data-value">55<span class="data-unit">M$</span></div>
+          <div style="height:2px;background:var(--gold);width:28px;margin:6px auto 8px;border-radius:1px;"></div>
+          <div class="data-label">Ventas 2007</div>
+        </div>
+        <div class="data-card">
+          <div class="data-value">80<span class="data-unit">%</span></div>
+          <div style="height:2px;background:var(--gold);width:28px;margin:6px auto 8px;border-radius:1px;"></div>
+          <div class="data-label">Cuota mercado Slip-Seal</div>
+        </div>
+        <div class="data-card">
+          <div class="data-value">3,5<span class="data-unit">M$</span></div>
+          <div style="height:2px;background:var(--gold);width:28px;margin:6px auto 8px;border-radius:1px;"></div>
+          <div class="data-label">Beneficio neto 2007</div>
+        </div>
+        <div class="data-card">
+          <div class="data-value">2x</div>
+          <div style="height:2px;background:var(--gold);width:28px;margin:6px auto 8px;border-radius:1px;"></div>
+          <div class="data-label">Potencial ventas (cojinetes)</div>
+        </div>
+      </div>
+
+      <div class="block-header">
+        <div class="block-number">2</div>
+        <div><span class="block-label">El producto</span>
+        <div class="block-title">Que es el cojinete y por que importa en una obra</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">En la construccion de edificios, puentes e infraestructuras sobre suelos inestables se utilizan <strong>pilotes</strong>: columnas prefabricadas de madera, hormigon o acero que se clavan en el suelo mediante un martillo mecanico de gran tonelaje. El problema es que el impacto repetido del martillo puede danar tanto el pilote como el propio martillo. Para protegerlos se coloca entre ambos un <strong>cojinete amortiguador</strong>: una pieza que absorbe el impacto, transmite la energia de forma eficiente y evita la generacion excesiva de calor.</p>
+
+      <p class="body-text">Hasta 2008 el sector usaba cojinetes convencionales de mica o plastico fenolico, que eran baratos pero muy limitados: se deterioraban rapidamente, habia que cambiarlos con frecuencia, y alcanzaban temperaturas de 300-370 grados en operacion — lo que los hacia peligrosos y lentos de cambiar. El sector nunca habia prestado atencion a esta pieza, tratandola como un consumible sin importancia.</p>
+
+      <p class="body-text">CMI ha desarrollado un cojinete basado en su tecnologia de espiral metalica laminada que <strong>cambia radicalmente las reglas del juego</strong>: dura toda una obra donde los convencionales necesitan 20 cambios, no supera los 120 grados, aumenta la velocidad de clavado un 25-33% y elimina los peligros de manipulacion. El caso lo resume bien: un producto extraordinario en un sector que nunca habia valorado el componente.</p>
+
+      <div class="block-header">
+        <div class="block-number">3</div>
+        <div><span class="block-label">El problema directivo</span>
+        <div class="block-title">La decision que tiene sobre la mesa Sanwal</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <div class="quote-block">
+        <div class="quote-text">"Discutelo conmigo antes de llamarles; la forma en que le pongamos precio puede tener un impacto sustancial en todo lo demas que hagamos con este producto."</div>
+        <div class="quote-source">Joseph Fernandez, Vicepresidente Division Productos de Ingenieria, CMI &mdash; 2 enero 2008</div>
+      </div>
+
+      <p class="body-text">Sanwal ha prometido llamar a Kendrick Foundation Company — el primer cliente que probo el producto y esta ansioso por comprar — antes del fin de semana. Pero antes necesita fijar el precio. Y Fernandez tiene razon: <strong>el precio de lanzamiento de un producto nuevo no es solo una decision financiera; es una decision estrategica que define el posicionamiento, los canales, los clientes y el ritmo de adopcion para los proximos anos.</strong></p>
+
+      <div class="insight-box">
+        <span class="insight-box-label">Por que este caso es diferente a Canitas — y que tiene en comun</span>
+        <div class="insight-box-body">CMI es un caso <strong>B2B industrial</strong>: el cliente no es una persona que quiere a su mascota, sino un contratista que quiere ganar dinero en una obra. La logica de la decision de compra es estrictamente economica. Esto no simplifica el problema — lo transforma: el precio no puede fijarse en funcion de lo que CMI quiere ganar, sino en funcion del <strong>valor economico que el producto genera al contratista</strong>. El principio es el mismo que en Canitas: precio basado en valor aportado, no en coste de produccion. La diferencia es que aqui ese valor es calculable con precision matematica a partir de los datos de la prueba.</div>
+      </div>
+
+    </div><!-- /tab-caso -->
+
+
+    <!-- ======================================================
+         TAB 2: ANÁLISIS 5C
+         ====================================================== -->
+    <div class="tab-panel" id="tab-analisis">
+
+      <div class="fw-tracker">
+        <span class="fw-tracker-label">Framework:</span>
+        <span class="fw-t-block off">El caso</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block gold">5C: Analisis</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">STP</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Mix</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Resultados</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Sintesis</span>
+      </div>
+
+      <!-- COMPANIA -->
+      <div class="block-header">
+        <div class="block-number">C1</div>
+        <div><span class="block-label">Primera C</span>
+        <div class="block-title">Compania: fortalezas tecnologicas, vulnerabilidad estrategica</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <div class="cards-2">
+        <div class="info-card" style="border-top:3px solid var(--blue-accent);">
+          <div class="info-card-title" style="color:var(--blue-accent);">Fortalezas</div>
+          <div class="info-card-body">
+            <strong>Tecnologia propietaria unica:</strong> la espiral metalica laminada no existe en ninguna otra empresa del sector de cojinetes. La barrera tecnologica es real y relevante.<br><br>
+            <strong>Capacidad de fabricar cualquier diametro:</strong> de 11,5 a 30 pulgadas a partir de la misma materia prima. Ninguna restriccion de producto que limite el mercado.<br><br>
+            <strong>Exceso de capacidad instalada:</strong> puede fabricar con maquinaria existente sin nueva inversion, lo que da flexibilidad para fijar precios sin presion de amortizacion urgente.<br><br>
+            <strong>Historial de innovacion:</strong> el Slip-Seal demuestra que CMI sabe desarrollar productos superiores que responden a necesidades reales del mercado.<br><br>
+            <strong>Pruebas de campo exitosas:</strong> dos obras reales (Kendrick y Corey) con resultados documentados y verificables. No es teoria: es evidencia.
+          </div>
+        </div>
+        <div class="info-card" style="border-top:3px solid var(--orange-accent);">
+          <div class="info-card-title" style="color:var(--orange-accent);">Debilidades y riesgos</div>
+          <div class="info-card-body">
+            <strong>Dependencia critica del Slip-Seal:</strong> un solo producto en un solo sector representa la mayoria de las ventas. Si ese mercado se contrae, CMI tiene un problema estructural.<br><br>
+            <strong>Sin patente todavia:</strong> CMI teme que los competidores de espirales metalicas (mas pequenos, menos innovadores) puedan descubrir la aplicacion y entrar. La capa de polivinilo oculta el interior, pero no es proteccion definitiva.<br><br>
+            <strong>Sin experiencia en este mercado:</strong> CMI no conoce el sector de la construccion. No tiene red de distribucion, no conoce las dinamicas de compra, no tiene relaciones con los influenciadores clave.<br><br>
+            <strong>Cultura de ingenieria, no comercial:</strong> los gastos generales del 360% sobre mano de obra directa reflejan una estructura pensada para la ingenieria, no para el lanzamiento comercial de un nuevo producto en un sector desconocido.
+          </div>
+        </div>
+      </div>
+
+      <!-- CLIENTES -->
+      <div class="block-header">
+        <div class="block-number">C2</div>
+        <div><span class="block-label">Segunda C</span>
+        <div class="block-title">Clientes: quien compra, quien decide y quien influye en la decision</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">Este es el analisis mas complejo del caso. En un mercado B2B industrial como el de la construccion, el "cliente" no es una sola persona: es un sistema de seis tipos de agentes con intereses distintos, algunos de los cuales compran el producto, otros lo especifican, y otros pueden bloquearlo o facilitarlo. CMI ha identificado correctamente este ecosistema.</p>
+
+      <div class="inf-grid">
+        <div class="inf-card priority">
+          <div class="inf-card-title">Pequenos contratistas independientes</div>
+          <div class="inf-card-body"><strong>Son el comprador mas importante.</strong> Su logica es exclusivamente economica: quieren ganar dinero en cada obra. Si el cojinete de CMI les ahorra tiempo y coste, lo compraran. Son los mas receptivos al argumento del ROI pero los menos sofisticados en gestion. Hay que hablarles en su idioma: dolares por hora ahorrados, no caracteristicas tecnicas.</div>
+        </div>
+        <div class="inf-card priority">
+          <div class="inf-card-title">Ingenieros de estructuras y consultores</div>
+          <div class="inf-card-body"><strong>Son el prescriptor mas influyente.</strong> Especifican los materiales en cada proyecto. Si un ingeniero incluye el cojinete de CMI en sus especificaciones, el contratista no tiene eleccion. Son la maxima autoridad del sector. CMI no les vende directamente pero <strong>convencerles es la palanca de adopcion masiva.</strong></div>
+        </div>
+        <div class="inf-card secondary">
+          <div class="inf-card-title">Grandes contratistas (Bechtel, Conmaco)</div>
+          <div class="inf-card-body">Sofisticados, exigentes, con capacidad para fabricar su propio equipo. Son clientes de alto potencial a largo plazo pero requieren un proceso de venta complejo y relaciones institucionales. <strong>No son el target de lanzamiento</strong> pero hay que tenerlos en el radar.</div>
+        </div>
+        <div class="inf-card secondary">
+          <div class="inf-card-title">Fabricantes de martillos mecanicos</div>
+          <div class="inf-card-body">No compran cojinetes en volumen pero <strong>recomiendan que cojinetes usar</strong> con sus martillos. El lider (Prometheus Iron Works) tiene influencia directa sobre los ingenieros que especifican equipos. Un respaldo de Prometheus valdria mas que cualquier campana publicitaria.</div>
+        </div>
+        <div class="inf-card caution">
+          <div class="inf-card-title">Distribuidores y companias de alquiler</div>
+          <div class="inf-card-body"><strong>Potencial conflicto de intereses:</strong> es habitual que incluyan gratis el primer juego de cojinetes con el alquiler del martillo. Si el cojinete de CMI dura toda la obra, el contratista devuelve el martillo antes — y el distribuidor cobra menos. Pueden ser un canal pero tienen incentivos para resistir el producto.</div>
+        </div>
+        <div class="inf-card secondary">
+          <div class="inf-card-title">Profesor McCormack (Penn. A&amp;M)</div>
+          <div class="inf-card-body">Autoridad academica del sector. CMI ya le envio un juego en verano 2007 y ha mostrado entusiasmo. <strong>Su respaldo cientifico a los resultados de las pruebas multiplicaria la credibilidad del producto</strong> ante ingenieros y grandes contratistas. Es un activo que CMI tiene en marcha y debe activar.</div>
+        </div>
+      </div>
+
+      <!-- COMPETIDORES -->
+      <div class="block-header">
+        <div class="block-number">C3</div>
+        <div><span class="block-label">Tercera C</span>
+        <div class="block-title">Competidores: un mercado sin lideres, sin marcas y sin innovacion</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">El mercado de cojinetes amortiguadores es el territorio mas favorable que puede encontrar un innovador: <strong>no hay un lider dominante, no hay marcas establecidas, los productos actuales son tecnicamente pobres, nadie invierte en I+D</strong> y el sector entero trata los cojinetes como un consumible sin importancia. La mayoria se venden sin marca, cortados de planchas en talleres artesanales.</p>
+
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">Productos convencionales (mica y plastico fenolico)</div>
+          <div class="info-card-body">
+            Precio: <strong>9 dolares por unidad</strong> para el talla 11,5 pulgadas (el mas comun).<br>
+            Juego completo: 24 unidades x 9$ = <strong>216 dolares por juego</strong> (Kendrick pagaba 150$ por juego de 24).<br><br>
+            Prestaciones: se deterioran rapidamente, hay que cambiarlos 20 veces por obra, alcanzan 300-370 grados (peligroso), ralentizan el clavado y requieren tiempos de enfriado de seguridad.<br><br>
+            Distribucion: fragmentada, sin marca, sin servicio. Cualquier ferreteria de contratistas los tiene.
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">Competidores de CMI en espirales metalicas</div>
+          <div class="info-card-body">
+            CMI tiene competidores en el negocio de las espirales metalicas — todos mas pequenos que CMI y ninguno con capacidad de desarrollo tecnico equivalente.<br><br>
+            <strong>Riesgo de imitacion:</strong> si descubren la aplicacion antes de que CMI patente, podrian intentar replicarla. La capa de polivinilo que oculta el interior del cojinete es la unica proteccion temporal.<br><br>
+            <strong>Barrera real:</strong> el know-how de laminado y enrollado de CMI no es facil de replicar rapidamente. La tecnologia da ventana de tiempo suficiente si CMI actua con agilidad.
+          </div>
+        </div>
+      </div>
+
+      <!-- COLABORADORES -->
+      <div class="block-header">
+        <div class="block-number">C4</div>
+        <div><span class="block-label">Cuarta C</span>
+        <div class="block-title">Colaboradores: los aliados que CMI necesita activar</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">Kendrick Foundation Company</div>
+          <div class="info-card-body">El primer cliente que probo el producto esta <strong>"exultante"</strong> y quiere empezar a usarlo de inmediato. Es el mejor embajador posible: una empresa real que ha probado el producto en una obra real y ha obtenido resultados verificables. Si CMI gestiona bien esta relacion, Kendrick puede ser la referencia que abra el mercado.</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">Profesor McCormack</div>
+          <div class="info-card-body">Ya tiene los cojinetes y ha mostrado entusiasmo. Su validacion cientifica es el activo de credibilidad mas valioso para el segmento de ingenieros de estructuras. CMI debe acelerar la obtencion de su informe y hacer que llegue a los principales estudios de ingenieria del pais.</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">Representantes de fabricantes (canal indirecto)</div>
+          <div class="info-card-body">CMI ha decidido usar representantes de fabricantes del sector de la construccion (agentes de ventas a comision) como canal. Son economicos pero tendran que ser educados intensamente sobre el producto y su proposicion de valor — no es un cojinete mas, es una herramienta de ahorro de costes que hay que saber vender.</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">Amalgamated Pile &amp; Fitting / Oklahoma Contractor</div>
+          <div class="info-card-body">La empresa que organiza los seminarios "Piletalk" y las revistas sectoriales son canales de comunicacion a los que CMI no ha prestado atencion. Participar en esos seminarios y publicar los resultados de las pruebas en las revistas del sector seria una forma eficiente de llegar a ingenieros y contratistas simultaneamente.</div>
+        </div>
+      </div>
+
+      <!-- CONTEXTO -->
+      <div class="block-header">
+        <div class="block-number">C5</div>
+        <div><span class="block-label">Quinta C</span>
+        <div class="block-title">Contexto: un mercado grande, estacional y sin informacion estadistica</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <div class="calc-box">
+        <span class="calc-title">Estimacion del mercado potencial en EE.UU. (calculos de Sanwal)</span>
+        Martillos en propiedad de contratistas:        13.000 unidades
+        Martillos adicionales en alquiler:         6.500 - 13.000 unidades
+        Total martillos activos:                  19.500 - 26.000 unidades
+        Semanas en funcionamiento por ano:                  25 semanas
+        Horas de uso por semana:                            30 horas
+        Horas totales al ano por martillo:              750 horas/ano
+        
+        Velocidad media de clavado (con cambios incluidos): 20 pies/hora
+        Pies clavados totales al ano: 19.500 x 750 x 20 = 292,5 millones de pies
+                                      26.000 x 750 x 20 = 390 millones de pies
+        
+        Capacidad de un juego CMI (conservador):         10.000 pies/juego
+        <div class="result">Juegos CMI necesarios al ano: 29.250 - 39.000 juegos/ano</div>
+        <div class="note">Si cada juego tiene 6 cojinetes: mercado de 175.000 - 234.000 unidades anuales</div>
+      </div>
+
+      <p class="body-text">Es un mercado de tamano moderado pero con alta recurrencia: los cojinetes se consumen en cada obra. La estacionalidad (25 semanas activas) indica una demanda concentrada en primavera-verano. El hecho de que no haya estadisticas oficiales del sector es una oportunidad: CMI puede definir las reglas de un mercado que no esta formalizado.</p>
+
+    </div><!-- /tab-analisis -->
+
+
+    <!-- ======================================================
+         TAB 3: ASPIRACIÓN — STP
+         ====================================================== -->
+    <div class="tab-panel" id="tab-aspiracion">
+
+      <div class="fw-tracker">
+        <span class="fw-tracker-label">Framework:</span>
+        <span class="fw-t-block off">El caso</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">5C</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block gold">Aspiracion · STP</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Mix</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Resultados</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Sintesis</span>
+      </div>
+
+      <!-- SEGMENTACION -->
+      <div class="block-header">
+        <div class="block-number">S</div>
+        <div><span class="block-label">Segmentacion</span>
+        <div class="block-title">Como dividir un mercado que no tiene estadisticas</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">El mercado de anclaje de pilotes puede segmentarse de varias formas. La mas relevante para CMI no es la geografica ni la demografica — es la <strong>segmentacion por rol en el proceso de decision de compra</strong>, porque en un mercado B2B con multiples influenciadores, la estrategia comercial es diferente para cada grupo.</p>
+
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Segmento</th>
+            <th>Rol en la compra</th>
+            <th>Argumento que le mueve</th>
+            <th>Prioridad CMI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Pequenos contratistas independientes</strong></td>
+            <td>Comprador final, decision economica</td>
+            <td>Ahorro en costes de obra, mas pies por hora, menos paradas</td>
+            <td class="hl">ALTA — target primario</td>
+          </tr>
+          <tr>
+            <td><strong>Ingenieros de estructuras</strong></td>
+            <td>Prescriptor, especifica materiales</td>
+            <td>Rendimiento tecnico demostrado, aval cientifico, seguridad</td>
+            <td class="hl">ALTA — clave para adopcion masiva</td>
+          </tr>
+          <tr>
+            <td><strong>Fabricantes de martillos</strong></td>
+            <td>Recomendador, influye en especificaciones</td>
+            <td>Mejora las prestaciones de su martillo, protege el equipo</td>
+            <td class="good">MEDIA — influencia indirecta valiosa</td>
+          </tr>
+          <tr>
+            <td><strong>Grandes contratistas</strong></td>
+            <td>Comprador sofisticado, puede auto-especificar</td>
+            <td>Eficiencia operativa en grandes proyectos, seguridad laboral</td>
+            <td class="good">MEDIA — largo plazo</td>
+          </tr>
+          <tr>
+            <td><strong>Distribuidores / alquiler</strong></td>
+            <td>Canal de distribucion</td>
+            <td>Margen comercial, facilidad de venta</td>
+            <td class="bad">BAJA — conflicto de intereses potencial</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- TARGETING -->
+      <div class="block-header">
+        <div class="block-number">T</div>
+        <div><span class="block-label">Targeting</span>
+        <div class="block-title">A quien debe dirigirse CMI en el lanzamiento</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">La estrategia de targeting de CMI en el lanzamiento debe ser <strong>dual y secuencial</strong>: primero los pequeños contratistas independientes como compradores directos, y simultaneamente los ingenieros de estructuras como prescriptores que generan demanda a largo plazo. Son segmentos distintos con argumentos distintos pero complementarios.</p>
+
+      <div class="cards-2">
+        <div class="info-card" style="border-top:3px solid var(--gold);">
+          <div class="info-card-title">Target primario: pequenos contratistas independientes</div>
+          <div class="info-card-body">
+            Son los mas numerosos y los que toman la decision de compra de forma autonoma. Su unico criterio es la rentabilidad de la obra. Si CMI les demuestra con numeros concretos que el cojinete CMI aumenta sus ingresos por hora y reduce sus costes de materiales, la decision es racional e inmediata.<br><br>
+            <strong>El argumento correcto no es "mejor producto" — es "mas dinero por obra".</strong> El calculo del ahorro economico (ver pestana Mix / Precio) es la herramienta de venta fundamental.
+          </div>
+        </div>
+        <div class="info-card" style="border-top:3px solid var(--blue-accent);">
+          <div class="info-card-title">Target secundario: ingenieros de estructuras</div>
+          <div class="info-card-body">
+            Son el prescriptor que puede hacer que el uso del cojinete CMI sea obligatorio en las especificaciones de obra. Si un ingeniero de referencia lo incluye en sus proyectos, los contratistas no tienen eleccion.<br><br>
+            <strong>El argumento correcto es tecnico y de seguridad:</strong> rendimiento superior documentado (pruebas de Kendrick y Corey), temperatura de operacion segura (120 grados vs. 300-370), respaldo del profesor McCormack. Este segmento compra evidencia cientifica, no ROI economico.
+          </div>
+        </div>
+      </div>
+
+      <!-- POSICIONAMIENTO -->
+      <div class="block-header">
+        <div class="block-number">P</div>
+        <div><span class="block-label">Posicionamiento</span>
+        <div class="block-title">Como quiere ser percibido el cojinete CMI en la mente del mercado</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <div class="insight-box">
+        <span class="insight-box-label">La ecuacion de posicionamiento de CMI</span>
+        <div class="insight-box-body">
+          <strong>Para</strong> el contratista de anclaje de pilotes que busca maximizar la rentabilidad de cada obra,<br><br>
+          <strong>el cojinete amortiguador de CMI es</strong> la unica solucion de espiral metalica que dura toda la obra, aumenta la velocidad de clavado y elimina el riesgo de accidente por sobrecalentamiento,<br><br>
+          <strong>porque</strong> su tecnologia propietaria de espiral metalica laminada transmite la energia del impacto con una eficiencia que ningun cojinete convencional puede igualar.<br><br>
+          <strong>No es un cojinete mejor. Es una herramienta de ahorro de costes disfrazada de cojinete.</strong>
+        </div>
+      </div>
+
+      <p class="body-text">Este posicionamiento tiene una implicacion directa para el precio: si el cojinete CMI se posiciona como "un cojinete mejor" compite con los de 9 dolares por unidad y el mercado esperara un precio en ese orden de magnitud. Si se posiciona como "una herramienta de ahorro de costes", el precio se compara con el valor del ahorro generado — que es varios ordenes de magnitud mayor. <strong>El posicionamiento determina el precio, no al reves.</strong></p>
+
+    </div><!-- /tab-aspiracion -->
+
+
+    <!-- ======================================================
+         TAB 4: PLAN DE ACCION — MARKETING MIX
+         ====================================================== -->
+    <div class="tab-panel" id="tab-accion">
+
+      <div class="fw-tracker">
+        <span class="fw-tracker-label">Framework:</span>
+        <span class="fw-t-block off">El caso</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">5C</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">STP</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block gold">Plan de Accion · Mix</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Resultados</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Sintesis</span>
+      </div>
+
+      <!-- P1 PRODUCTO -->
+      <div class="block-header">
+        <div class="block-number">P1</div>
+        <div><span class="block-label">Primera P &mdash; Disenando la oferta</span>
+        <div class="block-title">Producto: un componente de bajo valor percibido con alto valor real</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">El producto de CMI tiene una paradoja de marketing clasica: el mercado lo percibe como un consumible barato de escasa importancia, pero en realidad es la pieza que determina la velocidad, la seguridad y el coste de toda una obra de cimentacion. <strong>El trabajo de marketing no es solo vender el cojinete — es primero cambiar la percepcion del sector sobre lo que un cojinete puede hacer.</strong></p>
+
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">Ventajas tecnicas documentadas</div>
+          <div class="info-card-body">
+            <strong>Durabilidad radical:</strong> 1 juego (6 unidades) dura toda una obra donde los convencionales necesitan 20 juegos (480 unidades).<br><br>
+            <strong>Velocidad de clavado:</strong> 200 pies/hora vs. 150-160 pies/hora con convencionales (+25 a +33%).<br><br>
+            <strong>Temperatura de operacion:</strong> maximo 120 grados C vs. 300-370 grados C. Cambiable casi inmediatamente con guantes (4 minutos vs. 20 minutos esperando enfriamiento).<br><br>
+            <strong>Eliminacion de materiales peligrosos:</strong> los cojinetes convencionales generan preocupacion por los materiales usados. El de CMI no contiene componentes peligrosos.
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">Posicion en el ciclo de vida</div>
+          <div class="info-card-body">
+            El cojinete CMI esta en <strong>fase de introduccion</strong> en un mercado donde el producto convencional lleva decadas en fase de madurez-saturacion sin evolucion.<br><br>
+            Los clientes pioneros son exactamente Kendrick y Corey: empresas dispuestas a probar algo nuevo que les ha dado resultados extraordinarios y estan entusiasmadas.<br><br>
+            El riesgo clasico de introduccion — que el mercado no entienda la propuesta o no se la crea — existe aqui: <strong>el sector nunca ha valorado el cojinete como activo estrategico</strong>. Cambiar esa percepcion es la tarea de comunicacion mas importante.
+          </div>
+        </div>
+      </div>
+
+      <!-- P2 PRECIO — EL NUCLEO DEL CASO -->
+      <div class="block-header">
+        <div class="block-number">P2</div>
+        <div><span class="block-label">Segunda P &mdash; El nucleo del caso</span>
+        <div class="block-title">Precio: calculos completos del valor aportado al contratista</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">Este es el corazon del caso. CMI tiene dos opciones conceptuales para fijar el precio: basarlo en el <strong>coste de fabricacion mas un margen</strong> (como hacen la mayoria de las empresas industriales) o basarlo en el <strong>valor economico que genera al cliente</strong>. El analisis demuestra que la segunda opcion es la correcta — y que la diferencia entre ambas es enorme.</p>
+
+      <p class="body-text" style="font-weight:700; color:var(--navy);">Paso 1: Calcular el coste real de operacion por hora del contratista (Tabla A del caso)</p>
+      <div class="calc-box">
+        <span class="calc-title">Coste total por hora real de operacion (valores medios del caso)</span>
+        Martillo diesel:                    102 $/hora
+        Grua:                               156 $/hora
+        Soportes (70 pies):                  24 $/hora
+        Mano de obra (3 peones + gruista + capataz): 63+30+39 = 132 $/hora
+        Gastos generales:                   300 $/hora
+        <div class="result">COSTE TOTAL POR HORA: 714 $/hora</div>
+        <div class="note">Nota: Este es el coste cuando el martillo esta en funcionamiento. Los tiempos de traslado y retrasos (20-40 min por hora + 10-15% adicional) elevan el coste real total, pero se excluyen del calculo porque no se ven afectados por el tipo de cojinete.</div>
+      </div>
+
+      <p class="body-text" style="font-weight:700; color:var(--navy);">Paso 2: Calcular el ahorro en tiempo de clavado (caso conservador, mejora del 20%)</p>
+      <div class="calc-box">
+        <span class="calc-title">Ahorro por mayor velocidad de clavado (escenario conservador: +20% velocidad)</span>
+        Velocidad con cojinetes convencionales:         150 pies/hora
+        Velocidad con cojinetes CMI (conservador +20%): 180 pies/hora
+        
+        Para clavar 10.000 pies de pilotes:
+          Con convencionales: 10.000 / 150 =  66,7 horas
+          Con CMI:            10.000 / 180 =  55,6 horas
+          Horas ahorradas:     66,7 - 55,6 =  11,1 horas
+        
+        Coste de esas 11,1 horas ahorradas: 11,1 x 714$ =
+        <div class="result">AHORRO EN TIEMPO DE CLAVADO: 7.929 $ por cada 10.000 pies de pilotes clavados</div>
+      </div>
+
+      <p class="body-text" style="font-weight:700; color:var(--navy);">Paso 3: Calcular el ahorro en cambios de juego (caso conservador: 10 cambios evitados)</p>
+      <div class="calc-box">
+        <span class="calc-title">Ahorro en tiempo de cambio de juegos (caso conservador: 1 juego CMI vs. 10 convencionales)</span>
+        Con cojinetes convencionales para 10.000 pies:
+          Un juego convencional dura aprox. 1.000 pies (conservador)
+          Juegos necesarios: 10.000 / 1.000 = 10 cambios
+          Tiempo por cambio (incl. enfriamiento): 20 minutos
+          Tiempo total en cambios: 10 x 20 min = 200 minutos = 3,33 horas
+        
+        Con cojinetes CMI:
+          Un juego dura 10.000 pies (conservador del caso)
+          Cambios necesarios: 1
+          Tiempo por cambio: 4 minutos
+          Tiempo total en cambios: 4 minutos = 0,07 horas
+        
+        Tiempo ahorrado en cambios: 3,33 - 0,07 = 3,26 horas
+        Coste de esas 3,26 horas: 3,26 x 714$ =
+        <div class="result">AHORRO EN CAMBIOS DE JUEGO: 2.328 $ por cada 10.000 pies</div>
+      </div>
+
+      <p class="body-text" style="font-weight:700; color:var(--navy);">Paso 4: Calcular el ahorro en coste de materiales (cojinetes convencionales vs. CMI)</p>
+      <div class="calc-box">
+        <span class="calc-title">Ahorro en coste de materiales para 10.000 pies de pilotes</span>
+        Con cojinetes convencionales (caso conservador: 10 cambios de juego de 24):
+          Coste por juego (Kendrick):       150 $ / juego
+          Numero de juegos:                 10 juegos
+          Coste total materiales:           1.500 $
+        
+        Con cojinetes CMI:
+          1 juego de 6 cojinetes
+          Coste del juego CMI (a fijar):    X $
+        
+        Ahorro neto en materiales: 1.500 - X
+        <div class="result">AHORRO EN MATERIALES (antes de precio CMI): 1.500 $ por cada 10.000 pies</div>
+      </div>
+
+      <p class="body-text" style="font-weight:700; color:var(--navy);">Paso 5: Calcular el ahorro total y el precio maximo que el contratista estaria dispuesto a pagar</p>
+      <div class="calc-box">
+        <span class="calc-title">Valor economico total generado por un juego CMI (10.000 pies, escenario conservador)</span>
+        Ahorro en tiempo de clavado:        7.929 $
+        Ahorro en cambios de juego:         2.328 $
+        Ahorro en materiales convencionales: 1.500 $
+        <div class="result">VALOR ECONOMICO TOTAL: 11.757 $ por juego de 6 cojinetes CMI</div>
+        <div class="note">Este es el valor maximo teorico que el contratista podria pagar y seguir siendo indiferente entre CMI y los cojinetes convencionales. En la practica, CMI debe quedarse una parte y dejar una parte como incentivo economico para el contratista.</div>
+      </div>
+
+      <p class="body-text" style="font-weight:700; color:var(--navy);">Paso 6: Escenarios de precio y analisis de margen de CMI</p>
+
+      <div class="calc-box">
+        <span class="calc-title">Coste de fabricacion de un cojinete 11,5 pulgadas (Anexo 6 del caso)</span>
+        Escenario A (maquinaria existente):
+          Costes variables (materiales + mano de obra):  133,32 $
+          Gastos generales fijos (360% mano de obra):    311,04 $
+          Coste total de fabricacion por cojinete:       444,36 $
+          Coste de un juego de 6 cojinetes:            2.666,16 $
+        
+        Escenario B (nueva maquinaria, 150.000 $):
+          Costes variables:                              81,84 $
+          Gastos generales fijos:                       125,70 $
+          Coste total de fabricacion por cojinete:      207,54 $
+          Coste de un juego de 6 cojinetes:           1.245,24 $
+        
+        NOTA CRITICA: Los gastos generales del 360% son el overhead de ingenieria de CMI
+        para su actividad principal. Para este nuevo producto, con minimo trabajo de ingenieria
+        y usando exceso de capacidad, Sanwal considera razonable NO aplicarlos.
+        
+        Costes variables reales por juego (escenario A, sin overhead):
+          6 cojinetes x 133,32 $ = 799,92 $
+        
+        Costes variables reales por juego (escenario B, sin overhead):
+          6 cojinetes x 81,84 $ = 491,04 $
+        <div class="result">COSTE VARIABLE REAL POR JUEGO: 492 - 800 $ (segun escenario y criterio de gastos generales)</div>
+      </div>
+
+      <p class="body-text" style="font-weight:700; color:var(--navy);">Paso 7: Definicion del precio de venta recomendado</p>
+
+      <div class="price-grid">
+        <div class="price-card rejected">
+          <div class="price-unit">Precio basado en coste</div>
+          <div class="price-amount">~800$</div>
+          <div class="price-unit">por juego de 6</div>
+          <div class="price-label">Coste variable x 2 para alcanzar margen del 40-50%. Precio "por defecto" si CMI piensa como fabricante industrial.</div>
+          <div class="price-verdict no">Incorrecto</div>
+        </div>
+        <div class="price-card recommended">
+          <div class="price-unit">Precio por valor (recomendado)</div>
+          <div class="price-amount">2.500$</div>
+          <div class="price-unit">por juego de 6</div>
+          <div class="price-label">Captura aprox. el 21% del valor total generado (11.757$). Deja al contratista un ahorro neto de 9.257$ — incentivo enorme. Margen CMI sobre coste variable: 200-400%.</div>
+          <div class="price-verdict yes">Recomendado</div>
+        </div>
+        <div class="price-card">
+          <div class="price-unit">Precio alternativo</div>
+          <div class="price-amount">3.000$</div>
+          <div class="price-unit">por juego de 6</div>
+          <div class="price-label">Captura el 25% del valor. Sigue dejando 8.757$ de ahorro al contratista. Margen CMI mas alto pero puede generar mas resistencia en un mercado que no esta acostumbrado a pagar por calidad.</div>
+          <div class="price-verdict warn">Defensible</div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <span class="insight-box-label">La logica del precio por valor explicada</span>
+        <div class="insight-box-body">
+          Un contratista que usa cojinetes convencionales en una obra de 10.000 pies <strong>pierde 11.757 dolares</strong> en tiempo perdido, cambios de juego y materiales frente a lo que obtendria con los cojinetes CMI. Si CMI cobra 2.500 dolares por el juego, el contratista gana neto 9.257 dolares — <strong>un retorno de 3,7x sobre su inversion en el cojinete</strong>. Ninguna empresa con sentido comun rechaza esa proposicion. El precio de 9 dolares por unidad convencional (54 dolares un juego de 6) seria el precio que CMI pondria si pensara como un fabricante de commodities. El precio de 2.500 dolares es el precio que pone una empresa que entiende el valor que genera. La diferencia entre ambos es la diferencia entre una empresa que sobrevive y una que lidera su sector.
+        </div>
+      </div>
+
+      <p class="body-text" style="font-weight:700; color:var(--navy);">Validacion: margen de contribucion con el precio recomendado</p>
+      <div class="calc-box">
+        <span class="calc-title">Margen de contribucion con precio de 2.500$ por juego (escenario B, maquinaria nueva)</span>
+        Precio de venta por juego:            2.500 $
+        Costes variables por juego:             492 $
+        Margen de contribucion:               2.008 $
+        Margen sobre precio de venta:          80,3%
+        
+        Con precio de 2.500$ y volumen de 250 juegos/mes (1.500 cojinetes/mes):
+          Ingresos mensuales: 250 x 2.500$ =      625.000 $
+          Costes variables:   250 x 492$   =      123.000 $
+          Contribucion mensual:                   502.000 $
+          Amortizacion maquinaria (150.000$/48m):   3.125 $
+          Contribucion neta mensual:              498.875 $
+        <div class="result">MARGEN DE CONTRIBUCION: 80% &mdash; muy por encima del objetivo del 40-50% de la direccion</div>
+        <div class="note">Incluso con precio mas conservador de 1.500$/juego el margen seria del 67%. La logica del precio por valor es compatible con margenes extraordinarios porque el coste variable unitario es bajo.</div>
+      </div>
+
+      <!-- P3 DISTRIBUCION -->
+      <div class="block-header">
+        <div class="block-number">P3</div>
+        <div><span class="block-label">Tercera P &mdash; Go to Market</span>
+        <div class="block-title">Distribucion: llegar a un mercado atomizado y sin canales establecidos</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">El mercado de cojinetes no tiene un canal de distribucion dominante: se venden en ferreterias de contratistas, distribuidores de martillos, companias de alquiler, fabricantes de pilotes y multiples puntos de venta ocasionales. Esta fragmentacion es un reto para CMI — que no tiene presencia en ninguno de esos canales — pero tambien una oportunidad: no tiene que desplazar a un distribuidor establecido.</p>
+
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">Canal elegido: representantes de fabricantes</div>
+          <div class="info-card-body">
+            CMI ha decidido usar <strong>representantes de fabricantes</strong> (agentes de ventas a comision, sin propiedad del producto) que venden a distribuidores y puntos de venta del sector de la construccion.<br><br>
+            <strong>Ventajas:</strong> coste variable (solo pagan si venden), conocen el sector, tienen relaciones establecidas con distribuidores y contratistas.<br><br>
+            <strong>Riesgo:</strong> venden muchos productos no competitivos — el cojinete CMI tiene que ser suficientemente lucrativo para que dediquen tiempo a educarlo y venderlo activamente. El precio premium ayuda aqui: la comision sobre 2.500 dolares es muy superior a la comision sobre 9 dolares.
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">El problema con los distribuidores de alquiler</div>
+          <div class="info-card-body">
+            Los distribuidores de alquiler tienen un <strong>conflicto de intereses estructural</strong>: si el contratista usa el cojinete CMI y termina la obra antes, devuelve el martillo antes — y el distribuidor cobra menos dias de alquiler.<br><br>
+            <strong>Solucion:</strong> no depender de este canal para el lanzamiento. Ir directamente a los pequeños contratistas independientes (que poseen sus propios martillos en el 75% de los casos) y a los ingenieros de estructuras. Cuando el producto este establecido, los distribuidores querran trabajarlo aunque les reste algo de alquiler.
+          </div>
+        </div>
+      </div>
+
+      <!-- P4 COMUNICACION -->
+      <div class="block-header">
+        <div class="block-number">P4</div>
+        <div><span class="block-label">Cuarta P &mdash; Go to Market</span>
+        <div class="block-title">Comunicacion: credibilidad tecnica antes que publicidad masiva</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">En un mercado industrial B2B, la comunicacion funciona de forma muy diferente a un mercado de consumo. No se trata de crear notoriedad masiva: se trata de <strong>construir credibilidad tecnica en los grupos de influencia correctos</strong>. El sector de la construccion es conservador, desconfia de la novedad y se mueve por referencias de pares y autoridades tecnicas.</p>
+
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">Acciones prioritarias de comunicacion</div>
+          <div class="info-card-body">
+            <strong>1. Publicar el informe McCormack:</strong> cuando el profesor de Penn. A&M valide los resultados, distribuirlo a todos los estudios de ingenieria del pais. Es la credencial tecnica mas valiosa disponible.<br><br>
+            <strong>2. Casos de exito documentados:</strong> Kendrick y Corey son referencias reales con numeros concretos. Convertirlos en material de venta detallado — no folletos, sino analisis economicos de lo que ahorraron.<br><br>
+            <strong>3. Seminarios Piletalk:</strong> participar en los seminarios del sector organizados por Amalgamated Pile and Fitting. Presentar los resultados de las pruebas ante ingenieros y contratistas reunidos.
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">El mensaje correcto segun el segmento</div>
+          <div class="info-card-body">
+            <strong>Para contratistas:</strong> "Con los cojinetes CMI en una obra de 10.000 pies, usted ahorra mas de 9.000 dolares frente a los cojinetes convencionales. El coste del juego CMI es de 2.500 dolares. La inversion se recupera en las primeras horas de trabajo." Calculos en mano, no promesas genericas.<br><br>
+            <strong>Para ingenieros:</strong> "Rendimiento tecnico documentado en dos obras reales. Temperatura de operacion 60% inferior al estandar. Respaldo del profesor McCormack." Datos y rigor, no precio.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tab-accion -->
+
+
+    <!-- ======================================================
+         TAB 5: RESULTADOS
+         ====================================================== -->
+    <div class="tab-panel" id="tab-resultados">
+
+      <div class="fw-tracker">
+        <span class="fw-tracker-label">Framework:</span>
+        <span class="fw-t-block off">El caso</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">5C</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">STP</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Mix</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block gold">Resultados</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block off">Sintesis</span>
+      </div>
+
+      <!-- ADQUISICION -->
+      <div class="block-header">
+        <div class="block-number">R1</div>
+        <div><span class="block-label">Mantener &mdash; Adquisicion</span>
+        <div class="block-title">Como captara CMI sus primeros clientes</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">La adquisicion del primer cliente es el reto mas critico del lanzamiento. En un mercado industrial conservador donde nadie ha valorado el cojinete como activo estrategico, la barrera no es el precio — es la <strong>inercia del "siempre lo hemos hecho asi"</strong>. El contratista que lleva anos usando cojinetes de mica a 9 dolares por unidad no va a cambiar a un producto de 416 dolares por unidad sin una demostracion convincente.</p>
+
+      <div class="insight-box">
+        <span class="insight-box-label">La estrategia de adquisicion correcta para CMI</span>
+        <div class="insight-box-body">
+          CMI no debe intentar vender a todo el mercado a la vez. Debe identificar <strong>2-3 contratistas influyentes en cada region</strong> que esten dispuestos a probar el producto en una obra real, documentar los resultados economicos con rigor y convertirlos en referencias activas. En un mercado donde "los contratistas hablan mucho entre ellos", un caso de exito verificado tiene un efecto multiplicador enorme. <strong>Kendrick ya es esa referencia en el noreste.</strong> CMI necesita replicar ese patron en el sur, el medio-oeste y el oeste. La adquisicion no es publicidad — es demostracion y referencia.
+        </div>
+      </div>
+
+      <!-- VINCULACION -->
+      <div class="block-header">
+        <div class="block-number">R2</div>
+        <div><span class="block-label">Mantener &mdash; Vinculacion</span>
+        <div class="block-title">Como construye CMI la relacion a largo plazo</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">En un mercado B2B de componentes industriales, la vinculacion tiene mecanismos distintos a los del B2C. No se trata de crear un "club de socios" — se trata de <strong>convertirse en el proveedor de referencia que el contratista especifica automaticamente</strong> en cada nueva obra porque el resultado esta demostrado y el ahorro es real.</p>
+
+      <div class="cards-2">
+        <div class="info-card">
+          <div class="info-card-title">Palancas de vinculacion en B2B industrial</div>
+          <div class="info-card-body">
+            <strong>Resultado economico repetible:</strong> si el contratista ha ahorrado 9.000 dolares en su primera obra con CMI, no tiene ningun incentivo para experimentar con otra alternativa en la siguiente. La experiencia positiva es la mejor barrera de entrada para competidores.<br><br>
+            <strong>Especificacion por ingenieros:</strong> si el ingeniero de estructuras incluye el cojinete CMI en sus especificaciones, el contratista lo usa automaticamente en todos los proyectos que ese ingeniero disena. Es la forma mas solida de vinculacion en B2B: la demanda obligatoria.<br><br>
+            <strong>Conocimiento acumulado:</strong> CMI puede desarrollar versiones especificas para diferentes tipos de obra (pilotes de hormigon vs. acero, diferentes profundidades) que aumenten el valor percibido y hagan mas costoso el cambio de proveedor.
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">El riesgo de vinculacion: la imitacion</div>
+          <div class="info-card-body">
+            La vinculacion mas fragil de CMI es la ausencia de patente. Si un competidor de espirales metalicas descubre la aplicacion, puede fabricar un producto equivalente y ofrecer un precio inferior.<br><br>
+            <strong>La respuesta a este riesgo no es solo la patente</strong> (que tarda tiempo): es ganar escala y referencias antes de que llegue la imitacion. Un producto que ya esta especificado por ingenieros de referencia y usado por los principales contratistas del pais es mucho mas dificil de desplazar que uno que acaba de lanzarse, aunque el imitador tenga un precio inferior.<br><br>
+            <strong>La velocidad de adopcion es la barrera competitiva mas importante de CMI en 2008.</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- RETENCION -->
+      <div class="block-header">
+        <div class="block-number">R3</div>
+        <div><span class="block-label">Mantener &mdash; Retencion</span>
+        <div class="block-title">Por que un contratista satisfecho no se va</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <p class="body-text">La retencion en este mercado es estructuralmente alta si el producto funciona como se promete. Un contratista que ha ahorrado 9.000 dolares en una obra no tiene ningun motivo racional para buscar una alternativa. La barrera de salida no es contractual — es economica y psicologica: <strong>cambiar de proveedor en un componente critico de seguridad, cuando el actual funciona, es un riesgo que ningun contratista sensato asume voluntariamente.</strong></p>
+
+      <!-- BENEFICIOS SOSTENIBLES -->
+      <div class="block-header">
+        <div class="block-number">R4</div>
+        <div><span class="block-label">Resultados finales</span>
+        <div class="block-title">El potencial de negocio si CMI ejecuta bien</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <div class="calc-box">
+        <span class="calc-title">Potencial de ingresos anuales para CMI (escenario conservador)</span>
+        Mercado total estimado:     29.250 juegos/ano (escenario bajo)
+        Cuota de mercado objetivo Year 1 (5%):    1.462 juegos
+        Cuota de mercado objetivo Year 3 (15%):   4.387 juegos
+        
+        Con precio de 2.500 $ por juego:
+          Ingresos Year 1: 1.462 x 2.500 =    3.655.000 $
+          Ingresos Year 3: 4.387 x 2.500 =   10.967.500 $
+        
+        Con margen de contribucion del 80%:
+          Contribucion Year 1:                2.924.000 $
+          Contribucion Year 3:                8.774.000 $
+        <div class="result">CONCLUSION: Con solo el 15% del mercado conservador, los cojinetes generan mas de 10M$ de ingresos anuales — casi duplicando las ventas actuales de CMI, tal como anticipo Fernandez.</div>
+      </div>
+
+    </div><!-- /tab-resultados -->
+
+
+    <!-- ======================================================
+         TAB 6: SINTESIS DIRECTIVA
+         ====================================================== -->
+    <div class="tab-panel" id="tab-sintesis">
+
+      <div class="fw-tracker">
+        <span class="fw-tracker-label">Framework:</span>
+        <span class="fw-t-block on">El caso</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block on">5C</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block on">STP</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block on">Mix</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block on">Resultados</span>
+        <span class="fw-t-sep">&#8250;</span>
+        <span class="fw-t-block gold">Sintesis</span>
+      </div>
+
+      <!-- LECTURA INTEGRADA -->
+      <div class="block-header">
+        <div class="block-number">1</div>
+        <div><span class="block-label">Lectura integrada del framework</span>
+        <div class="block-title">Lo que el analisis completo revela sobre CMI</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <div style="margin-bottom:32px;">
+        <div class="synthesis-row">
+          <div class="synthesis-fw-tag">5C</div>
+          <div class="synthesis-text">CMI tiene una tecnologia genuinamente superior en un mercado sin lideres, sin marcas y sin innovacion. La ventana de oportunidad es real pero temporal: sin patente, la imitacion es posible. <strong>La velocidad de adopcion es el activo estrategico mas importante de CMI en este momento.</strong> Cada semana que pasa sin fijar precio y comenzar a vender es una semana que la competencia podria estar aprendiendo.</div>
+        </div>
+        <div class="synthesis-row">
+          <div class="synthesis-fw-tag">STP</div>
+          <div class="synthesis-text">El targeting dual (pequenos contratistas + ingenieros de estructuras) es correcto porque ataca el mercado desde dos angulos complementarios: la demanda directa del comprador y la demanda inducida por el prescriptor. <strong>El posicionamiento como "herramienta de ahorro de costes" es el unico que justifica un precio premium</strong>. Si se posiciona como "cojinete mejor", el mercado comparara con los de 9 dolares y rechazara cualquier precio significativamente superior.</div>
+        </div>
+        <div class="synthesis-row">
+          <div class="synthesis-fw-tag">Mix 4P</div>
+          <div class="synthesis-text">El precio de 2.500 dolares por juego esta plenamente justificado por el valor economico generado (11.757 dolares de ahorro) y genera un margen de contribucion del 80% — muy superior al objetivo del 40-50% de CMI. La distribucion via representantes de fabricantes es la opcion correcta para el lanzamiento. La comunicacion debe basarse en casos de exito documentados y en la validacion de McCormack, no en publicidad generica. <strong>La coherencia entre las 4P es solida: precio premium, canal especializado y comunicacion tecnica refuerzan el posicionamiento.</strong></div>
+        </div>
+        <div class="synthesis-row">
+          <div class="synthesis-fw-tag">Resultados</div>
+          <div class="synthesis-text">Con solo el 15% del mercado conservador y un precio de 2.500 dolares, CMI puede generar mas de 10 millones de dolares en ingresos anuales adicionales. La adquisicion debe basarse en demostraciones en obra real y en el boca-oreja entre contratistas. La retencion es naturalmente alta si el producto funciona. <strong>Los beneficios sostenibles de CMI con este producto son extraordinariamente atractivos si el precio se fija correctamente desde el principio.</strong></div>
+        </div>
+      </div>
+
+      <!-- CLAVES PARA LA DECISION -->
+      <div class="block-header">
+        <div class="block-number">2</div>
+        <div><span class="block-label">Conclusion directiva</span>
+        <div class="block-title">Claves para la toma de decision</div></div>
+      </div>
+      <div class="divider-gold"></div>
+
+      <div class="clave-block">
+        <div class="clave-header">
+          <div class="clave-num">01</div>
+          <div class="clave-titulo">El precio correcto es 2.500 dolares por juego — no 54 dolares</div>
+        </div>
+        <div class="clave-body">
+          <p>Si CMI fija el precio basandose en el coste de fabricacion mas un margen del 40-50%, llegara a un precio de 700-800 dolares por juego de 6 cojinetes. Si lo fija mirando al precio del mercado convencional (9 dolares por unidad, 54 dolares un juego equivalente), destruye el valor creado. Ninguna de las dos opciones es correcta.</p>
+          <p>El unico precio correcto es el que refleja el valor economico generado al contratista. Con un ahorro demostrado de 11.757 dolares por obra de 10.000 pies, un precio de 2.500 dolares por juego le deja al contratista un ahorro neto de 9.257 dolares — un retorno de 3,7x sobre su inversion. Ninguna empresa rechaza eso. El margen de CMI sobre costes variables es del 80%. <strong>Fijar el precio en 2.500 dolares no es codicioso: es lo correcto para CMI, para el contratista y para el mercado.</strong></p>
+        </div>
+      </div>
+
+      <div class="clave-block">
+        <div class="clave-header">
+          <div class="clave-num">02</div>
+          <div class="clave-titulo">Bajar el precio ahora seria un error del que CMI no podra recuperarse</div>
+        </div>
+        <div class="clave-body">
+          <p>Una de las decisiones mas peligrosas en el lanzamiento de un producto nuevo es fijar el precio bajo "para generar adopcion rapida". En un mercado B2B industrial, el precio no solo determina el margen — tambien comunica el posicionamiento. Un cojinete que se vende a 100 dolares por juego es percibido como un cojinete ligeramente mejor que los convencionales. Un cojinete a 2.500 dolares es percibido como una herramienta industrial de alta prestacion con un coste justificado por resultados.</p>
+          <p>Ademas, una vez fijado el precio bajo, es casi imposible subirlo sin perder la base de clientes captada. Si CMI lanza a 100 dolares y luego quiere subir a 2.500, los primeros clientes se sentiran estafados y el mercado interpretara la subida como codicia. <strong>El precio de lanzamiento es permanente en la practica: hay que acertar desde el principio.</strong></p>
+        </div>
+      </div>
+
+      <div class="clave-block">
+        <div class="clave-header">
+          <div class="clave-num">03</div>
+          <div class="clave-titulo">El primer cliente (Kendrick) debe pagar el precio completo</div>
+        </div>
+        <div class="clave-body">
+          <p>Sanwal tiene que llamar a Kendrick antes del fin de semana. Es tentador ofrecerles un precio especial "de lanzamiento" o hacerles un descuento por haber sido los primeros en probar el producto. Este seria un error estrategico: Kendrick ya sabe que el producto funciona y ya ha cuantificado el ahorro. Estan "exultantes" y "deseando comenzar a usar los cojinetes". No necesitan un incentivo de precio — ya tienen el incentivo economico mas poderoso posible: saben que ahorran dinero con cada obra.</p>
+          <p>Si CMI vende a Kendrick a precio completo y Kendrick acepta, CMI tiene la primera referencia de precio validada por un cliente real. Eso es mas valioso que cualquier descuento de lanzamiento. <strong>Kendrick es el primer punto de referencia del mercado. El precio que pague Kendrick sera el precio que el mercado espere pagar.</strong></p>
+        </div>
+      </div>
+
+      <div class="clave-block">
+        <div class="clave-header">
+          <div class="clave-num">04</div>
+          <div class="clave-titulo">Los ingenieros de estructuras son mas importantes que los contratistas a largo plazo</div>
+        </div>
+        <div class="clave-body">
+          <p>Los pequeños contratistas son el target inmediato porque toman la decision de compra autonomamente. Pero el target estrategico a largo plazo son los ingenieros de estructuras. Cuando un ingeniero de referencia incluye el cojinete CMI en sus especificaciones, la demanda se vuelve automatica e independiente del precio: el contratista lo usa porque es lo que dice la especificacion, no porque haya hecho un analisis de ROI.</p>
+          <p>El informe de McCormack es la llave de entrada a este segmento. CMI debe acelerar su publicacion, distribuirlo a todos los estudios de ingenieria del pais y participar en los seminarios Piletalk donde ingenieros y contratistas se reunen. <strong>Una vez que los ingenieros de referencia prescriben el cojinete CMI, la demanda es practicamente cautiva y el precio es menos sensible.</strong></p>
+        </div>
+      </div>
+
+      <div class="clave-block">
+        <div class="clave-header">
+          <div class="clave-num">05</div>
+          <div class="clave-titulo">La inversion en nueva maquinaria (150.000 $) es la decision correcta</div>
+        </div>
+        <div class="clave-body">
+          <p>El Anexo 6 presenta dos escenarios de coste: con maquinaria existente (coste variable de 133 dolares por cojinete) y con nueva maquinaria de 150.000 dolares (coste variable de 82 dolares por cojinete). Con un precio de 2.500 dolares por juego de 6, la diferencia en margen entre ambos escenarios es de 306 dolares por juego — la inversion de 150.000 dolares se amortiza en los primeros 490 juegos vendidos, es decir, en los primeros 2 meses a 250 unidades/mes.</p>
+          <p>Pero la razon mas importante para invertir en nueva maquinaria no es el coste por unidad: es la <strong>capacidad de produccion</strong>. Si el lanzamiento tiene el exito que los datos sugieren, CMI necesitara escalar rapidamente. Producir con exceso de capacidad de otras lineas limita el volumen y ralentiza la adopcion en un momento en que la velocidad es la ventaja competitiva clave. <strong>Los 150.000 dolares no son un coste — son la infraestructura que hace posible el crecimiento.</strong></p>
+        </div>
+      </div>
+
+      <div class="clave-block">
+        <div class="clave-header">
+          <div class="clave-num">06</div>
+          <div class="clave-titulo">Lo que CMI debe decirle a Kendrick cuando llame</div>
+        </div>
+        <div class="clave-body">
+          <p>Sanwal tiene que llamar a Kendrick con un mensaje claro y sin ambiguedades. El guion correcto es aproximadamente este: "Hemos analizado en detalle el valor que nuestros cojinetes generaron en vuestra obra de Newark. Para una obra de 10.000 pies, el ahorro frente a los convencionales supera los 11.000 dolares. Nuestro precio es de 2.500 dolares por juego de 6 cojinetes. Eso os deja un ahorro neto superior a 9.000 dolares en cada obra de ese tamano. Queremos que Kendrick sea nuestra primera referencia de cliente, y estamos dispuestos a documentar conjuntamente los resultados para compartirlos con el sector."</p>
+          <p>Este mensaje hace tres cosas simultaneamente: <strong>justifica el precio con el valor generado</strong> (no lo disculpa), <strong>ofrece a Kendrick un beneficio adicional</strong> (ser la referencia publica de un producto innovador mejora su reputacion en el sector) y <strong>convierte a Kendrick en aliado comercial</strong>, no solo en cliente. Si Kendrick acepta estas condiciones — y con toda probabilidad lo hara, dado su entusiasmo — CMI tiene el primer domino caido.</p>
+        </div>
+      </div>
+
+      <!-- POSICION FINAL -->
+      <div class="highlight-navy" style="margin-top:36px;">
+        <div class="highlight-navy-title">La posicion directiva: que debe hacer CMI y en que orden</div>
+        <div class="highlight-navy-body">
+          El analisis del framework conduce a una posicion clara y sin ambiguedades.<br><br>
+          <strong>Esta semana:</strong> Sanwal llama a Kendrick con precio de 2.500 dolares por juego. Argumenta el precio con el calculo del valor economico generado. Cierra la venta al precio completo sin descuentos de lanzamiento.<br><br>
+          <strong>En paralelo:</strong> activar el informe del profesor McCormack, convertirlo en material de comunicacion tecnica y distribuirlo a los principales estudios de ingenieria. Registrar la solicitud de patente.<br><br>
+          <strong>En el mes 1:</strong> identificar 2-3 contratistas de referencia en cada region (noreste, sur, medio-oeste, oeste). Ofrecerles una demostracion en obra real con documentacion de resultados. No regalar cojinetes — cobrar siempre al precio completo. El valor es demasiado alto para necesitar promocion de precio.<br><br>
+          <strong>En el mes 2-3:</strong> aprobar la inversion de 150.000 dolares en nueva maquinaria. Nombrar representantes de fabricantes en las principales regiones. Participar en los proximos seminarios Piletalk.<br><br>
+          <strong>A 12 meses:</strong> con referencias establecidas y el informe McCormack circulando, abrir el canal de ingenieros de estructuras formalmente. Objetivo: que el cojinete CMI aparezca en las especificaciones de los 5 principales estudios de ingenieria del pais.<br><br>
+          <strong>La regla de oro de este caso:</strong> el precio no se fija mirando al coste ni mirando al precio de la competencia. Se fija mirando al valor que el producto genera al cliente. En el caso de CMI, ese valor es 11.757 dolares por juego. El precio de 2.500 dolares captura el 21% de ese valor. <strong>Eso es pricing por valor — y es la unica estrategia de precio que hace justicia a lo que CMI ha creado.</strong>
+        </div>
+      </div>
+
+    </div><!-- /tab-sintesis -->
+
+  </div><!-- /content -->
+
+  <div class="page-footer">
+    <div class="footer-text">&larr; <a href="index.html">Volver al Marco General</a></div>
+    <div class="footer-text">MI-86-T &bull; PYMEX Sevilla 2026</div>
+  </div>
+</main>
+
+<script src="shared.js"></script>
+</body>
+</html>
