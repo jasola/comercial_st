@@ -123,10 +123,120 @@
 .synthesis-text { font-family:var(--font-body); font-size:13.5px; color:var(--text-mid); line-height:1.68; }
 .synthesis-text strong { color:var(--text-dark); }
 
+/* ===== CALC TABLES ===== */
+.calc-step-label {
+  font-family:var(--font-body);
+  font-size:10px; font-weight:700;
+  color:var(--navy); letter-spacing:.14em;
+  text-transform:uppercase;
+  background:rgba(26,39,68,.06);
+  border-left:3px solid var(--gold);
+  padding:8px 14px; border-radius:0 6px 6px 0;
+  margin:24px 0 8px;
+  display:block;
+}
+.calc-table {
+  width:100%; border-collapse:collapse;
+  font-family:var(--font-body); font-size:13px;
+  background:white; border-radius:10px; overflow:hidden;
+  border:1px solid var(--border); margin-bottom:8px;
+}
+.calc-table th {
+  background:var(--navy-light); color:rgba(255,255,255,.85);
+  font-size:10.5px; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase; padding:10px 14px; text-align:left;
+}
+.calc-table th.num { text-align:right; }
+.calc-table th.center { text-align:center; }
+.calc-table td {
+  padding:9px 14px; border-bottom:1px solid var(--border);
+  color:var(--text-mid); vertical-align:middle;
+}
+.calc-table td small { font-size:11px; color:var(--text-light); }
+.calc-table tr:last-child td { border-bottom:none; }
+.calc-table td.num  { text-align:right; font-variant-numeric:tabular-nums; }
+.calc-table td.diff { text-align:right; font-weight:700; color:var(--green-dot); font-variant-numeric:tabular-nums; }
+.calc-table td.hl   { background:rgba(201,168,76,.07); font-weight:700; color:var(--navy); }
+.calc-table td.muted { color:#bbb; font-style:italic; }
+.calc-table td.center { text-align:center; }
+.calc-table tfoot td {
+  background:var(--navy); color:white;
+  font-size:12px; font-weight:700; padding:11px 14px; border-bottom:none;
+}
+.calc-table tfoot td.num   { text-align:right; font-size:14px; }
+.calc-table tfoot td.total { text-align:right; font-size:15px; }
+.calc-table tfoot td.diff  { color:var(--gold-light); font-size:14px; text-align:right; }
+.calc-table tr.row-muted td { background:rgba(0,0,0,.02); }
+.calc-table tr.row-bad td   { background:rgba(212,114,42,.04); }
+.calc-table tr.row-good td  { background:rgba(46,125,94,.05); }
+.calc-note {
+  font-family:var(--font-body); font-size:12px; color:var(--text-light);
+  font-style:italic; padding:6px 14px; line-height:1.6; margin-bottom:4px;
+}
+.calc-note strong { color:var(--text-mid); font-style:normal; }
+.verdict-pill {
+  display:inline-block; font-family:var(--font-body);
+  font-size:10px; font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; padding:4px 10px; border-radius:20px;
+}
+.verdict-pill.no   { background:#fde8e8; color:#c0392b; }
+.verdict-pill.yes  { background:rgba(46,125,94,.12); color:var(--green-dot); }
+.verdict-pill.warn { background:rgba(212,114,42,.1); color:var(--orange-accent); }
+
+/* ===== WATERFALL ===== */
+.waterfall-wrap {
+  background:white; border:1px solid var(--border);
+  border-radius:10px; padding:24px 28px; margin:8px 0 16px;
+}
+.wf-title {
+  font-family:var(--font-body); font-size:11px; font-weight:700;
+  color:var(--text-light); letter-spacing:.1em; text-transform:uppercase;
+  margin-bottom:20px;
+}
+.wf-bars { display:flex; flex-direction:column; gap:10px; }
+.wf-bar-row { display:flex; align-items:center; gap:12px; }
+.wf-bar-label {
+  font-family:var(--font-body); font-size:12px; font-weight:600;
+  color:var(--text-mid); min-width:170px; flex-shrink:0;
+}
+.wf-bar-track { flex:1; display:flex; align-items:center; gap:8px; }
+.wf-bar {
+  height:32px; border-radius:4px; display:flex; align-items:center;
+  padding:0 12px; font-family:var(--font-body); font-size:12.5px;
+  font-weight:700; color:white; white-space:nowrap; min-width:60px;
+}
+.wf-bar.full   { background:var(--navy); }
+.wf-bar.price  { background:var(--gold); color:var(--navy-dark); }
+.wf-bar.saving { background:var(--green-dot); }
+.wf-bar.cost   { background:var(--orange-accent); }
+.wf-bar.margin { background:var(--blue-accent); }
+.wf-bar-pct { font-family:var(--font-body); font-size:11px; font-weight:700; color:var(--text-light); }
+.wf-legend {
+  display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;
+  padding-top:14px; border-top:1px solid var(--border);
+}
+.wf-leg {
+  font-family:var(--font-body); font-size:11px; font-weight:600;
+  color:var(--text-mid); padding:3px 10px 3px 22px;
+  border-radius:4px; position:relative;
+}
+.wf-leg::before {
+  content:''; position:absolute; left:8px; top:50%;
+  transform:translateY(-50%); width:8px; height:8px; border-radius:2px;
+}
+.wf-leg.full::before   { background:var(--navy); }
+.wf-leg.price::before  { background:var(--gold); }
+.wf-leg.saving::before { background:var(--green-dot); }
+.wf-leg.cost::before   { background:var(--orange-accent); }
+.wf-leg.margin::before { background:var(--blue-accent); }
+
 @media(max-width:900px){
   .content { padding:28px 22px; }
   .inf-grid { grid-template-columns:1fr 1fr; }
   .price-grid { grid-template-columns:1fr; }
+  .wf-bar-label { min-width:110px; font-size:11px; }
+  .clave-header { padding:14px 18px; gap:12px; }
+  .clave-body   { padding:16px 18px; }
 }
 </style>
 </head>
@@ -642,158 +752,201 @@
       </div>
       <div class="divider-gold"></div>
 
-      <p class="body-text">Este es el corazon del caso. CMI tiene dos opciones conceptuales para fijar el precio: basarlo en el <strong>coste de fabricacion mas un margen</strong> (como hacen la mayoria de las empresas industriales) o basarlo en el <strong>valor economico que genera al cliente</strong>. El analisis demuestra que la segunda opcion es la correcta — y que la diferencia entre ambas es enorme.</p>
+      <p class="body-text">Este es el corazon del caso. CMI tiene dos opciones conceptuales para fijar el precio: basarlo en el <strong>coste de fabricacion mas un margen</strong> (como hacen la mayoria de las empresas industriales) o basarlo en el <strong>valor economico que genera al cliente</strong>. El analisis demuestra que la segunda opcion es la correcta — y que la diferencia entre ambas es enorme. Todos los calculos se basan en una obra de referencia de <strong>10.000 pies de pilotes</strong>, escenario conservador.</p>
 
-      <p class="body-text" style="font-weight:700; color:var(--navy);">Paso 1: Calcular el coste real de operacion por hora del contratista (Tabla A del caso)</p>
-      <div class="calc-box">
-        <span class="calc-title">Coste total por hora real de operacion (valores medios del caso)</span>
-        Martillo diesel:                    102 $/hora
-        Grua:                               156 $/hora
-        Soportes (70 pies):                  24 $/hora
-        Mano de obra (3 peones + gruista + capataz): 63+30+39 = 132 $/hora
-        Gastos generales:                   300 $/hora
-        <div class="result">COSTE TOTAL POR HORA: 714 $/hora</div>
-        <div class="note">Nota: Este es el coste cuando el martillo esta en funcionamiento. Los tiempos de traslado y retrasos (20-40 min por hora + 10-15% adicional) elevan el coste real total, pero se excluyen del calculo porque no se ven afectados por el tipo de cojinete.</div>
-      </div>
+      <!-- PASO 1: COSTE POR HORA -->
+      <div class="calc-step-label">PASO 1 &mdash; Coste real de operacion por hora del contratista</div>
+      <table class="calc-table">
+        <thead><tr><th>Concepto</th><th>Fuente</th><th class="num">$/hora real</th></tr></thead>
+        <tbody>
+          <tr><td>Martillo diesel</td><td>Tabla A, valor medio</td><td class="num">102</td></tr>
+          <tr><td>Grua</td><td>Tabla A, valor medio</td><td class="num">156</td></tr>
+          <tr><td>Soportes (70 pies)</td><td>Tabla A</td><td class="num">24</td></tr>
+          <tr><td>Mano de obra (3 peones + gruista + capataz)</td><td>63 + 30 + 39</td><td class="num">132</td></tr>
+          <tr><td>Gastos generales</td><td>Tabla A</td><td class="num">300</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="2"><strong>COSTE TOTAL POR HORA EN OPERACION</strong></td><td class="num total"><strong>714 $</strong></td></tr></tfoot>
+      </table>
+      <div class="calc-note">Los tiempos de traslado y retrasos (20-40 min/hora + 10-15% adicional) elevan el coste real total, pero no se ven afectados por el tipo de cojinete, por lo que se excluyen del calculo diferencial.</div>
 
-      <p class="body-text" style="font-weight:700; color:var(--navy);">Paso 2: Calcular el ahorro en tiempo de clavado (caso conservador, mejora del 20%)</p>
-      <div class="calc-box">
-        <span class="calc-title">Ahorro por mayor velocidad de clavado (escenario conservador: +20% velocidad)</span>
-        Velocidad con cojinetes convencionales:         150 pies/hora
-        Velocidad con cojinetes CMI (conservador +20%): 180 pies/hora
-        
-        Para clavar 10.000 pies de pilotes:
-          Con convencionales: 10.000 / 150 =  66,7 horas
-          Con CMI:            10.000 / 180 =  55,6 horas
-          Horas ahorradas:     66,7 - 55,6 =  11,1 horas
-        
-        Coste de esas 11,1 horas ahorradas: 11,1 x 714$ =
-        <div class="result">AHORRO EN TIEMPO DE CLAVADO: 7.929 $ por cada 10.000 pies de pilotes clavados</div>
-      </div>
+      <!-- PASO 2: VELOCIDAD -->
+      <div class="calc-step-label">PASO 2 &mdash; Ahorro por mayor velocidad de clavado (escenario conservador: +20%)</div>
+      <table class="calc-table">
+        <thead><tr><th>Concepto</th><th class="num">Convencional</th><th class="num">CMI (+20%)</th><th class="num diff">Diferencia</th></tr></thead>
+        <tbody>
+          <tr><td>Velocidad de clavado</td><td class="num">150 pies/h</td><td class="num">180 pies/h</td><td class="num diff">+30 pies/h</td></tr>
+          <tr><td>Horas para 10.000 pies</td><td class="num">66,7 h</td><td class="num">55,6 h</td><td class="num diff">&#8722;11,1 h</td></tr>
+          <tr><td>Coste de esas horas (x 714 $/h)</td><td class="num">47.626 $</td><td class="num">39.698 $</td><td class="num diff">&#8722;7.928 $</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="3"><strong>AHORRO EN VELOCIDAD DE CLAVADO</strong></td><td class="num total diff"><strong>7.928 $</strong></td></tr></tfoot>
+      </table>
 
-      <p class="body-text" style="font-weight:700; color:var(--navy);">Paso 3: Calcular el ahorro en cambios de juego (caso conservador: 10 cambios evitados)</p>
-      <div class="calc-box">
-        <span class="calc-title">Ahorro en tiempo de cambio de juegos (caso conservador: 1 juego CMI vs. 10 convencionales)</span>
-        Con cojinetes convencionales para 10.000 pies:
-          Un juego convencional dura aprox. 1.000 pies (conservador)
-          Juegos necesarios: 10.000 / 1.000 = 10 cambios
-          Tiempo por cambio (incl. enfriamiento): 20 minutos
-          Tiempo total en cambios: 10 x 20 min = 200 minutos = 3,33 horas
-        
-        Con cojinetes CMI:
-          Un juego dura 10.000 pies (conservador del caso)
-          Cambios necesarios: 1
-          Tiempo por cambio: 4 minutos
-          Tiempo total en cambios: 4 minutos = 0,07 horas
-        
-        Tiempo ahorrado en cambios: 3,33 - 0,07 = 3,26 horas
-        Coste de esas 3,26 horas: 3,26 x 714$ =
-        <div class="result">AHORRO EN CAMBIOS DE JUEGO: 2.328 $ por cada 10.000 pies</div>
-      </div>
+      <!-- PASO 3: CAMBIOS DE JUEGO -->
+      <div class="calc-step-label">PASO 3 &mdash; Ahorro en tiempos de cambio de juego</div>
+      <table class="calc-table">
+        <thead><tr><th>Concepto</th><th class="num">Convencional</th><th class="num">CMI</th><th class="num diff">Diferencia</th></tr></thead>
+        <tbody>
+          <tr><td>Duracion de un juego</td><td class="num">~1.000 pies</td><td class="num">10.000 pies</td><td class="num diff">&mdash;</td></tr>
+          <tr><td>Numero de cambios de juego</td><td class="num">10 cambios</td><td class="num">1 cambio</td><td class="num diff">&#8722;9 cambios</td></tr>
+          <tr><td>Tiempo por cambio (incl. enfriamiento)</td><td class="num">20 min</td><td class="num">4 min</td><td class="num diff">&mdash;</td></tr>
+          <tr><td>Tiempo total en cambios</td><td class="num">200 min (3,33 h)</td><td class="num">4 min (0,07 h)</td><td class="num diff">&#8722;3,26 h</td></tr>
+          <tr><td>Coste de esas horas perdidas (x 714 $/h)</td><td class="num">2.378 $</td><td class="num">50 $</td><td class="num diff">&#8722;2.328 $</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="3"><strong>AHORRO EN CAMBIOS DE JUEGO</strong></td><td class="num total diff"><strong>2.328 $</strong></td></tr></tfoot>
+      </table>
 
-      <p class="body-text" style="font-weight:700; color:var(--navy);">Paso 4: Calcular el ahorro en coste de materiales (cojinetes convencionales vs. CMI)</p>
-      <div class="calc-box">
-        <span class="calc-title">Ahorro en coste de materiales para 10.000 pies de pilotes</span>
-        Con cojinetes convencionales (caso conservador: 10 cambios de juego de 24):
-          Coste por juego (Kendrick):       150 $ / juego
-          Numero de juegos:                 10 juegos
-          Coste total materiales:           1.500 $
-        
-        Con cojinetes CMI:
-          1 juego de 6 cojinetes
-          Coste del juego CMI (a fijar):    X $
-        
-        Ahorro neto en materiales: 1.500 - X
-        <div class="result">AHORRO EN MATERIALES (antes de precio CMI): 1.500 $ por cada 10.000 pies</div>
-      </div>
+      <!-- PASO 4: MATERIALES -->
+      <div class="calc-step-label">PASO 4 &mdash; Ahorro en coste de materiales</div>
+      <table class="calc-table">
+        <thead><tr><th>Concepto</th><th class="num">Convencional</th><th class="num">CMI</th><th class="num diff">Diferencia</th></tr></thead>
+        <tbody>
+          <tr><td>Numero de juegos necesarios</td><td class="num">10 juegos</td><td class="num">1 juego</td><td class="num diff">&#8722;9 juegos</td></tr>
+          <tr><td>Coste por juego</td><td class="num">150 $ / juego</td><td class="num">X $ (a fijar)</td><td class="num diff">&mdash;</td></tr>
+          <tr><td>Coste total en materiales</td><td class="num">1.500 $</td><td class="num">X $</td><td class="num diff">1.500 &#8722; X $</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="3"><strong>AHORRO BRUTO EN MATERIALES (antes de precio CMI)</strong></td><td class="num total diff"><strong>1.500 $</strong></td></tr></tfoot>
+      </table>
 
-      <p class="body-text" style="font-weight:700; color:var(--navy);">Paso 5: Calcular el ahorro total y el precio maximo que el contratista estaria dispuesto a pagar</p>
-      <div class="calc-box">
-        <span class="calc-title">Valor economico total generado por un juego CMI (10.000 pies, escenario conservador)</span>
-        Ahorro en tiempo de clavado:        7.929 $
-        Ahorro en cambios de juego:         2.328 $
-        Ahorro en materiales convencionales: 1.500 $
-        <div class="result">VALOR ECONOMICO TOTAL: 11.757 $ por juego de 6 cojinetes CMI</div>
-        <div class="note">Este es el valor maximo teorico que el contratista podria pagar y seguir siendo indiferente entre CMI y los cojinetes convencionales. En la practica, CMI debe quedarse una parte y dejar una parte como incentivo economico para el contratista.</div>
-      </div>
+      <!-- PASO 5: VALOR TOTAL -->
+      <div class="calc-step-label">PASO 5 &mdash; Valor economico total generado por un juego CMI</div>
+      <table class="calc-table">
+        <thead><tr><th>Componente del ahorro</th><th>Origen</th><th class="num">Importe</th></tr></thead>
+        <tbody>
+          <tr><td>Ahorro en velocidad de clavado</td><td>Paso 2</td><td class="num">7.928 $</td></tr>
+          <tr><td>Ahorro en cambios de juego</td><td>Paso 3</td><td class="num">2.328 $</td></tr>
+          <tr><td>Ahorro en materiales convencionales</td><td>Paso 4</td><td class="num">1.500 $</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="2"><strong>VALOR ECONOMICO TOTAL GENERADO POR 1 JUEGO CMI</strong></td><td class="num total"><strong>11.756 $</strong></td></tr></tfoot>
+      </table>
+      <div class="calc-note">Este es el valor maximo teorico que el contratista podria pagar y quedar indiferente frente a los convencionales. CMI debe capturar una parte y dejar el resto como incentivo economico para el contratista.</div>
 
-      <p class="body-text" style="font-weight:700; color:var(--navy);">Paso 6: Escenarios de precio y analisis de margen de CMI</p>
+      <!-- PASO 6: COSTE FABRICACION -->
+      <div class="calc-step-label">PASO 6 &mdash; Coste de fabricacion de un juego de 6 cojinetes (11,5 pulgadas)</div>
+      <table class="calc-table">
+        <thead><tr><th>Concepto</th><th class="num">Escenario A<br><small>Maq. existente</small></th><th class="num">Escenario B<br><small>Nueva maq. 150k$</small></th></tr></thead>
+        <tbody>
+          <tr><td>Materiales (por cojinete)</td><td class="num">46,92 $</td><td class="num">46,92 $</td></tr>
+          <tr><td>Mano de obra (por cojinete)</td><td class="num">86,40 $</td><td class="num">34,92 $</td></tr>
+          <tr><td><strong>Total costes variables (por cojinete)</strong></td><td class="num"><strong>133,32 $</strong></td><td class="num"><strong>81,84 $</strong></td></tr>
+          <tr class="row-muted"><td>Gastos generales 360% MO (overhead ingenieria)</td><td class="num muted">311,04 $</td><td class="num muted">125,70 $</td></tr>
+          <tr class="row-muted"><td><em>Coste total con overhead (por cojinete)</em></td><td class="num muted"><em>444,36 $</em></td><td class="num muted"><em>207,54 $</em></td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td><strong>Coste variable real por juego de 6</strong> <span style="font-size:11px;font-weight:400;color:rgba(255,255,255,.6)">(sin overhead de ingenieria)</span></td><td class="num total"><strong>800 $</strong></td><td class="num total"><strong>491 $</strong></td></tr>
+        </tfoot>
+      </table>
+      <div class="calc-note"><strong>Nota critica:</strong> El overhead del 360% sobre mano de obra directa cubre el equipo de ingenieros de CMI, que no ha intervenido en este producto. Sanwal considera correcto no aplicarlo al nuevo producto. El coste relevante para la decision de precio es el <strong>coste variable</strong>: 491-800 $ por juego.</div>
 
-      <div class="calc-box">
-        <span class="calc-title">Coste de fabricacion de un cojinete 11,5 pulgadas (Anexo 6 del caso)</span>
-        Escenario A (maquinaria existente):
-          Costes variables (materiales + mano de obra):  133,32 $
-          Gastos generales fijos (360% mano de obra):    311,04 $
-          Coste total de fabricacion por cojinete:       444,36 $
-          Coste de un juego de 6 cojinetes:            2.666,16 $
-        
-        Escenario B (nueva maquinaria, 150.000 $):
-          Costes variables:                              81,84 $
-          Gastos generales fijos:                       125,70 $
-          Coste total de fabricacion por cojinete:      207,54 $
-          Coste de un juego de 6 cojinetes:           1.245,24 $
-        
-        NOTA CRITICA: Los gastos generales del 360% son el overhead de ingenieria de CMI
-        para su actividad principal. Para este nuevo producto, con minimo trabajo de ingenieria
-        y usando exceso de capacidad, Sanwal considera razonable NO aplicarlos.
-        
-        Costes variables reales por juego (escenario A, sin overhead):
-          6 cojinetes x 133,32 $ = 799,92 $
-        
-        Costes variables reales por juego (escenario B, sin overhead):
-          6 cojinetes x 81,84 $ = 491,04 $
-        <div class="result">COSTE VARIABLE REAL POR JUEGO: 492 - 800 $ (segun escenario y criterio de gastos generales)</div>
-      </div>
+      <!-- PASO 7: PRECIO RECOMENDADO — CASCADA -->
+      <div class="calc-step-label">PASO 7 &mdash; Definicion del precio y distribucion del valor</div>
 
-      <p class="body-text" style="font-weight:700; color:var(--navy);">Paso 7: Definicion del precio de venta recomendado</p>
-
-      <div class="price-grid">
-        <div class="price-card rejected">
-          <div class="price-unit">Precio basado en coste</div>
-          <div class="price-amount">~800$</div>
-          <div class="price-unit">por juego de 6</div>
-          <div class="price-label">Coste variable x 2 para alcanzar margen del 40-50%. Precio "por defecto" si CMI piensa como fabricante industrial.</div>
-          <div class="price-verdict no">Incorrecto</div>
+      <div class="waterfall-wrap">
+        <div class="wf-title">Cascada de valor para una obra de 10.000 pies &mdash; Precio recomendado: 2.500 $</div>
+        <div class="wf-bars">
+          <div class="wf-bar-row">
+            <div class="wf-bar-label">Valor total generado</div>
+            <div class="wf-bar-track">
+              <div class="wf-bar full" style="width:100%;">11.756 $</div>
+            </div>
+          </div>
+          <div class="wf-bar-row">
+            <div class="wf-bar-label">Precio juego CMI</div>
+            <div class="wf-bar-track">
+              <div class="wf-bar price" style="width:21.3%;">2.500 $</div>
+              <div class="wf-bar-pct">21%</div>
+            </div>
+          </div>
+          <div class="wf-bar-row">
+            <div class="wf-bar-label">Ahorro neto contratista</div>
+            <div class="wf-bar-track">
+              <div class="wf-bar saving" style="width:78.7%;">9.256 $</div>
+              <div class="wf-bar-pct">79%</div>
+            </div>
+          </div>
+          <div class="wf-bar-row">
+            <div class="wf-bar-label">Coste variable CMI</div>
+            <div class="wf-bar-track">
+              <div class="wf-bar cost" style="width:4.2%;">491 $</div>
+              <div class="wf-bar-pct"></div>
+            </div>
+          </div>
+          <div class="wf-bar-row">
+            <div class="wf-bar-label">Margen contribucion CMI</div>
+            <div class="wf-bar-track">
+              <div class="wf-bar margin" style="width:17.1%;">2.009 $</div>
+              <div class="wf-bar-pct">80%</div>
+            </div>
+          </div>
         </div>
-        <div class="price-card recommended">
-          <div class="price-unit">Precio por valor (recomendado)</div>
-          <div class="price-amount">2.500$</div>
-          <div class="price-unit">por juego de 6</div>
-          <div class="price-label">Captura aprox. el 21% del valor total generado (11.757$). Deja al contratista un ahorro neto de 9.257$ — incentivo enorme. Margen CMI sobre coste variable: 200-400%.</div>
-          <div class="price-verdict yes">Recomendado</div>
-        </div>
-        <div class="price-card">
-          <div class="price-unit">Precio alternativo</div>
-          <div class="price-amount">3.000$</div>
-          <div class="price-unit">por juego de 6</div>
-          <div class="price-label">Captura el 25% del valor. Sigue dejando 8.757$ de ahorro al contratista. Margen CMI mas alto pero puede generar mas resistencia en un mercado que no esta acostumbrado a pagar por calidad.</div>
-          <div class="price-verdict warn">Defensible</div>
+        <div class="wf-legend">
+          <span class="wf-leg full">Valor total generado</span>
+          <span class="wf-leg price">Precio CMI (recomendado)</span>
+          <span class="wf-leg saving">Ahorro neto contratista</span>
+          <span class="wf-leg cost">Coste variable CMI</span>
+          <span class="wf-leg margin">Margen contribucion CMI</span>
         </div>
       </div>
 
-      <div class="insight-box">
-        <span class="insight-box-label">La logica del precio por valor explicada</span>
+      <!-- COMPARATIVA 3 ESCENARIOS DE PRECIO -->
+      <div class="calc-step-label" style="margin-top:28px;">Comparativa de escenarios de precio</div>
+      <table class="calc-table scenarios">
+        <thead>
+          <tr>
+            <th>Escenario</th>
+            <th class="num">Precio juego</th>
+            <th class="num">% valor capturado</th>
+            <th class="num">Ahorro neto contratista</th>
+            <th class="num">Margen CMI</th>
+            <th class="center">Valoracion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row-bad">
+            <td><strong>Basado en coste</strong><br><small>Coste variable x 2</small></td>
+            <td class="num">~800 $</td>
+            <td class="num">6,8%</td>
+            <td class="num">10.956 $</td>
+            <td class="num">~39%</td>
+            <td class="center"><span class="verdict-pill no">Incorrecto</span></td>
+          </tr>
+          <tr class="row-good">
+            <td><strong>Por valor (recomendado)</strong><br><small>21% del valor generado</small></td>
+            <td class="num hl"><strong>2.500 $</strong></td>
+            <td class="num hl"><strong>21,3%</strong></td>
+            <td class="num hl"><strong>9.256 $</strong></td>
+            <td class="num hl"><strong>80%</strong></td>
+            <td class="center"><span class="verdict-pill yes">Recomendado</span></td>
+          </tr>
+          <tr>
+            <td><strong>Precio alto</strong><br><small>25% del valor generado</small></td>
+            <td class="num">3.000 $</td>
+            <td class="num">25,5%</td>
+            <td class="num">8.756 $</td>
+            <td class="num">84%</td>
+            <td class="center"><span class="verdict-pill warn">Defensible</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- VALIDACION MARGEN -->
+      <div class="calc-step-label" style="margin-top:28px;">Validacion: margen de contribucion mensual con precio de 2.500 $</div>
+      <table class="calc-table">
+        <thead><tr><th>Concepto</th><th>Calculo</th><th class="num">Importe</th></tr></thead>
+        <tbody>
+          <tr><td>Ingresos mensuales</td><td>250 juegos x 2.500 $</td><td class="num">625.000 $</td></tr>
+          <tr><td>Costes variables</td><td>250 juegos x 491 $</td><td class="num">&#8722;122.750 $</td></tr>
+          <tr><td>Contribucion bruta</td><td>&mdash;</td><td class="num">502.250 $</td></tr>
+          <tr><td>Amortizacion maquinaria</td><td>150.000 $ / 48 meses</td><td class="num">&#8722;3.125 $</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="2"><strong>CONTRIBUCION NETA MENSUAL</strong></td><td class="num total"><strong>499.125 $</strong></td></tr></tfoot>
+      </table>
+      <div class="calc-note">Margen de contribucion sobre precio de venta: <strong>80%</strong> &mdash; muy por encima del objetivo directivo del 40-50%. Incluso a 1.500 $/juego el margen seria del 67%. El precio por valor es compatible con margenes extraordinarios porque el coste variable unitario es bajo.</div>
+
+      <div class="insight-box" style="margin-top:24px;">
+        <span class="insight-box-label">La logica del precio por valor en una frase</span>
         <div class="insight-box-body">
-          Un contratista que usa cojinetes convencionales en una obra de 10.000 pies <strong>pierde 11.757 dolares</strong> en tiempo perdido, cambios de juego y materiales frente a lo que obtendria con los cojinetes CMI. Si CMI cobra 2.500 dolares por el juego, el contratista gana neto 9.257 dolares — <strong>un retorno de 3,7x sobre su inversion en el cojinete</strong>. Ninguna empresa con sentido comun rechaza esa proposicion. El precio de 9 dolares por unidad convencional (54 dolares un juego de 6) seria el precio que CMI pondria si pensara como un fabricante de commodities. El precio de 2.500 dolares es el precio que pone una empresa que entiende el valor que genera. La diferencia entre ambos es la diferencia entre una empresa que sobrevive y una que lidera su sector.
+          El contratista ahorra <strong>9.256 dolares netos</strong> por cada obra de 10.000 pies usando CMI. Por cada dolar que invierte en el cojinete, recupera <strong>3,7 dolares de ahorro</strong>. Ningun comprador racional rechaza una propuesta con ese retorno. El precio de 2.500 dolares no es caro — es <strong>el precio que refleja el valor real creado</strong>. Cualquier precio inferior es un regalo al mercado a costa del futuro de CMI.
         </div>
-      </div>
-
-      <p class="body-text" style="font-weight:700; color:var(--navy);">Validacion: margen de contribucion con el precio recomendado</p>
-      <div class="calc-box">
-        <span class="calc-title">Margen de contribucion con precio de 2.500$ por juego (escenario B, maquinaria nueva)</span>
-        Precio de venta por juego:            2.500 $
-        Costes variables por juego:             492 $
-        Margen de contribucion:               2.008 $
-        Margen sobre precio de venta:          80,3%
-        
-        Con precio de 2.500$ y volumen de 250 juegos/mes (1.500 cojinetes/mes):
-          Ingresos mensuales: 250 x 2.500$ =      625.000 $
-          Costes variables:   250 x 492$   =      123.000 $
-          Contribucion mensual:                   502.000 $
-          Amortizacion maquinaria (150.000$/48m):   3.125 $
-          Contribucion neta mensual:              498.875 $
-        <div class="result">MARGEN DE CONTRIBUCION: 80% &mdash; muy por encima del objetivo del 40-50% de la direccion</div>
-        <div class="note">Incluso con precio mas conservador de 1.500$/juego el margen seria del 67%. La logica del precio por valor es compatible con margenes extraordinarios porque el coste variable unitario es bajo.</div>
       </div>
 
       <!-- P3 DISTRIBUCION -->
